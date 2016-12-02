@@ -18,8 +18,9 @@
         
         
         
-        <!-- Our script --> 
+        <!-- Our scripts --> 
         <script src="<%=request.getContextPath()%>/jsfolder/indexScript.js" defer></script>
+        <script src="<%=request.getContextPath()%>/jsfolder/imagePreview.js" defer></script>
         
         <style>
             body {
@@ -64,11 +65,11 @@
             
             /*START static lightbox*//*static lightbox*/
             /*START static lightbox*//*static lightbox*/
-            .row > .column {
+            .lightbox-row > .column {
               padding: 0 8px;
             }
 
-            .row:after {
+            .lightbox-row:after {
               content: "";
               display: table;
               clear: both;
@@ -87,8 +88,8 @@
               padding-top: 100px;
               left: 0;
               top: 0;
-              width: 100%;
-              height: 100%;
+/*              width: 100%;
+              height: 100%;*/
               overflow: auto;
               background-color: black;
             }
@@ -130,12 +131,12 @@
               cursor: pointer;
               position: absolute;
               top: 50%;
-              width: auto;
+              /*width: auto;*/
               padding: 16px;
-              margin-top: -50px;
+              /*margin-top: -50px;*/
               color: white;
               font-weight: bold;
-              font-size: 20px;
+              font-size: 2em;
               transition: 0.6s ease;
               border-radius: 0 3px 3px 0;
               user-select: none;
@@ -146,6 +147,12 @@
             .next {
               right: 0;
               border-radius: 3px 0 0 3px;
+            }
+            
+            /* Position the "previous button" to the left */
+            .prev {
+              left: 0;
+              border-radius: 0 3px 3px 0;
             }
 
             /* On hover, add a black background color with a little bit see-through */
@@ -273,97 +280,98 @@
         
         <div class="container-fluid">            
             <div class="row">
-                <img class="logos" src="smiley.gif" alt="Smiley face" height="50" width="50">Brand1 Model1
+                <img class="logos" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="30" width="30">Brand1 Model1
             </div>
             <div class="row">
-                Details:
+                Details: above is logo not image blablabla, below is image.
             </div>
-            
-            <div class="row">
-                <img class="images" src="smiley.gif" alt="Smiley face" height="100" width="100">
-            </div>
-            
-            
-            <div class="row">
-                <img class="logos" src="smiley.gif" alt="Smiley face" height="50" width="50">Brand1 Model1
-            </div>
-            <div class="row">
-                Details:
-            </div>
-            
-            <div class="row">
-                
-                
-                <div class="row">
-                  <div class="column">
-                    <img src="img1.jpg" onclick="openModal();currentSlide(1)" class="hover-shadow">
-                  </div>
-                  <div class="column">
-                    <img src="img2.jpg" onclick="openModal();currentSlide(2)" class="hover-shadow">
-                  </div>
-                  <div class="column">
-                    <img src="img3.jpg" onclick="openModal();currentSlide(3)" class="hover-shadow">
-                  </div>
-                  <div class="column">
-                    <img src="img4.jpg" onclick="openModal();currentSlide(4)" class="hover-shadow">
-                  </div>
-                </div>                
-                
-                
-                <div id="myModal" class="modal">
-                  <span class="close cursor" onclick="closeModal()">&times;</span>
-                  <div class="modal-content">
-
-                    <div class="mySlides">
-                      <div class="numbertext">1 / 4</div>
-                        <img src="img_nature_wide.jpg" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                      <div class="numbertext">2 / 4</div>
-                        <img src="img_fjords_wide.jpg" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                      <div class="numbertext">3 / 4</div>
-                        <img src="img_mountains_wide.jpg" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                      <div class="numbertext">4 / 4</div>
-                        <img src="img_lights_wide.jpg" style="width:100%">
-                    </div>
-
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-                    <div class="caption-container">
-                      <p id="caption"></p>
-                    </div>
-
-                    <div class="column">
-                      <img class="demo" src="img1.jpg" onclick="currentSlide(1)" alt="Nature">
-                    </div>
-
-                    <div class="column">
-                      <img class="demo" src="img2.jpg" onclick="currentSlide(2)" alt="Trolltunga">
-                    </div>
-
-                    <div class="column">
-                      <img class="demo" src="img3.jpg" onclick="currentSlide(3)" alt="Mountains">
-                    </div>
-
-                    <div class="column">
-                      <img class="demo" src="img4.jpg" onclick="currentSlide(4)" alt="Lights">
-                    </div>
-                  </div>
-                </div>                
-                
-            </div>
-            
-            
-            
         </div>
+        IMAGES START
+        <div>
+            <img class="images" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">
+        </div>
+        IMAGES END    
+            
+        <div class="container-fluid"> 
+            <div class="row">
+                <img class="logos" src="smiley.gif" alt="Smiley face" height="50" width="50">Brand1 Model1
+            </div>
+            <div class="row">
+                Details:
+            </div>
+        </div>
+             
+
+        <div class="lightbox-row">
+          <div class="column">
+              <img src="images/logos/brands/audi.png" height="100" width="100" onclick="openModal();currentSlide(1)" class="hover-shadow">
+          </div>
+          <div class="column">
+            <img src="images/logos/brands/bmw.jpg" height="70" width="70" onclick="openModal();currentSlide(2)" class="hover-shadow">
+          </div>
+          <div class="column">
+            <img src="images/logos/brands/merc.png" height="70" width="70" onclick="openModal();currentSlide(3)" class="hover-shadow">
+          </div>
+          <div class="column">
+            <img src="images/logos/brands/opel.jpg" height="70" width="70" onclick="openModal();currentSlide(4)" class="hover-shadow">
+          </div>
+        </div>                
+
+
+        <div id="myModal" class="modal">
+          <span class="close cursor" onclick="closeModal()">&times;</span>
+          <div class="modal-content">
+
+            <div class="mySlides">
+              <div class="numbertext">1 / 4</div>
+                <img src="images/logos/brands/audi.png" >
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">2 / 4</div>
+                <img src="images/logos/brands/bmw.jpg" >
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">3 / 4</div>
+                <img src="images/logos/brands/merc.png" >
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">4 / 4</div>
+                <img src="images/logos/brands/opel.jpg" >
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="caption-container">
+              <p id="caption"></p>
+            </div>
+
+            <div class="column">
+              <img class="demo" src="images/logos/brands/audi.png" onclick="currentSlide(1)" alt="Nature">
+            </div>
+
+            <div class="column">
+              <img class="demo" src="images/logos/brands/bmw.jpg" onclick="currentSlide(2)" alt="Trolltunga">
+            </div>
+
+            <div class="column">
+              <img class="demo" src="images/logos/brands/merc.png" onclick="currentSlide(3)" alt="Mountains">
+            </div>
+
+            <div class="column">
+              <img class="demo" src="images/logos/brands/opel.jpg" onclick="currentSlide(4)" alt="Lights">
+            </div>
+          </div>
+        </div>                
+
+
+            
+            
+            
+        
         
         
     </body>
