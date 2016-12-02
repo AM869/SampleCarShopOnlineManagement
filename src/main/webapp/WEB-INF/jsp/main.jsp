@@ -5,6 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sample Car Shop - Online Management</title>
         
         <!-- Bootstrap CDN  -->
@@ -61,6 +62,17 @@
             }
             .row{
                 margin-top: 20px;
+            }
+            @media (min-width:992px) and (max-width:1369px){
+                .small-images{
+                    padding-left: 17px;
+                    padding-bottom: 17px;
+                    /*padding-right: 47px;*/
+                }
+            }
+            .small-images{
+                border: 1px solid #fefefe;
+                padding:2px;
             }
             
             /*START static lightbox*//*static lightbox*/
@@ -195,7 +207,10 @@
             }            
             /* END static lightbox*//*static lightbox*/
             /* END static lightbox*//*static lightbox*/
-            
+            .imgs{
+                border: 1px solid black;
+                
+            }
         </style>
         
         
@@ -285,13 +300,27 @@
             <div class="row">
                 Details: above is logo not image blablabla, below is image.
             </div>
+        
+            -------------------IMAGES START---------------------
+            <div class="row imgs" data-img-sum="4" >
+                
+                    <div class="col-xs-4 col-sm-2 col-md-1 " style="border: 3px solid green;">
+                        <img class="small-images" src="images/logos/brands/bmw.jpg" data-img-number="1" alt="Smiley face" height="100" width="100">
+                    </div> 
+                    <div class="col-xs-4 col-sm-2 col-md-1 ">
+                        <img class="small-images" src="images/logos/brands/merc.png" data-img-number="2" alt="Smiley face" height="100" width="100">
+                    </div> 
+                    <div class="col-xs-4 col-sm-2 col-md-1 ">
+                        <img class="small-images" src="images/logos/brands/opel.jpg" data-img-number="3" alt="Smiley face" height="100" width="100">
+                    </div>   
+                    <div class="col-xs-4 col-sm-2 col-md-1 ">
+                        <img class="small-images" src="images/logos/brands/volvo.jpg" data-img-number="4" alt="Smiley face" height="100" width="100">
+                    </div>            
+                
+            </div>
+            --------------------IMAGES END----------------------
         </div>
-        IMAGES START
-        <div>
-            <img class="images" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">
-        </div>
-        IMAGES END    
-            
+        
         <div class="container-fluid"> 
             <div class="row">
                 <img class="logos" src="smiley.gif" alt="Smiley face" height="50" width="50">Brand1 Model1
@@ -304,7 +333,7 @@
 
         <div class="lightbox-row">
           <div class="column">
-              <img src="images/logos/brands/audi.png" height="100" width="100" onclick="openModal();currentSlide(1)" class="hover-shadow">
+            <img src="images/logos/brands/audi.png" height="100" width="100" onclick="openModal();currentSlide(1)" class="hover-shadow">
           </div>
           <div class="column">
             <img src="images/logos/brands/bmw.jpg" height="70" width="70" onclick="openModal();currentSlide(2)" class="hover-shadow">
@@ -366,13 +395,7 @@
             </div>
           </div>
         </div>                
+        
 
-
-            
-            
-            
-        
-        
-        
     </body>
 </html>
