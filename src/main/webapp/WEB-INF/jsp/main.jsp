@@ -64,22 +64,89 @@
                 margin-top: 20px;
             }
             @media (min-width:992px) and (max-width:1369px){
-                .small-images{
+                .smallImage{
                     padding-left: 17px;
                     padding-bottom: 17px;
-                    /*padding-right: 47px;*/
+                    
                 }
             }
-            .small-images{
+            
+            .smallImage{
                 border: 1px solid #fefefe;
                 padding:2px;
+                text-align: center;
+            }
+            
+            .smallImageContainer{
+                border: 1px solid black;  
+            }
+            
+            .imgPreviewModal{
+                z-index: 1;
+                position: fixed;
+                background-color: black;
+                display: none;
+                left:0;
+                top:0;
+                height:100%;
+                width:100%;
+                overflow: auto;
+            }
+            
+/*            @media(min-width: 992px) and (max-width: 1200px){
+                .mainImageInModal{
+                    max-width: 970px;
+                }
+            }
+            @media(min-width: 768px){
+                .mainImageInModal{
+                    max-width: 750px;
+                }
+            }
+            @media(min-width: 544){
+                .mainImageInModal{
+                    max-width: 530px;
+                }
+            }
+            @media(min-width: 320){
+                .mainImageInModal{
+                    max-width: 530px;
+                }
+            }
+            @media(max-width: 319px){
+                .mainImageInModal{
+                    max-width: 200px;
+                }
+            }*/
+            .mainImageInModal{
+                display: none;
+                max-width: 100%;
+/*                height: auto;
+                width: auto;*/
+                
+            }
+            .mainImageContainerInModal{
+                 max-width: 90%; 
+                 margin: auto;
+            }
+            
+            .smallImageInModal{
+                
+            }
+            .smallImageContainerInModal{
+                
+            }
+            
+            .captionText{
+                color: graytext;
+                margin-top: 20px;
             }
             
             /*START static lightbox*//*static lightbox*/
             /*START static lightbox*//*static lightbox*/
             .lightbox-row > .column {
               padding: 0 8px;
-            }
+            } 
 
             .lightbox-row:after {
               content: "";
@@ -207,10 +274,10 @@
             }            
             /* END static lightbox*//*static lightbox*/
             /* END static lightbox*//*static lightbox*/
-            .imgs{
-                border: 1px solid black;
-                
-            }
+            
+            
+            
+            
         </style>
         
         
@@ -218,6 +285,7 @@
     <body>
         <h1>Hello World!</h1>
         
+        <!--Using this as template in client side.-->
         <template id="add_car_template">
             
             <form class="container-fluid" action="" method="POST" enctype="multipart/form-data">
@@ -293,6 +361,7 @@
         
         <div>All Registered Cars</div>
         
+        <!--Using this as template in server side.-->
         <div class="container-fluid">            
             <div class="row">
                 <img class="logos" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="30" width="30">Brand1 Model1
@@ -302,24 +371,77 @@
             </div>
         
             -------------------IMAGES START---------------------
-            <div class="row imgs" data-img-sum="4" >
+            <div class="row smallImageContainer" data-img-sum="9" >
                 
-                    <div class="col-xs-4 col-sm-2 col-md-1 " style="border: 3px solid green;">
-                        <img class="small-images" src="images/logos/brands/bmw.jpg" data-img-number="1" alt="Smiley face" height="100" width="100">
-                    </div> 
-                    <div class="col-xs-4 col-sm-2 col-md-1 ">
-                        <img class="small-images" src="images/logos/brands/merc.png" data-img-number="2" alt="Smiley face" height="100" width="100">
-                    </div> 
-                    <div class="col-xs-4 col-sm-2 col-md-1 ">
-                        <img class="small-images" src="images/logos/brands/opel.jpg" data-img-number="3" alt="Smiley face" height="100" width="100">
-                    </div>   
-                    <div class="col-xs-4 col-sm-2 col-md-1 ">
-                        <img class="small-images" src="images/logos/brands/volvo.jpg" data-img-number="4" alt="Smiley face" height="100" width="100">
-                    </div>            
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/bmw.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/merc.png" data-img-number="2" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/opel.jpg" data-img-number="3" alt="Smiley face"  width="100">
+                </div>   
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/audi.png" data-img-number="4" alt="Smiley face"  width="100">
+                </div> 
                 
-            </div>
-            --------------------IMAGES END----------------------
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/img_fjords_wide.jpg" data-img-number="5" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/img_mountains_wide.jpg" data-img-number="6" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/star.png" data-img-number="7" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/star.jpg" data-img-number="8" alt="Smiley face"  width="100">
+                </div> 
+                <div class="col-xs-4 col-sm-2 col-md-1 " >
+                    <img class="smallImage" src="images/logos/brands/volvo.jpg" data-img-number="9" alt="Smiley face"  width="100">
+                </div> 
+                
+            </div>    
+                    
         </div>
+        
+        
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                <img  class="mainImageInModal" data-img-number="1" src="images/logos/brands/bmw.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="2" src="images/logos/brands/merc.png" alt="Smiley face" > 
+                <img  class="mainImageInModal" data-img-number="3" src="images/logos/brands/opel.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="4" src="images/logos/brands/audi.png" alt="Smiley face" >
+                
+                <img  class="mainImageInModal" data-img-number="5" src="images/logos/brands/img_fjords_wide.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" >              
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="9">
+                <img class="smallImageInModal" data-img-number="1" src="images/logos/brands/bmw.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="2" src="images/logos/brands/merc.png" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="3" src="images/logos/brands/opel.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="4" src="images/logos/brands/audi.png" alt="Smiley face" height="100" width="100">
+                
+                <img class="smallImageInModal" data-img-number="5" src="images/logos/brands/img_fjords_wide.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">
+                
+            </div>      
+
+        </div>
+        
+        --------------------IMAGES END----------------------
+        
         
         <div class="container-fluid"> 
             <div class="row">
