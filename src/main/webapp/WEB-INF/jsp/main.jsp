@@ -71,6 +71,7 @@
                 }
             }
             
+            
             .smallImage{
                 border: 1px solid #fefefe;
                 padding:2px;
@@ -92,46 +93,23 @@
                 width:100%;
                 overflow: auto;
             }
-            
-/*            @media(min-width: 992px) and (max-width: 1200px){
-                .mainImageInModal{
-                    max-width: 970px;
-                }
-            }
-            @media(min-width: 768px){
-                .mainImageInModal{
-                    max-width: 750px;
-                }
-            }
-            @media(min-width: 544){
-                .mainImageInModal{
-                    max-width: 530px;
-                }
-            }
-            @media(min-width: 320){
-                .mainImageInModal{
-                    max-width: 530px;
-                }
-            }
-            @media(max-width: 319px){
-                .mainImageInModal{
-                    max-width: 200px;
-                }
-            }*/
+
             .mainImageInModal{
                 display: none;
                 max-width: 100%;
 /*                height: auto;
-                width: auto;*/
-                
+                width: auto;*/      
             }
             .mainImageContainerInModal{
-                 max-width: 90%; 
+                 max-width: 80%; 
                  margin: auto;
+                 margin-top: 80px;
+                 display: inline-block;
+                 position: relative;
             }
             
             .smallImageInModal{
-                
+                padding-top: 5px;
             }
             .smallImageContainerInModal{
                 
@@ -139,7 +117,50 @@
             
             .captionText{
                 color: graytext;
-                margin-top: 20px;
+                margin: 20px;
+                margin-top: 30px;
+            }
+            
+            .modalArrows{
+                position: absolute;
+                top: 40%;
+                
+                cursor: pointer;
+                padding: 12px;
+                color: white;
+                font-weight: bold;
+                font-size: 3em;
+                transition: 0.6s ease;
+                /*border-radius: 0 3px 3px 0;*/
+                user-select: none;
+                -webkit-user-select: none;     
+            }
+            .prevArrow{
+                right: 100%;
+                border-radius: 3px 0 0 3px;
+                
+            }
+            .nextArrow{
+                left: 100%;
+                border-radius: 0 3px 3px 0;    
+            }
+            .modalArrows:hover{
+              background-color: rgba(217, 217, 217,0.8);
+            }           
+            
+            .closeButtonModal{
+                color: white;
+                position: absolute;
+                top: 10px;
+                right: 25px;
+                font-size: 50px;
+                font-weight: bold;
+            }
+            .closeButtonModal:hover,
+            .closeButtonModal:focus {
+                color: #999;
+                text-decoration: none;
+                cursor: pointer;
             }
             
             /*START static lightbox*//*static lightbox*/
@@ -410,6 +431,9 @@
         <div class="imgPreviewModal" >
                 
             <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                
                 <img  class="mainImageInModal" data-img-number="1" src="images/logos/brands/bmw.jpg" alt="Smiley face" >
                 <img  class="mainImageInModal" data-img-number="2" src="images/logos/brands/merc.png" alt="Smiley face" > 
                 <img  class="mainImageInModal" data-img-number="3" src="images/logos/brands/opel.jpg" alt="Smiley face" >
@@ -419,7 +443,10 @@
                 <img  class="mainImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" >
                 <img  class="mainImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" >
                 <img  class="mainImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" >              
+                <img  class="mainImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" >
+                
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
             </div>
 
             <p class="captionText">SAMPLE</p>
@@ -434,9 +461,10 @@
                 <img class="smallImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" height="100" width="100">
                 <img class="smallImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" height="100" width="100">
                 <img class="smallImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">
-                
-            </div>      
+                <img class="smallImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">               
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
 
         </div>
         
