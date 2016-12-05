@@ -65,10 +65,11 @@ function imgContainerCallback(imgContainer){
     smallImagesInModal[img_number - 1].className += " selected"; 
     captionTextElement.innerHTML = img_number+" / "+img_sum;
        
-    //add event listeners for the small images in Modal view or Add One Event Listener to the whole smallImageContainerInModal, with this small images will delegate event handling to the container
-    for (i=0; i < smallImagesInModal.length; i++){
-        smallImagesInModal[i].addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
-    }
+    //add event listeners for the small images in Modal view OR Add One Event Listener to the whole smallImageContainerInModal, with this small images will delegate event handling to the container
+//    for (i=0; i < smallImagesInModal.length; i++){
+//        smallImagesInModal[i].addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
+//    }
+    imgPreviewModal.querySelector(".smallImageContainerInModal").addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
     
     //add event listener for close button
     imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", function(){alert('test valid function');closeModal(imgPreviewModal);});
@@ -120,21 +121,28 @@ function imgContainerCallback(imgContainer){
 
 function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
 
+    
     var newImgClicked = event.target;   
+    //check if event target( newImgClicked) is of type img meaning the user has clicked in one of the imgs, otherwise if the use just clicked the container body do nothing
+    if(newImgClicked.tagName === "IMG"){
+        alert('its img!!');
+        var prev_img = imgPreviewModal.querySelector(".selected");
+        var prev_img_number = prev_img.getAttribute("data-img-number");
+        var prevMainImg = imgPreviewModal.firstElementChild.children[prev_img_number];
 
-    var prev_img = imgPreviewModal.querySelector(".selected");
-    var prev_img_number = prev_img.getAttribute("data-img-number");
-    var prevMainImg = imgPreviewModal.firstElementChild.children[prev_img_number];
+        prev_img.classList.remove("selected");
+        prevMainImg.style.display = "none";
 
-    prev_img.classList.remove("selected");
-    prevMainImg.style.display = "none";
-    
-    var img_number = newImgClicked.getAttribute("data-img-number");
-    var mainImg = imgPreviewModal.firstElementChild.children[img_number];
-    
-    mainImg.style.display = "inline";
-    newImgClicked.className += " selected";
-    captionTextElement.innerHTML = img_number+" / "+img_sum;  
+        var img_number = newImgClicked.getAttribute("data-img-number");
+        var mainImg = imgPreviewModal.firstElementChild.children[img_number];
+
+        mainImg.style.display = "inline";
+        newImgClicked.className += " selected";
+        captionTextElement.innerHTML = img_number+" / "+img_sum;  
+    }
+    else{
+        alert('wattttt');
+    }
 }
 
 function closeModal(imgPreviewModal){
