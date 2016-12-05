@@ -47,7 +47,7 @@ for(i =0; i<imgContainers.length; i++){
 
 function imgContainerCallback(imgContainer){
     
-    var img_sum = imgContainer.getAttribute("data-img-sum");
+    var img_sum = parseInt(imgContainer.getAttribute("data-img-sum"));
     var img_clicked = event.target;
     var img_number = img_clicked.getAttribute("data-img-number");
 
@@ -65,49 +65,57 @@ function imgContainerCallback(imgContainer){
     smallImagesInModal[img_number - 1].className += " selected"; 
     captionTextElement.innerHTML = img_number+" / "+img_sum;
        
-    //add event listeners for the small images in Modal view
-    
-    function gtp(){
-        
-        alert('lane klyik');
-        imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);
-        
-    }
+    //add event listeners for the small images in Modal view or Add One Event Listener to the whole smallImageContainerInModal, with this small images will delegate event handling to the container
     for (i=0; i < smallImagesInModal.length; i++){
-        smallImagesInModal[i].addEventListener("click", gtp);
+        smallImagesInModal[i].addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
     }
-    //---------------------
     
-    
-    
-    function closeModal(){
-     
-    
-    
-               //"unselect" small image and remove display of current-last main image in modal
-    var lastSelectedSmallImg = imgPreviewModal.querySelector(".selected");
-    var lastImgNumber = lastSelectedSmallImg.getAttribute("data-img-number");
-    
-    lastSelectedSmallImg.classList.remove("selected");
-    imgPreviewModal.firstElementChild.children[lastImgNumber].style.display = "none";
-
-//    //unbind all event listeners by cloning and replacing the old with the cloned one
-//    var clonedModal = imgPreviewModal.cloneNode(true);
-//    imgPreviewModal.parentElement.replaceChild(clonedModal, imgPreviewModal);
-    
-        for (i=0; i < smallImagesInModal.length; i++){
-        smallImagesInModal[i].removeEventListener("click", gtp);
-    }
-    imgPreviewModal.style.display = "none";      
-    imgPreviewModal.querySelector(".closeButtonModal").removeEventListener("click", closeModal);
-        alert('patisaX');
-    }
-    //----------------------------
-    //
     //add event listener for close button
-    imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", closeModal);
+    imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", function(){alert('test valid function');closeModal(imgPreviewModal);});
+    
     //add event listeners for image navigation by clicking the arrows OR pressing keyboard arrows
-        
+    imgPreviewModal.querySelector(".prevArrow").addEventListener("click", prevArrowCallback);
+    imgPreviewModal.querySelector(".nextArrow").addEventListener("click", nextArrowCallback);
+    function prevArrowCallback(){
+        var currentSmallImg = imgPreviewModal.querySelector(".selected");
+        var currentImgNumber = currentSmallImg.getAttribute("data-img-number");
+        var newImgNumber;
+        var newSmallImg;
+
+        if(currentImgNumber == 1){
+            newImgNumber = img_sum;
+            newSmallImg= currentSmallImg.parentElement.lastElementChild;;
+        }
+        else{
+            newImgNumber = currentImgNumber - 1;
+            newSmallImg = currentSmallImg.previousElementSibling;
+        }
+        currentSmallImg.classList.remove("selected");
+        newSmallImg.classList.add("selected");
+        imgPreviewModal.firstElementChild.children[currentImgNumber].style.display = "none";
+        imgPreviewModal.firstElementChild.children[newImgNumber].style.display = "inline";
+        captionTextElement.innerHTML = newImgNumber+" / "+img_sum;
+    }
+    function nextArrowCallback(){
+        var currentSmallImg = imgPreviewModal.querySelector(".selected");
+        var currentImgNumber = currentSmallImg.getAttribute("data-img-number");
+        var newImgNumber;
+        var newSmallImg;
+
+        if(currentImgNumber == img_sum){         
+            newImgNumber = 1;
+            newSmallImg= currentSmallImg.parentElement.firstElementChild;;
+        }
+        else{
+            newImgNumber = parseInt(currentImgNumber) + 1;
+            newSmallImg = currentSmallImg.nextElementSibling;
+        }
+        currentSmallImg.classList.remove("selected");
+        newSmallImg.classList.add("selected");
+        imgPreviewModal.firstElementChild.children[currentImgNumber].style.display = "none";       
+        imgPreviewModal.firstElementChild.children[newImgNumber].style.display = "inline";      
+        captionTextElement.innerHTML = newImgNumber+" / "+img_sum;
+    }
 }
 
 function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
@@ -129,21 +137,21 @@ function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
     captionTextElement.innerHTML = img_number+" / "+img_sum;  
 }
 
-//function closeModal(imgPreviewModal){
-//    imgPreviewModal.style.display = "none";   
-//    cleanModalState(imgPreviewModal);
-//}
-//
-//function cleanModalState(imgPreviewModal){
-//
-//    //"unselect" small image and remove display of current-last main image in modal
-//    var lastSelectedSmallImg = imgPreviewModal.querySelector(".selected");
-//    var lastImgNumber = lastSelectedSmallImg.getAttribute("data-img-number");
-//    
-//    lastSelectedSmallImg.classList.remove("selected");
-//    imgPreviewModal.firstElementChild.children[lastImgNumber].style.display = "none";
-//
-//    //unbind all event listeners by cloning and replacing the old with the cloned one
-//    var clonedModal = imgPreviewModal.cloneNode(true);
-//    imgPreviewModal.parentElement.replaceChild(clonedModal, imgPreviewModal);
-//}
+function closeModal(imgPreviewModal){
+    imgPreviewModal.style.display = "none";   
+    cleanModalState(imgPreviewModal);
+}
+
+function cleanModalState(imgPreviewModal){
+
+    //"unselect" small image and remove display of current-last main image in modal
+    var lastSelectedSmallImg = imgPreviewModal.querySelector(".selected");
+    var lastImgNumber = lastSelectedSmallImg.getAttribute("data-img-number");
+    
+    lastSelectedSmallImg.classList.remove("selected");
+    imgPreviewModal.firstElementChild.children[lastImgNumber].style.display = "none";
+
+    //unbind all event listeners by cloning and replacing the old with the cloned one
+    var clonedModal = imgPreviewModal.cloneNode(true);
+    imgPreviewModal.parentElement.replaceChild(clonedModal, imgPreviewModal);
+}
