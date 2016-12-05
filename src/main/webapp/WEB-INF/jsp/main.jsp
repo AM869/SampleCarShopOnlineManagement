@@ -85,7 +85,7 @@
             .imgPreviewModal{
                 z-index: 1;
                 position: fixed;
-                background-color: black;
+                background-color: rgba(0, 0, 0,0.95);
                 display: none;
                 left:0;
                 top:0;
@@ -94,25 +94,33 @@
                 overflow: auto;
             }
 
-            .mainImageInModal{
-                display: none;
-                max-width: 100%;
-/*                height: auto;
-                width: auto;*/      
-            }
             .mainImageContainerInModal{
                  max-width: 80%; 
-                 margin: auto;
+                 /*margin: auto;*/
                  margin-top: 80px;
                  display: inline-block;
                  position: relative;
             }
-            
-            .smallImageInModal{
-                padding-top: 5px;
+            .mainImageInModal{
+                display: none;
+                max-width: 100%;
+                /*margin: auto;*/
+/*                height: auto;
+                width: auto;*/      
             }
+            
             .smallImageContainerInModal{
                 
+            }
+            .smallImageInModal{
+                padding-top: 5px;
+                opacity: 0.7;
+            }
+            .smallImageInModal:hover{
+                opacity: 1;
+            }
+            .selected{
+                opacity: 1;
             }
             
             .captionText{
@@ -162,6 +170,7 @@
                 text-decoration: none;
                 cursor: pointer;
             }
+                      
             
             /*START static lightbox*//*static lightbox*/
             /*START static lightbox*//*static lightbox*/

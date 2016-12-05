@@ -125,7 +125,6 @@ function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
     var newImgClicked = event.target;   
     //check if event target( newImgClicked) is of type img meaning the user has clicked in one of the imgs, otherwise if the use just clicked the container body do nothing
     if(newImgClicked.tagName === "IMG"){
-        alert('its img!!');
         var prev_img = imgPreviewModal.querySelector(".selected");
         var prev_img_number = prev_img.getAttribute("data-img-number");
         var prevMainImg = imgPreviewModal.firstElementChild.children[prev_img_number];
@@ -141,7 +140,6 @@ function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
         captionTextElement.innerHTML = img_number+" / "+img_sum;  
     }
     else{
-        alert('wattttt');
     }
 }
 
