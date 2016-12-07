@@ -327,13 +327,20 @@
               display: flex;
               flex-direction: column;
             }*/
-            fieldset{
-                margin-top: 60px;
+            
+            label{
+                display:block;
             }
             legend{
                 position:relative;
+                margin-top: 20px;
             }
-            .closeCar{
+            fieldset{
+                margin-bottom: 30px;
+                margin-top: 20px;
+            }
+            
+            .carCloseButton{
                 position: absolute;
                 right: 0px;
                 top: -8px;
@@ -355,26 +362,24 @@
     <body>
         <h1>Hello World!</h1>
         
-            
-        <form id="myForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
+        <!--Using those two as templates in client side.-->
+        <!-- image-adding template below Images Label inside form myForm-->
+        <template id="add_image_template" >
+            <div class=" fileInputDiv myVerticalFormRow">
+                <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
+                <button type="button" class="fileInputClose"><span>&times;</span></button>
+            </div>
+        </template>  
 
-            <!--Using those two as templates in client side.-->
+        <!-- car-adding template inside form myForm-->
+        <template id="add_car_template">
             
-            <!-- image-adding template-->
-            <template id="add_image_template" >
-                <div class="myVerticalFormRow fileInputDiv">
-                    <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
-                    <button type="button" class="fileInputClose"><span>&times;</span></button>
-                </div>
-            </template> 
-            
-            <!-- car-adding template -->
-            <template id="add_car_template">
-                <fieldset>
-                    <legend>New-Car<button type="button" class="closeCar">&times;</button></legend>
-                </fieldset>
+            <fieldset >
+                    <legend>New-Car<button type="button" class="carCloseButton">&times;</button>
+                    </legend>
+                
                 <label > Choose Brand:
-                    <div class="myVerticalFormRow">
+                    <div class="myVerticalFormRow" style="display:block;width:100%;">
                         <select class="form-control brand-select" name="brand" required="true">
                             <option value="" disabled selected >Choose a brand or add one here in the bottom.</option>
                             <option value="bmw" >bmw</option>
@@ -397,19 +402,23 @@
                 </label>
 
                 <label>Images </label> 
-             
+
                 <div class="myVerticalFormRow fileInputDiv">
                     <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
                     <button type="button" class="fileInputClose"><span>&times;</span></button>
                 </div>
-                
+
 
                 <div class="myVerticalFormRow">
                     <button class="add_images_Button" type="button">Add images</button>
                 </div>
-                
-            </template>  
-                  
+            </fieldset>
+        </template>
+            
+        
+        <form id="myForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
+
+                       
             <button id="add_car_Button" type="button">Add New Car</button>
             <input id="submitCars" form="myForm" type="submit" value="Submit">         
         </form>
