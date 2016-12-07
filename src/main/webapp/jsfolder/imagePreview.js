@@ -1,61 +1,30 @@
 
-function openModal() {
-  document.getElementById('myModal').style.display = "block";
-}
-
-function closeModal() {
-  document.getElementById('myModal').style.display = "none";
-}
-
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1;}
-  if (n < 1) {slideIndex = slides.length;}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
-
-//--------------------------------------------------
-//--------------------------------------------------
-
 var imgContainers = document.getElementsByClassName("smallImageContainer");
-var i;
-for(i =0; i<imgContainers.length; i++){
-    imgContainers[i].addEventListener("click", function(){imgContainerCallback(this); });
+
+for(var i =0; i<imgContainers.length; i++){
+    imgContainers[i].addEventListener("click", function(event){imgContainerCallback(this,event); });
 }
 
-function imgContainerCallback(imgContainer){
+function getAncestorByClassName(element, className){
+    var ancestor=element.parentElement;
+    while(!ancestor.classList.contains(className)){
+           ancestor = ancestor.parentElement; 
+    }
+    return ancestor;
+}
+
+function imgContainerCallback(imgContainer,evt){
     
     var img_sum = parseInt(imgContainer.getAttribute("data-img-sum"));
-    var img_clicked = event.target;
+    var img_clicked = evt.target;
     var img_number = img_clicked.getAttribute("data-img-number");
 
     //if user didnt click an image but click inside the image container
     if ( img_number === null){
         img_number = 1;
     }
-    var imgPreviewModal = imgContainer.parentElement.nextElementSibling;
+    var carElement = getAncestorByClassName(imgContainer, "car");
+    var imgPreviewModal = carElement.nextElementSibling;
     var initialMainImage = imgPreviewModal.firstElementChild.children[img_number];
     var smallImagesInModal = imgPreviewModal.querySelector(".smallImageContainerInModal").children;
     var captionTextElement = imgPreviewModal.querySelector(".captionText");
@@ -69,7 +38,7 @@ function imgContainerCallback(imgContainer){
 //    for (i=0; i < smallImagesInModal.length; i++){
 //        smallImagesInModal[i].addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
 //    }
-    imgPreviewModal.querySelector(".smallImageContainerInModal").addEventListener("click", function(){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement);});
+    imgPreviewModal.querySelector(".smallImageContainerInModal").addEventListener("click", function(event){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement,event);});
     
     //add event listener for close button
     imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", function(){alert('test valid function');closeModal(imgPreviewModal);});
@@ -119,10 +88,10 @@ function imgContainerCallback(imgContainer){
     }
 }
 
-function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement){
+function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement,evt){
 
     
-    var newImgClicked = event.target;   
+    var newImgClicked = evt.target;   
     //check if event target( newImgClicked) is of type img meaning the user has clicked in one of the imgs, otherwise if the use just clicked the container body do nothing
     if(newImgClicked.tagName === "IMG"){
         var prev_img = imgPreviewModal.querySelector(".selected");
