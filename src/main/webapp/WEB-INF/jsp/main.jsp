@@ -28,6 +28,8 @@
             body {
                 text-align: center;
                 background-color: lightblue;
+
+
             }
             .close_button{
                 font-size:2em;
@@ -287,6 +289,7 @@
             .carHeaderSpan{
                 padding-left: 10px;
                 font-weight: bold;
+                overflow: auto;
             }
 
             /*car details and images div*/
@@ -315,7 +318,7 @@
             .showHideButton > span:first-child {
                 color: #6CF06C;
             }
-            @media only screen and (max-width: 767px){
+            @media only screen and (max-width: 991px){
                 .showHideButton{
                     right:50%;                 
                     top:100%;
@@ -519,8 +522,8 @@
             
             <div class="carHeader">
                 <img class="carLogos" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="35" >         
-                <span class="carHeaderSpan">Brand1asdsadadasd</span>
-                <span class="carHeaderSpan">Model1asdasdsadsads</span>
+                <span class="carHeaderSpan">Brand1asdsadadasdBrand1asdsadadasd</span>
+                <span class="carHeaderSpan">123451234512345123451234512345</span>
             </div>
             
             <div class="carDetailsAndImages">

@@ -129,7 +129,7 @@ function showHideButtonClickCallback(buttonClicked){
         arrowElement.classList.add("glyphicon-eye-close");
         arrowElement.style.color = "#ED3437";
         smallTextElement.innerHTML = "Hide Details";
-        buttonClicked.previousElementSibling.style.display = "initial";  
+        buttonClicked.previousElementSibling.style.display = "initial";
     }
     //just pressed HIDE details
     else if (arrowElement.classList.contains("glyphicon-eye-close")){
