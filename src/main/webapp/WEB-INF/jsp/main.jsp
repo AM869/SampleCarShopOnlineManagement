@@ -14,7 +14,8 @@
         <!-- JQuery CDN  -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
         
-        
+        <!-- Bootstrap js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
         
         
         
@@ -79,7 +80,14 @@
                 cursor: pointer;
                 border: 1px solid #fefefe;
                 padding:2px;
-                text-align: center;
+                text-align: center;  
+                border-radius: 15px;
+            }
+            .smallImage:hover{
+                cursor: pointer;
+                z-index: 1;
+                transform: scale(2,2);
+                transition: 0.3s ease;
             }
             
             .imgPreviewModal{
@@ -103,10 +111,7 @@
             }
             .mainImageInModal{
                 display: none;
-                max-width: 100%;
-                /*margin: auto;*/
-/*                height: auto;
-                width: auto;*/      
+                max-width: 100%;    
             }
             
             .smallImageContainerInModal{
@@ -180,6 +185,7 @@
             .myVerticalForm{
                 max-width: 40%;
                 margin: auto;
+                margin-bottom: 40px;
             }
 
             .myVerticalFormRow{
@@ -194,7 +200,7 @@
                 right: -5px;
                 top: -5px;
                 margin:5px;
-                margin-bottom: 2px;
+                margin-bottom: 5px;
                 padding-top: 0px;
                 padding-bottom: 0px;
                 padding-left: 10px;
@@ -255,29 +261,32 @@
 
             }
 
-
             /* car presentation div*/
             .car{
+                max-width:85%;
+                margin: auto;
                 margin-bottom: 40px;
                 position: relative;
-                border: 1px solid gray;
-                border-left: 0px;
-                border-right:0px;
+                border: 3px solid #46b8da;
+                border-radius: 50px;
                 text-align:left;
             }
             /* car header div*/
             .carHeader{
-
+                padding: 15px;
             }
             /*car logo img*/
             .carLogos{
+                padding: 5px;
                 border-right: 1px solid gray;
                 border-bottom: 1px solid gray;
+                border-radius: 15px;
             }
 
             /* title and brand span elements*/
             .carHeaderSpan{
                 padding-left: 10px;
+                font-weight: bold;
             }
 
             /*car details and images div*/
@@ -286,6 +295,10 @@
             }
             .carDetails{
                 overflow: auto;
+                padding: 15px;
+            }
+            .carImages{
+                padding: 15px;
             }
 
             /*show hide details button*/
@@ -293,13 +306,20 @@
                 position:absolute;
                 padding-top:5px;
                 padding-bottom:7px;
-                right:0px;
-                top: 0px;
+                right:2%;
+                top: 15px;
+                border-radius: 20px;
+                overflow: hidden;
+                
+            }
+            .showHideButton > span:first-child {
+                color: #6CF06C;
             }
             @media only screen and (max-width: 767px){
                 .showHideButton{
-                    left: 0px;
+                    right:50%;                 
                     top:100%;
+                    transform: translate(50%);
                 }
             }
             .showHideArrows{
@@ -340,21 +360,63 @@
                 margin-top: 20px;
             }
             
-            .carCloseButton{
+            .carCloseButton{  
                 position: absolute;
                 right: 0px;
-                top: -8px;
+                top: -10px;
                 background-color: transparent;
-                color: white;
+                border-radius: 50px;
+                color: red;
                 font-size: 24px;
+                height: 38px;
                 padding-left: 15px;
                 padding-right: 15px;
-                
+                padding-top: 4px;          
+            }
+            .carCloseButton:hover{
+                box-shadow: inset 0 5px 30px #193047;
+                color: red;
+            }
+            .carCloseButton:active{
+                box-shadow: inset 0 5px 30px #193047;
+                color: initial;
             }
             .fileBtn{
                 height: 37px;
                 overflow: auto;
             }
+            
+            .add_images_Button{
+                background-color: #E8CC38;
+                border-radius: 20px 20px 20px 20px;
+            }
+            .blackGrad {
+                background-color:black;
+                color: greenyellow;
+                border-radius: 7px 7px 7px 7px;
+            }
+            .blackGrad:hover {
+                color: green;
+            }
+            .blackGrad:focus {
+                color: greenyellow;
+            }
+            .buttonRightSideText{
+                padding-left:5px;
+            }
+            .myPanel{
+                border-top:0px;
+                background-color: powderblue;                
+            }
+            .myPanelHeading{
+                color:#fff;
+                text-align: left;
+                background-color: #5bc0de;
+            }
+            .myPanelBody{
+                
+            }
+            
         </style>
         
         
@@ -363,7 +425,7 @@
         <h1>Hello World!</h1>
         
         <!--Using those two as templates in client side.-->
-        <!-- image-adding template below Images Label inside form myForm-->
+        <!-- image-adding template below Images Label inside form myCarForm-->
         <template id="add_image_template" >
             <div class=" fileInputDiv myVerticalFormRow">
                 <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
@@ -371,11 +433,11 @@
             </div>
         </template>  
 
-        <!-- car-adding template inside form myForm-->
+        <!-- car-adding template inside form myCarForm-->
         <template id="add_car_template">
             
-            <fieldset >
-                    <legend>New-Car<button type="button" class="carCloseButton">&times;</button>
+            <fieldset>
+                <legend>New-Car<button type="button" class="btn carCloseButton"><span class="glyphicon glyphicon-remove-sign"></span></button>
                     </legend>
                 
                 <label > Choose Brand:
@@ -385,9 +447,11 @@
                             <option value="bmw" >bmw</option>
                             <option value="merc">mersenta</option>
                             <option value="opel">opel</option>
+                            <option value="AddNewBrand" >Add new Brand</option>
                         </select>
                     </div>
                 </label>
+                
 
                 <label>Model: 
                     <div class="myVerticalFormRow">   
@@ -395,36 +459,61 @@
                     </div>
                 </label>    
 
-                <label>Details: 
+                <label>Details(optional): 
                     <div class="myVerticalFormRow">
                         <textarea class="form-control" cols="40" rows="8" name="description" placeholder="Add extra details here."></textarea>
                     </div>
                 </label>
 
-                <label>Images </label> 
+                <label>Images(optional) </label> 
 
                 <div class="myVerticalFormRow fileInputDiv">
                     <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
                     <button type="button" class="fileInputClose"><span>&times;</span></button>
                 </div>
 
-
                 <div class="myVerticalFormRow">
-                    <button class="add_images_Button" type="button">Add images</button>
+                    <button class="btn add_images_Button" type="button"><span  style="color: chartreuse;" class="glyphicon glyphicon-plus"></span><span class="buttonRightSideText" style="color: white;">Add images</span></button>
                 </div>
+                
             </fieldset>
+            
         </template>
             
         
-        <form id="myForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
-
-                       
-            <button id="add_car_Button" type="button">Add New Car</button>
-            <input id="submitCars" form="myForm" type="submit" value="Submit">         
+        <form id="myCarForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
+            <!-- here goes car template above-->
+            <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button>
+            <!--<input class="btn blackGrad" id="submitCars" form="myCarForm" type="submit" value="Submit Cars">-->  
+            <button type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
         </form>
+            
+            
+        <button id="toogleBrand" style="border:0px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#myBrandForm">+ New Brand</button>
+        <!--<a name="brand"></a>-->
+        <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
 
+            <div class="panel panel-default myPanel">
+                <div class="panel-heading myPanelHeading">Add New Brand</div>
+                    <div class="panel-body myPanelBody" >
+                        <label>Brand Name: 
+                            <div class="myVerticalFormRow">   
+                                <input class="form-control" type="text" name="model" placeholder="Add Brand name." required>
+                            </div>
+                        </label>
+
+                        <label>Brand Logo(optional)</label>
+                        <div class=" fileInputDiv myVerticalFormRow">
+                            <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
+                        </div>         
+
+                        <input style="color: #fff; background-color: #5bc0de;;"class="btn" id="submitBrand" form="myBrandForm" type="submit" value="Submit Brand"> 
+                    </div>
+            </div>
+        </form>
         
-        <div>All Registered Cars</div>
+
+        <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em;"><u><b>All Registered Cars</b></u></div>
         
         <div class="car">
             
@@ -437,7 +526,7 @@
             <div class="carDetailsAndImages">
                 
                 <div class="carDetails">
-                    <p>No Details</p>
+                    <p>No Details Available Yet.</p>
                     <p>asdsadadsaddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddddasasddddddddddddddddddddddddddd
                         asddddddddddddddddddddddddddddddddddddddddddddada
                             -asdadas
@@ -463,8 +552,8 @@
                 
             </div>
             
-            <button type="button" class="showHideButton" ><span class="showHideArrows downwardArrow">&Gg;</span><span>Show Details</span></button>
-        
+            <button type="button" class="btn btn-info showHideButton" ><span class="glyphicon glyphicon-eye-open"></span><span class="buttonRightSideText"> Show Details</span></button>
+            <!--<button type="button" class="btn btn-info showHideButton" ><span class="showHideArrows downwardArrow">&Gg; </span><span> Show Details</span></button>-->
         </div>
         
 
