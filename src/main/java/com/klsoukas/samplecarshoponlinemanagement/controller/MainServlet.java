@@ -42,9 +42,17 @@ public class MainServlet extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-        
-        request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request,response);
-
+        String servletPathString = request.getServletPath();
+        String requestURIString = request.getRequestURI();
+        System.out.println("XAAXXAXA"+servletPathString);
+        System.out.println("XAAXXAXA"+requestURIString);
+       
+        if(servletPathString.equals("/MyCars") || servletPathString.equals("/AddCars")){
+            request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request,response);
+        }
+        else{
+            request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request,response);
+        }
 
     }
 

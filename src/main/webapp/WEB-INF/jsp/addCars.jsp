@@ -1,5 +1,6 @@
 
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -200,7 +201,7 @@
             .fileInputClose {
                 position: absolute;
                 right: -5px;
-                top: -5px;
+                top: -4px;
                 margin:5px;
                 margin-bottom: 5px;
                 padding-top: 0px;
@@ -265,17 +266,22 @@
 
             /* car presentation div*/
             .car{
+                
+                background-color: graytext;
                 max-width:85%;
                 margin: auto;
                 margin-bottom: 40px;
                 position: relative;
-                border: 3px solid #46b8da;
+/*                border: 3px solid #46b8da;*/
                 border-radius: 50px;
                 text-align:left;
             }
             /* car header div*/
             .carHeader{
                 padding: 15px;
+                color: white;
+                overflow: auto;
+                
             }
             /*car logo img*/
             .carLogos{
@@ -283,6 +289,7 @@
                 border-right: 1px solid gray;
                 border-bottom: 1px solid gray;
                 border-radius: 15px;
+                overflow:auto;
             }
 
             /* title and brand span elements*/
@@ -299,9 +306,11 @@
             .carDetails{
                 overflow: auto;
                 padding: 15px;
+                color: white;
             }
             .carImages{
                 padding: 15px;
+                color:white;
             }
 
             /*show hide details button*/
@@ -313,11 +322,16 @@
                 top: 15px;
                 border-radius: 20px;
                 overflow: hidden;
-                
-            }
-            .showHideButton > span:first-child {
                 color: #6CF06C;
+                background-color: black;
+                border: 0;
             }
+            .showHideButton:focus{
+                background-color: black;
+            }
+/*            .showHideButton > span:first-child {
+                color: #6CF06C;*/
+            /*}*/
             @media only screen and (max-width: 991px){
                 .showHideButton{
                     right:50%;                 
@@ -338,6 +352,7 @@
     
             .brand-select{
                 cursor: pointer;
+                overflow-x: auto;
             }
 /*            .row {
               display: -webkit-box;
@@ -357,8 +372,11 @@
             legend{
                 position:relative;
                 margin-top: 20px;
+                color: #FFD700;
+                
             }
             fieldset{
+                color: #FFD700;
                 margin-bottom: 30px;
                 margin-top: 30px;
             }
@@ -390,7 +408,8 @@
             }
             
             .add_images_Button{
-                background-color: #E8CC38;
+                background-color: black;
+                color: #E8CC38;
                 border-radius: 20px 20px 20px 20px;
             }
             .blackGrad {
@@ -409,20 +428,90 @@
             }
             .myPanel{
                 border-top:0px;
-                background-color: powderblue;                
+                background-color: transparent;   
+                border: 0px;
             }
             .myPanelHeading{
-                color:#fff;
-                text-align: left;
-                background-color: #5bc0de;
+                color: red;
+                /*text-align: left;*/
+                background-color: transparent;
             }
             .myPanelBody{
-                
+                background-color: transparent;
             }
             body{
                 background-size: cover;
                 background-image: url("images/photos/1.jpg");
+                min-width: 100%;
             }
+           
+            
+            .gainsboroC{
+                color: gainsboro;
+            }
+            .gainsboroBC{
+                background-color: gainsboro;
+            }
+            .orangeC{
+                color: #FFA500;
+            }
+            .orangeBC{
+                background-color: #FFA500;
+            }
+            
+            .graytextBC{
+                background-color: graytext;
+            }
+            
+            
+            
+            #toogleBrand, #submitBrand{
+                color: greenyellow;
+                background-color: gray;
+            }
+            
+            .form-control{
+                background-color: gainsboro ;
+            }
+            
+            .navbar-inverse .navbar-brand {
+                color: #ffa500;
+            }
+            .navbar-inverse .navbar-text {
+                color: #ffa500;
+            }
+            .navbar-inverse .navbar-nav > li > a {
+                color: #ffa500;
+            }
+            .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a {
+                color: #ffa500;
+            }
+            .navbar-inverse .navbar-toggle .icon-bar {
+                background-color: #ffa500;
+            }
+            .navbar-inverse .navbar-collapse,
+            .navbar-inverse .navbar-form {
+                border-color: #ffa500;
+            }
+            .navbar-inverse .navbar-link {
+                color: #ffa500;
+            }
+            ul.nav.navbar-nav:hover{
+                background-color: black;
+            }
+            
+            @media (max-width: 767px) {
+              .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+                color: #ffa500;
+              }
+            }
+            
+            @media (min-width: 979px) {
+              ul.nav li.dropdown:hover > ul.dropdown-menu {
+              display: block;
+  }
+}
+            
             
         </style>
         
@@ -430,10 +519,39 @@
     </head>
     <body>
         
-        
-        
-        
-        
+        <nav  class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div   class="navbar-header">
+              <button  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span  class="icon-bar "></span>
+                <span  class="icon-bar "></span>
+                <span  class="icon-bar "></span>
+              </button>
+              <a class="navbar-brand " href="#">Home</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul  class="nav navbar-nav">
+                <li class="dropdown">
+                  <a  href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Cars <span class="caret"></span></a>
+                  <ul  class="dropdown-menu graytextBC">
+                    <li ><a  href="<%=request.getContextPath()%>/MyCars">Add Cars</a></li>
+                    <li ><a href="#">Modify-Delete Cars</a></li>           
+                  </ul>
+                </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li><a   href="#">Contact</a></li>
+
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
         
         <h1>Hello World!</h1>
         
@@ -453,8 +571,8 @@
                 <legend>New-Car<button type="button" class="btn carCloseButton"><span class="glyphicon glyphicon-remove-sign"></span></button>
                     </legend>
                 
-                <label > Choose Brand:
-                    <div class="myVerticalFormRow" style="display:block;width:100%;">
+                <label> Choose Brand:
+                    <div class="myVerticalFormRow" >
                         <select class="form-control brand-select" name="brand" required="true">
                             <option value="" disabled selected >Choose a brand or add one here in the bottom.</option>
                             <option value="bmw" >bmw</option>
@@ -507,20 +625,20 @@
         <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
 
             <div class="panel panel-default myPanel">
-                <div class="panel-heading myPanelHeading">Add New Brand</div>
+<!--                <div class="panel-heading myPanelHeading">Add New Brand</div>-->
                     <div class="panel-body myPanelBody" >
-                        <label>Brand Name: 
+                        <label style="background-color: #d3d3d3; color: #333333;">Brand Name: 
                             <div class="myVerticalFormRow">   
                                 <input class="form-control" type="text" name="model" placeholder="Add Brand name." required>
                             </div>
                         </label>
 
-                        <label>Brand Logo(optional)</label>
+                        <label style="margin-bottom: 0;background-color: #d3d3d3; color: #333333;">Brand Logo(optional)</label>
                         <div class=" fileInputDiv myVerticalFormRow">
                             <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
                         </div>         
 
-                        <input style="color: #fff; background-color: #5bc0de;;"class="btn" id="submitBrand" form="myBrandForm" type="submit" value="Submit Brand"> 
+                        <button class="btn" id="submitBrand" type="submit" ><span class="glyphicon glyphicon-ok"></span> Submit New Brand </button>
                     </div>
             </div>
         </form>
@@ -565,7 +683,7 @@
                 
             </div>
             
-            <button type="button" class="btn btn-info showHideButton" ><span class="glyphicon glyphicon-eye-open"></span><span class="buttonRightSideText"> Show Details</span></button>
+            <button type="button" class="btn btn-info showHideButton" ><span class="glyphicon glyphicon-eye-open"></span></button>
             <!--<button type="button" class="btn btn-info showHideButton" ><span class="showHideArrows downwardArrow">&Gg; </span><span> Show Details</span></button>-->
         </div>
         
