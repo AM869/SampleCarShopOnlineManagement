@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xristos
  */
-public class MainServlet extends HttpServlet {
+public class AddCarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,44 +35,19 @@ public class MainServlet extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>NOTHING HEREServlet MainServlet</title>");            
+//            out.println("<title>Servlet AddCarServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet AddCarServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-        String servletPathString = request.getServletPath();
-        String requestURIString = request.getRequestURI();
-        String pathInfoString = request.getPathInfo();
-        
-        System.out.println("AXXXXXXXXXX");
-        System.out.println("request getServletPath: "+servletPathString);
-        System.out.println("request getServletPath: "+servletPathString);
-        System.out.println("request getPathInfo: "+pathInfoString);
-        System.out.println("request getPathInfo: "+pathInfoString);
-       
-        if(servletPathString.equals("/MyCars") || servletPathString.equals("/AddCars")
-                || servletPathString.equals("/mycars")|| servletPathString.equals("/addcars")
-                || servletPathString.equals("/MYCARS")|| servletPathString.equals("/ADDCARS")
-                || servletPathString.equals("/aaddCars") || servletPathString.equals("/Addcars")
-                || servletPathString.equals("/myCars") || servletPathString.equals("/Mycars")){
-            request.getRequestDispatcher("AddCarServlet").forward(request,response);
-        }
-        else if(servletPathString.equals("/modCars") || servletPathString.equals("/ModCars")
-                || servletPathString.equals("/MODCARS") || servletPathString.equals("/modcars") 
-                || servletPathString.equals("/Modcars")){
-            
-            request.getRequestDispatcher("WEB-INF/jsp/modCars.jsp").forward(request,response);
-        }
-        else if( servletPathString.equals("/test")){
-            System.out.println("bike test");
-            request.getRequestDispatcher("WEB-INF/html/navBar.html").forward(request, response);
-        }
-        else{
-            request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request,response);
-        }
 
+
+
+
+        request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

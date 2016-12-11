@@ -4,19 +4,43 @@
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.MainServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCarServlet</servlet-name>
+        <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.AddCarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainPage</url-pattern>
         <url-pattern>/Main</url-pattern>
         <url-pattern>/Home</url-pattern>
         <url-pattern>/index</url-pattern>
-        <url-pattern>/MyCars</url-pattern>
+        <url-pattern>/addcars</url-pattern>
+        <url-pattern>/addCars</url-pattern>
+        <url-pattern>/Addcars</url-pattern>
         <url-pattern>/AddCars</url-pattern>
+        <url-pattern>/ADDCARS</url-pattern>
+        <url-pattern>/mycars</url-pattern>
+        <url-pattern>/myCars</url-pattern>
+        <url-pattern>/Mycars</url-pattern>
+        <url-pattern>/MyCars</url-pattern>
+        <url-pattern>/MYCARS</url-pattern>
+        <url-pattern>/modcars</url-pattern>
+        <url-pattern>/modCars</url-pattern>
+        <url-pattern>/Modcars</url-pattern>
+        <url-pattern>/ModCars</url-pattern>
+        <url-pattern>/MODCARS</url-pattern>
+        <url-pattern>/gtp/lel/xaxa</url-pattern>
+        <url-pattern>/gtp/lel/xaxa.jsp</url-pattern>
+        <url-pattern>/gtp/lel2/xaxa.jsp</url-pattern>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>AddCarServlet</servlet-name>
+        <url-pattern>/AddCarServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-            <welcome-file>MainPage</welcome-file>
-	    <welcome-file>main</welcome-file>
+        <welcome-file>MainPage</welcome-file>
+        <welcome-file>main</welcome-file>
     </welcome-file-list>
     <session-config>
         <session-timeout>

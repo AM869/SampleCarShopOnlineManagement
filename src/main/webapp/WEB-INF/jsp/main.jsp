@@ -431,11 +431,17 @@
     <body>
         
         
+        <%@ include file="/WEB-INF/html/navBar.html" %>
         
         
         
         
         <h1>Hello World!</h1>
+        
+        
+        
+        
+        
         
         <!--Using those two as templates in client side.-->
         <!-- image-adding template below Images Label inside form myCarForm-->

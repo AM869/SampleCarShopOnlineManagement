@@ -26,12 +26,6 @@
         <script src="<%=request.getContextPath()%>/jsfolder/imagePreview.js" defer></script>
         
         <style>
-            body {
-                text-align: center;
-                background-color: lightblue;
-
-
-            }
             .close_button{
                 font-size:2em;
                 background-color: transparent;
@@ -329,9 +323,7 @@
             .showHideButton:focus{
                 background-color: black;
             }
-/*            .showHideButton > span:first-child {
-                color: #6CF06C;*/
-            /*}*/
+
             @media only screen and (max-width: 991px){
                 .showHideButton{
                     right:50%;                 
@@ -354,17 +346,6 @@
                 cursor: pointer;
                 overflow-x: auto;
             }
-/*            .row {
-              display: -webkit-box;
-              display: -webkit-flex;
-              display: -ms-flexbox;
-              display: flex;
-              flex-wrap: wrap;
-            }
-            .row > [class*='col-'] {
-              display: flex;
-              flex-direction: column;
-            }*/
             
             label{
                 display:block;
@@ -439,31 +420,6 @@
             .myPanelBody{
                 background-color: transparent;
             }
-            body{
-                background-size: cover;
-                background-image: url("images/photos/1.jpg");
-                min-width: 100%;
-            }
-           
-            
-            .gainsboroC{
-                color: gainsboro;
-            }
-            .gainsboroBC{
-                background-color: gainsboro;
-            }
-            .orangeC{
-                color: #FFA500;
-            }
-            .orangeBC{
-                background-color: #FFA500;
-            }
-            
-            .graytextBC{
-                background-color: graytext;
-            }
-            
-            
             
             #toogleBrand, #submitBrand{
                 color: greenyellow;
@@ -474,86 +430,26 @@
                 background-color: gainsboro ;
             }
             
-            .navbar-inverse .navbar-brand {
-                color: #ffa500;
+            html { 
+              background: url("images/photos/1.jpg") no-repeat center center fixed; 
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
             }
-            .navbar-inverse .navbar-text {
-                color: #ffa500;
+            body {
+                text-align: center;
+                background-color: transparent;
+                /*background-color: lightblue;*/
             }
-            .navbar-inverse .navbar-nav > li > a {
-                color: #ffa500;
-            }
-            .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a {
-                color: #ffa500;
-            }
-            .navbar-inverse .navbar-toggle .icon-bar {
-                background-color: #ffa500;
-            }
-            .navbar-inverse .navbar-collapse,
-            .navbar-inverse .navbar-form {
-                border-color: #ffa500;
-            }
-            .navbar-inverse .navbar-link {
-                color: #ffa500;
-            }
-            ul.nav.navbar-nav:hover{
-                background-color: black;
-            }
-            
-            @media (max-width: 767px) {
-              .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-                color: #ffa500;
-              }
-            }
-            
-            @media (min-width: 979px) {
-              ul.nav li.dropdown:hover > ul.dropdown-menu {
-              display: block;
-  }
-}
-            
-            
         </style>
         
         
     </head>
     <body>
-        
-        <nav  class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div   class="navbar-header">
-              <button  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span  class="icon-bar "></span>
-                <span  class="icon-bar "></span>
-                <span  class="icon-bar "></span>
-              </button>
-              <a class="navbar-brand " href="#">Home</a>
-            </div>
+        <%@ include file="/WEB-INF/html/navBar.html" %>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="myNavbar">
-              <ul  class="nav navbar-nav">
-                <li class="dropdown">
-                  <a  href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Cars <span class="caret"></span></a>
-                  <ul  class="dropdown-menu graytextBC">
-                    <li ><a  href="<%=request.getContextPath()%>/MyCars">Add Cars</a></li>
-                    <li ><a href="#">Modify-Delete Cars</a></li>           
-                  </ul>
-                </li>
-              </ul>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li><a   href="#">Contact</a></li>
-
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-
-        
-        <h1>Hello World!</h1>
+        <h1>add Cars Hello World!</h1>
         
         <!--Using those two as templates in client side.-->
         <!-- image-adding template below Images Label inside form myCarForm-->
@@ -614,18 +510,16 @@
         
         <form id="myCarForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
             <!-- here goes car template above-->
-            <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button>
-            <!--<input class="btn blackGrad" id="submitCars" form="myCarForm" type="submit" value="Submit Cars">-->  
+            <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button> 
             <button type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
         </form>
             
             
         <button id="toogleBrand" style="border:0px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#myBrandForm">+ New Brand</button>
-        <!--<a name="brand"></a>-->
+        
         <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
 
             <div class="panel panel-default myPanel">
-<!--                <div class="panel-heading myPanelHeading">Add New Brand</div>-->
                     <div class="panel-body myPanelBody" >
                         <label style="background-color: #d3d3d3; color: #333333;">Brand Name: 
                             <div class="myVerticalFormRow">   
@@ -683,8 +577,8 @@
                 
             </div>
             
-            <button type="button" class="btn btn-info showHideButton" ><span class="glyphicon glyphicon-eye-open"></span></button>
-            <!--<button type="button" class="btn btn-info showHideButton" ><span class="showHideArrows downwardArrow">&Gg; </span><span> Show Details</span></button>-->
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
         </div>
         
 
