@@ -5,11 +5,16 @@
  */
 package com.klsoukas.samplecarshoponlinemanagement.model;
 
+import java.util.List;
+
 /**
  *
  * @author Xristos
  */
-public class AddCarDao {
+public interface CarDao {
     
+    List<CarBean> findAllCars();
+    
+    boolean createCar(CarBean newCar);
     
 }

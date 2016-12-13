@@ -5,12 +5,18 @@
  */
 package com.klsoukas.samplecarshoponlinemanagement.model;
 
+import java.util.List;
+
 /**
  *
  * @author Xristos
  */
-public class ModCarDao {
+public interface BrandDao {
     
+    List<BrandBean> findAllBrands();
     
+    BrandBean findBrandById(int id);
+ 
+    boolean createBrand(BrandBean newBrand );
     
 }
