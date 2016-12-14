@@ -11,9 +11,16 @@ import com.klsoukas.samplecarshoponlinemanagement.model.BrandDaoImpl;
 import com.klsoukas.samplecarshoponlinemanagement.model.CarBean;
 import com.klsoukas.samplecarshoponlinemanagement.model.CarDao;
 import com.klsoukas.samplecarshoponlinemanagement.model.CarDaoImpl;
+import com.klsoukas.samplecarshoponlinemanagement.model.PhotoBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDaoImpl;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -84,22 +91,67 @@ public class AddCarServlet extends HttpServlet {
         }
         else if(submittedForm.equals("submitCars")){
             
-            String a = request.getParameter("brand");
-            String b = request.getParameter("model");
-            String c = request.getParameter("description");
-            
-            String d = request.getParameter("carNumber");
-            
-            System.out.println(a+"\n"+b+"\n"+c+"\n"+d);
-            
-            Collection<Part> parts = request.getParts();
-            Iterator<Part> part_iterator = parts.iterator();
-            while(part_iterator.hasNext()){
-                Part currPart = part_iterator.next();
-                System.out.println("name: "+currPart.getName()+ ", getsubmittedfilename: "+currPart.getSubmittedFileName());
+            int carsAdded = Integer.parseInt(request.getParameter("carNumber"));
+            ArrayList<PhotoBean> photoList = new ArrayList<>();
+            for(int i=1; i<=carsAdded;i++){
+                CarBean c = new CarBean();
+                
+                c.setBrand_fk(Integer.parseInt(request.getParameter("brand"+i)));
+                c.setModel(request.getParameter("model"+i));
+                if(!request.getParameter("description"+i).isEmpty()){
+                    c.setDescription(request.getParameter("description"));
+                }
+                
+                CarDao carDao = new CarDaoImpl();
+                int car_id = carDao.createCar(c);
+                
+                
+                Collection<Part> parts = request.getParts();
+                Iterator<Part> part_iterator = parts.iterator();
+                while(part_iterator.hasNext()){
+                    Part currentPart = part_iterator.next();
+                    String uploadedFileName = currentPart.getSubmittedFileName();
+                    if(uploadedFileName != null  && !uploadedFileName.isEmpty()){
+                            
+                        String uploadedFileExtension = uploadedFileName.substring(uploadedFileName.lastIndexOf("."));
+
+                        if(currentPart.getSize()>8000000 || !( (uploadedFileExtension.equals(".jpg")) 
+                                || (uploadedFileExtension.equals(".jpeg")) 
+                                || (uploadedFileExtension.equals(".png")) 
+                                || (uploadedFileExtension.equals(".gif")) 
+                                )){
+
+                            currentPart.delete();
+
+                        }
+                        else{
+                            if(currentPart.getName().equals("file"+i)){
+                                InputStream fileStream = currentPart.getInputStream();
+
+                                File uploads_location = new File("/webapp_files"+request.getContextPath()+"/car_photos");
+                                if(!uploads_location.exists()){
+                                    uploads_location.mkdirs();
+                                }
+
+                                File car_specific_location = new File(uploads_location, "/"+car_id);
+                                car_specific_location.mkdir();
+
+                                File photo = File.createTempFile("car_id_"+car_id+"_photo",uploadedFileExtension,car_specific_location);
+
+                                Files.copy(fileStream, photo.toPath(),StandardCopyOption.REPLACE_EXISTING);
+
+                                PhotoBean p = new PhotoBean();
+                                p.setCar_fk(car_id);
+                                p.setLocation(photo.toString());
+                                photoList.add(p);
+                            }
+                        }                        
+                    }
+                }              
             }
-            
-            
+            /*adding photolist here in db for all images send*/
+            PhotoDao photoDao = new PhotoDaoImpl();
+            photoDao.addPhotos(photoList);
         }
         
         

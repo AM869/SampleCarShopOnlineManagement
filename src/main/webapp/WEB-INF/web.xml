@@ -8,8 +8,8 @@
         <servlet-name>AddCarServlet</servlet-name>
         <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.AddCarServlet</servlet-class>
         <multipart-config>
-            <max-file-size>167772160</max-file-size>
-            <max-request-size>16777215</max-request-size>
+            <max-file-size>8388608</max-file-size>
+            <max-request-size>83886080</max-request-size>
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>

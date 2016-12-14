@@ -85,30 +85,78 @@ public class CarDaoImpl implements CarDao{
     }
 
     @Override
-    public boolean createCar(CarBean newCar) {
-         try {
+    public int createCar(CarBean newCar) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
+        try {
             Class.forName(DbUtil.DRIVER_CLASS_NAME);
             
-            Connection con = DriverManager.getConnection(DbUtil.CONNECTION_URL,DbUtil.USERNAME,DbUtil.PASSWORD);
+            con = DriverManager.getConnection(DbUtil.CONNECTION_URL,DbUtil.USERNAME,DbUtil.PASSWORD);
+            con.setAutoCommit(false);
             
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO car (brand_fk,model,description) VALUES (?,?,?)");
-            pstmt.setInt(1,newCar.getBrand_fk());
-            pstmt.setString(2,newCar.getModel());
-            pstmt.setString(3,newCar.getDescription());
+            if(newCar.getDescription() == null){
+                pstmt = con.prepareStatement("INSERT INTO car (brand_fk,model) VALUES (?,?)");
+                pstmt.setInt(1,newCar.getBrand_fk());
+                pstmt.setString(2,newCar.getModel());              
+            }
+            else{
+                pstmt = con.prepareStatement("INSERT INTO car (brand_fk,model,description) VALUES (?,?,?)");
+                pstmt.setInt(1,newCar.getBrand_fk());
+                pstmt.setString(2,newCar.getModel());
+                pstmt.setString(3,newCar.getDescription());
+            }
             
             int updatedRowCount = pstmt.executeUpdate();
+            pstmt.close();
+
             
-            return updatedRowCount == 1;
-         }
-        
+            pstmt = con.prepareStatement("SELECT id FROM car WHERE brand_fk=? AND model=?");
+            pstmt.setInt(1,newCar.getBrand_fk());
+            pstmt.setString(2,newCar.getModel());
+            res = pstmt.executeQuery();
+            res.next();
+            int carId = res.getInt("id");
+            res.close();
+            pstmt.close();
+            
+//            if(newCar.getPhotoList()!= null && !newCar.getPhotoList().isEmpty()){
+//                
+//                pstmt = con.prepareStatement("SELECT id FROM car WHERE brand_fk=? AND model=?");
+//                pstmt.setInt(1,newCar.getBrand_fk());
+//                pstmt.setString(2,newCar.getModel());
+//                res = pstmt.executeQuery();
+//                res.next();
+//                int carId = res.getInt("id");
+//                res.close();
+//                pstmt.close();
+//                
+//                pstmt = con.prepareStatement("INSET INTO photo (car_fk, location) VALUES (?, ?)");
+//                pstmt.setInt(1,carId);
+//                List<PhotoBean> photoList = newCar.getPhotoList();
+//                for(PhotoBean photo : photoList){
+//                    pstmt.setString(2, photo.getLocation());
+//                    pstmt.executeUpdate();
+//                }
+//                pstmt.close();
+//            }
+            
+            con.commit();
+            con.close();
+            return carId;
+        }  
         catch (ClassNotFoundException ex) {
             Logger.getLogger(CarDaoImpl.class.getName()).log(Level.SEVERE, "Incorrect Driver Class Name!", ex);
-            return false;
+            
+            return -1;
         }
         catch (SQLException ex) {
             Logger.getLogger(CarDaoImpl.class.getName()).log(Level.SEVERE, "Database Error Occured!", ex);
-            return false;
+            
+            return -1;
         }
+        
+         
     }
     
 }

@@ -11,10 +11,7 @@ import java.util.List;
  *
  * @author Xristos
  */
-public interface CarDao {
+public interface PhotoDao {
     
-    List<CarBean> findAllCars();
-    
-    int createCar(CarBean newCar);
-    
+    boolean addPhotos(List<PhotoBean> l);
 }

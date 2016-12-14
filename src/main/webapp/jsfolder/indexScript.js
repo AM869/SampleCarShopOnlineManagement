@@ -39,10 +39,7 @@ function addCar (evt){
             image_counter++;
             var newFileInputDiv = add_img_doc_fragment.cloneNode(true);
             newFileInputDiv.firstElementChild.lastElementChild.addEventListener("click", removeImage);
-            alert(newFileInputDiv);
-            alert(newFileInputDiv.firstElementChild);
-            alert(newFileInputDiv.firstElementChild.firstElementChild);
-            alert(newFileInputDiv.firstElementChild.firstElementChild.firstElementChild);
+            
             var newFileInput = newFileInputDiv.firstElementChild.firstElementChild.firstElementChild;
             newFileInput.name = "file"+car_counter;
 //            newFileInputDiv.firstElementChild.firstElementChild.fristElementChild.name="file"+car_counter;
