@@ -30,48 +30,19 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>NOTHING HEREServlet MainServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        String servletPathString = request.getServletPath();
-        String requestURIString = request.getRequestURI();
-        String pathInfoString = request.getPathInfo();
+
         
-        System.out.println("AXXXXXXXXXX");
-        System.out.println("request getServletPath: "+servletPathString);
-        System.out.println("request getServletPath: "+servletPathString);
-        System.out.println("request getPathInfo: "+pathInfoString);
-        System.out.println("request getPathInfo: "+pathInfoString);
-       
-        if(servletPathString.equals("/MyCars") || servletPathString.equals("/AddCars")
-                || servletPathString.equals("/mycars")|| servletPathString.equals("/addcars")
-                || servletPathString.equals("/MYCARS")|| servletPathString.equals("/ADDCARS")
-                || servletPathString.equals("/aaddCars") || servletPathString.equals("/Addcars")
-                || servletPathString.equals("/myCars") || servletPathString.equals("/Mycars")){
-            request.getRequestDispatcher("AddCarServlet").forward(request,response);
-        }
-        else if(servletPathString.equals("/modCars") || servletPathString.equals("/ModCars")
-                || servletPathString.equals("/MODCARS") || servletPathString.equals("/modcars") 
-                || servletPathString.equals("/Modcars")){
-            
-            request.getRequestDispatcher("WEB-INF/jsp/modCars.jsp").forward(request,response);
-        }
-        else if( servletPathString.equals("/test")){
-            System.out.println("bike test");
-            request.getRequestDispatcher("WEB-INF/html/navBar.html").forward(request, response);
-        }
-        else{
-            request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request,response);
-        }
+        
+        
+//        String servletPathString = request.getServletPath();
+//        String requestURIString = request.getRequestURI();
+//        String pathInfoString = request.getPathInfo();
+//        
+//        System.out.println("zzzzzzzzzzzzzz");
+//        System.out.println("request getServletPath: "+servletPathString);
+//        System.out.println("request getServletPath: "+servletPathString);
+//        System.out.println("request getPathInfo: "+pathInfoString);
+//        System.out.println("request getPathInfo: "+pathInfoString);
 
     }
 

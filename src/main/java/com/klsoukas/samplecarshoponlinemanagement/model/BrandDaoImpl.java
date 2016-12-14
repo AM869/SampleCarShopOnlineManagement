@@ -102,10 +102,16 @@ public class BrandDaoImpl implements BrandDao{
             Class.forName(DbUtil.DRIVER_CLASS_NAME);      
             Connection con = DriverManager.getConnection(DbUtil.CONNECTION_URL, DbUtil.USERNAME, DbUtil.PASSWORD);
             
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO brand (name, logo) VALUES (?,?)");
-            pstmt.setString(1, newBrand.getName());
-            pstmt.setBinaryStream(2, newBrand.getLogo());
-            
+            PreparedStatement pstmt;
+            if(newBrand.getLogo()!=null){
+                pstmt = con.prepareStatement("INSERT INTO brand (name, logo) VALUES (?,?)");
+                pstmt.setString(1, newBrand.getName());
+                pstmt.setBinaryStream(2, newBrand.getLogo());
+            }
+            else{
+                pstmt = con.prepareStatement("INSERT INTO brand (name) VALUES (?)");
+                pstmt.setString(1, newBrand.getName());
+            }
             int updatedRowCount = pstmt.executeUpdate();
             
             return updatedRowCount == 1;
@@ -119,6 +125,8 @@ public class BrandDaoImpl implements BrandDao{
         }
         
     }
+    
+    
 
     
 }

@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 
@@ -472,9 +473,11 @@
                     <div class="myVerticalFormRow" >
                         <select class="form-control brand-select" name="brand" required="true">
                             <option value="" disabled selected >Choose a brand or add one here in the bottom.</option>
-                            <option value="bmw" >bmw</option>
-                            <option value="merc">mersenta</option>
-                            <option value="opel">opel</option>
+                            
+                            <c:forEach var="brand" items="${brandList}">
+                            <option value="${brand.id}" >${brand.name}</option>
+                            </c:forEach>
+                            
                             <option value="AddNewBrand" >Add new Brand</option>
                         </select>
                     </div>
@@ -483,7 +486,7 @@
 
                 <label>Model: 
                     <div class="myVerticalFormRow">   
-                        <input class="form-control" type="text" name="model" placeholder="Add car model, year, edition etc."required>
+                        <input class="form-control model" type="text" name="model" placeholder="Add car model, year, edition etc."required>
                     </div>
                 </label>    
 
@@ -509,37 +512,40 @@
         </template>
             
         
-        <form id="myCarForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
+        <form id="myCarForm" class="myVerticalForm"  method="POST" enctype="multipart/form-data">
             <!-- here goes car template above-->
             <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button> 
-            <button type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
+            <button name="submit" value="submitCars" type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
         </form>
             
             
         <button id="toogleBrand" style="border:0px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#myBrandForm">+ New Brand</button>
         
-        <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
+        <form style="" id="myBrandForm" class="myVerticalForm collapse" action="AddCars" method="POST" enctype="multipart/form-data">
 
             <div class="panel panel-default myPanel">
                     <div class="panel-body myPanelBody" >
                         <label style="background-color: #d3d3d3; color: #333333;">Brand Name: 
                             <div class="myVerticalFormRow">   
-                                <input class="form-control" type="text" name="model" placeholder="Add Brand name." required>
+                                <input class="form-control" type="text" name="name" placeholder="Add Brand name." required>
                             </div>
                         </label>
 
                         <label style="margin-bottom: 0;background-color: #d3d3d3; color: #333333;">Brand Logo(optional)</label>
                         <div class=" fileInputDiv myVerticalFormRow">
-                            <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
+                            <label class="fileBtn btn btn-default form-control"><input type="file" name="file"></label>
                         </div>         
-
-                        <button class="btn" id="submitBrand" type="submit" ><span class="glyphicon glyphicon-ok"></span> Submit New Brand </button>
+                        
+                        <button name="submit" value="submitBrand" class="btn" id="submitBrand" type="submit" ><span class="glyphicon glyphicon-ok"></span> Submit New Brand </button>
                     </div>
             </div>
         </form>
         
 
         <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em;"><u><b>All Registered Cars</b></u></div>
+        
+        
+        
         
         <div class="car">
             
@@ -622,6 +628,9 @@
             <div class="closeButtonModal">&times;</div>
 
         </div>
+        
+        
+        
             
     </body>
 </html>

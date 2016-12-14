@@ -5,52 +5,31 @@
  */
 package com.klsoukas.samplecarshoponlinemanagement.controller;
 
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDaoImpl;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarDaoImpl;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Xristos
  */
 public class AddCarServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet AddCarServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet AddCarServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-
-
-
-
-        request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request, response);
-        
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -62,7 +41,18 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+        BrandDao brandDao = new BrandDaoImpl();
+        List<BrandBean> brandList = brandDao.findAllBrands();
+        request.setAttribute("brandList", brandList);
+        
+        
+        CarDao carDao = new CarDaoImpl();
+        List<CarBean> carList = carDao.findAllCars();
+        request.setAttribute("carList",carList);
+        
+        request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request, response);
     }
 
     /**
@@ -76,7 +66,45 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+        String submittedForm = request.getParameter("submit");
+        System.out.println("zzzzu "+request.getParameter("submit"));
+        if(submittedForm.equals("submitBrand")){
+            BrandBean newBrand = new BrandBean();
+            newBrand.setName(request.getParameter("name"));
+            Part logoPart = request.getPart("file");
+            if(logoPart.getSubmittedFileName().equals("") || logoPart.getSize()>=65000){
+            } else {
+                InputStream logo = logoPart.getInputStream();
+                newBrand.setLogo(logo);
+            }
+            BrandDao brandDao = new BrandDaoImpl();
+            brandDao.createBrand(newBrand);
+        }
+        else if(submittedForm.equals("submitCars")){
+            
+            String a = request.getParameter("brand");
+            String b = request.getParameter("model");
+            String c = request.getParameter("description");
+            
+            String d = request.getParameter("carNumber");
+            
+            System.out.println(a+"\n"+b+"\n"+c+"\n"+d);
+            
+            Collection<Part> parts = request.getParts();
+            Iterator<Part> part_iterator = parts.iterator();
+            while(part_iterator.hasNext()){
+                Part currPart = part_iterator.next();
+                System.out.println("name: "+currPart.getName()+ ", getsubmittedfilename: "+currPart.getSubmittedFileName());
+            }
+            
+            
+        }
+        
+        
+        response.sendRedirect(request.getContextPath()+"/addcars");
+        
     }
 
     /**
@@ -87,6 +115,6 @@ public class AddCarServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
