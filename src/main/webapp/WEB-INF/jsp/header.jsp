@@ -26,7 +26,7 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-        <li><a class="fa-info-circle "  href="#">i About</a></li>
+          <li><a href="#"> <span style="font-size:18px; margin-right:6px;" class="fa fa-info-circle" ></span>About</a></li>
 
       </ul>
     </div><!-- /.navbar-collapse -->
