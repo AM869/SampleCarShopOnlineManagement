@@ -21,11 +21,20 @@ public class CarBean {
     
     //brand related fields
     private String brandName;
-    private InputStream brandLogo;
 
     //photo related field
     private List<PhotoBean> photoList;
 
+    //utility methods
+    public int getPhotoNumber(){
+        if(photoList !=null){
+            return photoList.size();
+        }
+        else{
+            return 0;
+        }      
+    }
+    
     public List<PhotoBean> getPhotoList() {
         return photoList;
     }
@@ -33,7 +42,6 @@ public class CarBean {
     public void setPhotoList(List<PhotoBean> photoList) {
         this.photoList = photoList;
     }
-    
     
     public String getBrandName() {
         return brandName;
@@ -43,13 +51,6 @@ public class CarBean {
         this.brandName = brandName;
     }
 
-    public InputStream getBrandLogo() {
-        return brandLogo;
-    }
-
-    public void setBrandLogo(InputStream brandLogo) {
-        this.brandLogo = brandLogo;
-    }
     
     public CarBean(){}
 

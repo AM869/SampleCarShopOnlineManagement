@@ -5,8 +5,16 @@
  */
 package com.klsoukas.samplecarshoponlinemanagement.controller;
 
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDaoImpl;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xristos
  */
-public class MainServlet extends HttpServlet {
+public class ImageServingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,18 +37,39 @@ public class MainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        
-        
-        System.out.println("1"+request.getServletContext());
-        System.out.println("2"+request.getRequestURL());
-        System.out.println("3"+request.getRequestURI());
-        System.out.println("4"+request.getServletPath());
-        System.out.println("5"+request.getPathInfo());
-        
-        
-        request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request,response);
+        if(request.getPathInfo()==null){
+            BrandDao brandDao = new BrandDaoImpl();
+            BrandBean b = brandDao.findBrandById(Integer.parseInt(request.getParameter("id")));
+            InputStream logo = b.getLogo();
+            if(logo != null){
+                String fileExtension = b.getFileExtension();
+
+                File f = new File("/tempf"+fileExtension);
+                Files.copy(logo, f.toPath(),StandardCopyOption.REPLACE_EXISTING);
+                response.setContentType(getServletContext().getMimeType(f.toString()));
+                response.setContentLength((int)f.length());
+                Files.copy(f.toPath(), response.getOutputStream());
+                f.delete();
+            }
+            else{
+                File f = new File("/webapp_files"+request.getContextPath()+"/logos/default_logo/no image.png");
+              
+                response.setContentType(getServletContext().getMimeType(f.toString()));
+                response.setContentLength((int)f.length());
+                Files.copy(f.toPath(), response.getOutputStream());
+            }
+            
+            
+        }
+        else{
+            String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
+            File file = new File(filename);
+            response.setHeader("Content-Type", getServletContext().getMimeType(filename));
+            response.setHeader("Content-Length", String.valueOf(file.length()));
+//            response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
+            Files.copy(file.toPath(), response.getOutputStream());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,8 +86,10 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
+    
+    
+    
+        /**
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -71,6 +102,8 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+
 
     /**
      * Returns a short description of the servlet.

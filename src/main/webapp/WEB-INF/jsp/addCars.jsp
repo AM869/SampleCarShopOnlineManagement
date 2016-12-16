@@ -1,8 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,16 +9,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sample Car Shop - Online Management</title>
         
-        <!-- Bootstrap CDN  -->
+ 
+        <!-- Bootstrap css CDN  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- header css -->
+        <link rel="stylesheet" href="/SampleCarShopOnlineManagement/cssfolder/header.css" >
+        
+        <!-- footer css-->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/footer.css" >
         
         <!-- JQuery CDN  -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
         
         <!-- Bootstrap js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
-        
-        
         
         
         <!-- Our scripts --> 
@@ -111,6 +116,7 @@
             .mainImageInModal{
                 display: none;
                 max-width: 100%;    
+                min-width:200px;
             }
             
             .smallImageContainerInModal{
@@ -122,6 +128,7 @@
             }
             .smallImageInModal:hover{
                 opacity: 1;
+                cursor: pointer;
             }
             .selected{
                 opacity: 1;
@@ -277,6 +284,7 @@
                 padding: 15px;
                 color: white;
                 overflow: auto;
+                cursor: pointer;
                 
             }
             /*car logo img*/
@@ -286,6 +294,7 @@
                 border-bottom: 1px solid gray;
                 border-radius: 15px;
                 overflow:auto;
+                max-width: 60px;
             }
 
             /* title and brand span elements*/
@@ -449,7 +458,7 @@
         
     </head>
     <body>
-        <%@ include file="/WEB-INF/html/navBar.html" %>
+        <%@ include file="/WEB-INF/jsp/header.jsp" %>
 
         <h1>add Cars Hello World!</h1>
         
@@ -542,7 +551,7 @@
         </form>
         
 
-        <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em;"><u><b>All Registered Cars</b></u></div>
+        <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em; color:#A9A9A9;"><b>All Registered Cars</b></div>
         
         
         
@@ -628,9 +637,91 @@
             <div class="closeButtonModal">&times;</div>
 
         </div>
+
         
         
         
+        <c:forEach var="car" items="${carList}">
+        
+                
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="${pageContext.request.contextPath}/ImageFiles?id=${car.brand_fk}" alt="Smiley face" height="45" >         
+                <span class="carHeaderSpan">${car.brandName}</span>
+                <span class="carHeaderSpan">${car.model}</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <c:choose>
+                        <c:when test="${empty car.description}">
+                            <p>No Details Available Yet.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p>${car.description} ZAZAZZAZA</p>
+                        </c:otherwise>
+                    </c:choose>   
+                </div>
+                
+                
+                <div class="carImages">
+                    <c:choose>
+                        <c:when test="${car.photoNumber == 0}">
+                        <span>NO IMAGES AVAILABLE OR div with images:</span>
+                        </c:when>
+                        <c:otherwise>
+                        <div class="smallImageContainer" data-img-sum="${car.photoNumber}">
+                            <c:forEach var="i" begin="1" end="${car.photoNumber}">
+
+                            <img class="smallImage" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" data-img-number="${i}" alt="Smiley face"  width="100">
+
+                            </c:forEach>
+                        </div>                   
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                <c:forEach var="i" begin="1" end="${car.photoNumber}">
+                <img  class="mainImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
+                </c:forEach>
+                
+                
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="${car.photoNumber}">
+                <c:forEach var="i" begin="1" end="${car.photoNumber}">
+                <img class="smallImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" height="100" width="100">                         
+                </c:forEach>
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+        
+        
+        </c:forEach>
+        
+
+        <%@ include file="/WEB-INF/jsp/footer.jsp" %>
             
     </body>
 </html>

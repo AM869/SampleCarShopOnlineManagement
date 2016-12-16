@@ -12,7 +12,15 @@ public class BrandBean {
     private int id;
     private String name;
     private InputStream logo;
+    private String fileExtension;
 
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
+    }
     public BrandBean(){}
 
     public int getId() {

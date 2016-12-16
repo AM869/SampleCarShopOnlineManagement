@@ -28,7 +28,7 @@ public class BrandDaoImpl implements BrandDao{
             Class.forName(DbUtil.DRIVER_CLASS_NAME);      
             Connection con = DriverManager.getConnection(DbUtil.CONNECTION_URL, DbUtil.USERNAME, DbUtil.PASSWORD);
             
-            PreparedStatement pstmt = con.prepareStatement("SELECT id,name,logo FROM brand");
+            PreparedStatement pstmt = con.prepareStatement("SELECT id,name,logo, fileExtension FROM brand");
             
             ResultSet res = pstmt.executeQuery();
             
@@ -41,11 +41,14 @@ public class BrandDaoImpl implements BrandDao{
                 b.setId(res.getInt("id"));
                 b.setName(res.getString("name"));
                 b.setLogo(res.getBinaryStream("logo"));
+                b.setFileExtension(res.getString("fileExtension"));
                 
                 brandList.add(b);
      
             }
-           
+            res.close();
+            pstmt.close();
+            con.close();
             return brandList;
             
             
@@ -68,7 +71,7 @@ public class BrandDaoImpl implements BrandDao{
             Class.forName(DbUtil.DRIVER_CLASS_NAME);
             Connection con = DriverManager.getConnection(DbUtil.CONNECTION_URL,DbUtil.USERNAME,DbUtil.PASSWORD);
             
-            PreparedStatement pstmt = con.prepareStatement("SELECT id,name,logo FROM brand WHERE id=?");
+            PreparedStatement pstmt = con.prepareStatement("SELECT id,name,logo, fileExtension FROM brand WHERE id=?");
             pstmt.setInt(1,id);
             
             ResultSet res = pstmt.executeQuery();
@@ -80,9 +83,13 @@ public class BrandDaoImpl implements BrandDao{
                 b.setId(res.getInt("id"));
                 b.setName(res.getString("name"));
                 b.setLogo(res.getBinaryStream("logo"));
-                
+                b.setFileExtension(res.getString("fileExtension"));
                 
             }
+            
+            res.close();
+            pstmt.close();
+            con.close();
             
             return b;
         } 
@@ -104,15 +111,19 @@ public class BrandDaoImpl implements BrandDao{
             
             PreparedStatement pstmt;
             if(newBrand.getLogo()!=null){
-                pstmt = con.prepareStatement("INSERT INTO brand (name, logo) VALUES (?,?)");
+                pstmt = con.prepareStatement("INSERT INTO brand (name, logo, fileExtension) VALUES (?,?,?)");
                 pstmt.setString(1, newBrand.getName());
                 pstmt.setBinaryStream(2, newBrand.getLogo());
+                pstmt.setString(3, newBrand.getFileExtension());
             }
             else{
                 pstmt = con.prepareStatement("INSERT INTO brand (name) VALUES (?)");
                 pstmt.setString(1, newBrand.getName());
             }
             int updatedRowCount = pstmt.executeUpdate();
+              
+            pstmt.close();
+            con.close();
             
             return updatedRowCount == 1;
             

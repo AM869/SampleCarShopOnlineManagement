@@ -145,7 +145,6 @@ function toogleBrandClickCallback(){
     
 }
 
-
 var showHideDetailsAndImagesButtons = document.getElementsByClassName("showHideButton");
 for (var i=0; i< showHideDetailsAndImagesButtons.length; i++){
     showHideDetailsAndImagesButtons[i].addEventListener("click", function(){showHideButtonClickCallback(this);});
@@ -172,4 +171,9 @@ function showHideButtonClickCallback(buttonClicked){
 //        smallTextElement.innerHTML = "Show Details";
         buttonClicked.previousElementSibling.style.display = "none";
     }       
+}
+
+var carHeaders = document.getElementsByClassName("carHeader");
+for (var i=0; i< carHeaders.length; i++){
+    carHeaders[i].addEventListener("click", function(){this.parentElement.querySelector(".showHideButton").click();});
 }

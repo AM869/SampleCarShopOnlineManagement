@@ -23,8 +23,10 @@ function imgContainerCallback(imgContainer,evt){
     if ( img_number === null){
         img_number = 1;
     }
+
     var carElement = getAncestorByClassName(imgContainer, "car");
     var imgPreviewModal = carElement.nextElementSibling;
+
     var initialMainImage = imgPreviewModal.firstElementChild.children[img_number];
     var smallImagesInModal = imgPreviewModal.querySelector(".smallImageContainerInModal").children;
     var captionTextElement = imgPreviewModal.querySelector(".captionText");

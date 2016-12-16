@@ -74,17 +74,20 @@ public class AddCarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
         String submittedForm = request.getParameter("submit");
-        System.out.println("zzzzu "+request.getParameter("submit"));
         if(submittedForm.equals("submitBrand")){
             BrandBean newBrand = new BrandBean();
             newBrand.setName(request.getParameter("name"));
             Part logoPart = request.getPart("file");
-            if(logoPart.getSubmittedFileName().equals("") || logoPart.getSize()>=65000){
+            String submittedFileName = logoPart.getSubmittedFileName();
+            if(submittedFileName.equals("") || logoPart.getSize()>=65000){
             } else {
                 InputStream logo = logoPart.getInputStream();
-                newBrand.setLogo(logo);
+                String ext = submittedFileName.substring(submittedFileName.lastIndexOf("."));
+                if(ext.equals(".jpg")||ext.equals(".jpeg")||ext.equals(".png")||ext.equals(".gif")){
+                    newBrand.setLogo(logo);
+                    newBrand.setFileExtension(ext);
+                }
             }
             BrandDao brandDao = new BrandDaoImpl();
             brandDao.createBrand(newBrand);
@@ -143,6 +146,7 @@ public class AddCarServlet extends HttpServlet {
                                 PhotoBean p = new PhotoBean();
                                 p.setCar_fk(car_id);
                                 p.setLocation(photo.toString());
+                                //or i could only store photo.getName();
                                 photoList.add(p);
                             }
                         }                        

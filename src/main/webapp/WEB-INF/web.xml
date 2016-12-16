@@ -13,6 +13,14 @@
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
+    <servlet>
+        <servlet-name>ImageServingServlet</servlet-name>
+        <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.ImageServingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModCarServlet</servlet-name>
+        <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.ModCarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainPage</url-pattern>
@@ -24,12 +32,6 @@
         <url-pattern>/Mycars</url-pattern>
         <url-pattern>/MyCars</url-pattern>
         <url-pattern>/MYCARS</url-pattern>
-        <url-pattern>/modcars</url-pattern>
-        <url-pattern>/modCars</url-pattern>
-        <url-pattern>/Modcars</url-pattern>
-        <url-pattern>/ModCars</url-pattern>
-        <url-pattern>/MODCARS</url-pattern>
-
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCarServlet</servlet-name>
@@ -38,6 +40,18 @@
         <url-pattern>/Addcars</url-pattern>
         <url-pattern>/AddCars</url-pattern>
         <url-pattern>/ADDCARS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModCarServlet</servlet-name>
+        <url-pattern>/modcars</url-pattern>
+        <url-pattern>/modCars</url-pattern>
+        <url-pattern>/Modcars</url-pattern>
+        <url-pattern>/ModCars</url-pattern>
+        <url-pattern>/MODCARS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageServingServlet</servlet-name>
+        <url-pattern>/ImageFiles/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>MainPage</welcome-file>

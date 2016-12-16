@@ -28,7 +28,7 @@ public class CarDaoImpl implements CarDao{
             
             Connection con = DriverManager.getConnection(DbUtil.CONNECTION_URL,DbUtil.USERNAME,DbUtil.PASSWORD);
             
-            PreparedStatement pstmt = con.prepareStatement("SELECT  brand.logo, brand.name, car.id, car.brand_fk, car.model, car.description, photo.location, photo.id as photoId "
+            PreparedStatement pstmt = con.prepareStatement("SELECT  brand.name, car.id, car.brand_fk, car.model, car.description, photo.location, photo.id as photoId "
                     + "FROM car INNER JOIN brand ON car.brand_fk = brand.id LEFT JOIN photo ON car.id = photo.car_fk "
                     + "ORDER BY car.id");
             
@@ -43,7 +43,6 @@ public class CarDaoImpl implements CarDao{
                 
                 if (res.getInt("id")!= prevCarId){
                     CarBean c = new CarBean();
-                    c.setBrandLogo(res.getBinaryStream("logo"));
                     c.setBrandName(res.getString("name"));
                     c.setId(res.getInt("id"));
                     c.setBrand_fk(res.getInt("brand_fk"));
@@ -68,6 +67,10 @@ public class CarDaoImpl implements CarDao{
                 }
                 
             }
+            
+            res.close();
+            pstmt.close();
+            con.close();
             
             return carList;
             
