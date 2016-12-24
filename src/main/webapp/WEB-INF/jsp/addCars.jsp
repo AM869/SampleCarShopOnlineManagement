@@ -5,13 +5,22 @@
 <!DOCTYPE html>
 <html>
     <head>
+    
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- google log in meta and scripts -->
+        <meta name="google-signin-scope" content="profile">
+        <meta name="google-signin-client_id" content="289108522458-ccr2le3rbcmthadua80hk9epkrsakal1.apps.googleusercontent.com">
+        <script src="${pageContext.request.contextPath}/jsfolder/googleSignInOut.js" ></script>
+        <script src="https://apis.google.com/js/platform.js?onload=loadAndInitAuth2" async defer></script>
+        
+        
         <title>Sample Car Shop - Online Management</title>
         
- 
         <!-- Bootstrap css CDN  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
         <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         
@@ -27,11 +36,10 @@
         <!-- Bootstrap js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
         
-        
         <!-- Our scripts --> 
         <script src="<%=request.getContextPath()%>/jsfolder/indexScript.js" defer></script>
         <script src="<%=request.getContextPath()%>/jsfolder/imagePreview.js" defer></script>
-        
+
         <style>
             .close_button{
                 font-size:2em;
@@ -75,8 +83,7 @@
                     
                 }
             }
-            
-            
+                       
             .smallImageContainer{
                  display: inline-block;
             }
@@ -454,12 +461,19 @@
                 /*background-color: lightblue;*/
             }
         </style>
-        
-        
+
     </head>
     <body>
         <%@ include file="/WEB-INF/jsp/header.jsp" %>
-
+        
+        <!-- Google sign in button -->
+        <div class="g-signin2" data-onsuccess="onGoogleSignIn" data-theme="dark">NOOOOOOOOOGLE</div>
+        
+        <!--Google sign out button -->
+        <a href="#" onclick="googleSignOut();">Sign out</a>
+        
+        
+        
         <h1>add Cars Hello World!</h1>
         
         <!--Using those two as templates in client side.-->
@@ -660,7 +674,7 @@
                             <p>No Details Available Yet.</p>
                         </c:when>
                         <c:otherwise>
-                            <p>${car.description} ZAZAZZAZA</p>
+                            <p>${car.description}</p>
                         </c:otherwise>
                     </c:choose>   
                 </div>
@@ -722,6 +736,9 @@
         
 
         <%@ include file="/WEB-INF/jsp/footer.jsp" %>
-            
+
+
     </body>
+    
+
 </html>
