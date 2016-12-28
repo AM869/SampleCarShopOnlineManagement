@@ -1,4 +1,4 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,10 +6,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- google log in meta and scripts -->
+        <meta name="google-signin-scope" content="profile">
+        <meta name="google-signin-client_id" content="289108522458-ccr2le3rbcmthadua80hk9epkrsakal1.apps.googleusercontent.com">
+        <script src="${pageContext.request.contextPath}/jsfolder/googleSignInOut.js" ></script>
+        <script src="https://apis.google.com/js/platform.js?onload=loadAndInitAuth2" async defer></script>
+        
         <title>Sample Car Shop - Online Management</title>
         
-        <!-- Bootstrap CDN  -->
+        <!-- Bootstrap css CDN  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <!-- Font Awesome css CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <!-- JQuery CDN  -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
@@ -17,562 +27,92 @@
         <!-- Bootstrap js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
         
+        <!-- header css -->
+        <link rel="stylesheet" href="/SampleCarShopOnlineManagement/cssfolder/header.css" >
         
+        <!-- footer css-->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/footer.css" >
         
+        <!-- car presentation details css and js -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/carDetails.css" >
+        <script src="${pageContext.request.contextPath}/jsfolder/carDetails.js" defer></script>
         
-        <!-- Our scripts --> 
-        <script src="<%=request.getContextPath()%>/jsfolder/indexScript.js" defer></script>
-        <script src="<%=request.getContextPath()%>/jsfolder/imagePreview.js" defer></script>
+        <!-- image preview modal css and js-->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/imagePreview.css" >
+        <script src="${pageContext.request.contextPath}/jsfolder/imagePreview.js" defer></script>               
         
         <style>
+            
+            html { 
+              background: url("images/photos/3.jpg") no-repeat center center fixed; 
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
+            }
             body {
                 text-align: center;
-                background-color: lightblue;
-
-
-            }
-            .close_button{
-                font-size:2em;
                 background-color: transparent;
-                /*position: relative;*/
-                top: 5px;
-                left: -105px;
+                /*background-color: lightblue;*/
             }
-
-            ::-webkit-input-placeholder {
-               font-style: italic;
-            }
-
-            textarea {
-                border-radius: 10px;
-                border-color: aliceblue;
-                
-            }
-            input {
-                border-radius: 5px;
-                border-color: aliceblue;
-                border: none;
-            }
-            
-            .div-label{
-                position: relative;
-                text-align: right;
-            }
-            .form-label{
-                position: absolute;
-                top: 0.5em;
-                right: 5%;
-            }
-            .row{
-                margin-top: 20px;
-            }
-            @media (min-width:992px) and (max-width:1369px){
-                .smallImage{
-                    padding-left: 17px;
-                    padding-bottom: 17px;
-                    
-                }
-            }
-            
-            
-            .smallImageContainer{
-                 display: inline-block;
-            }
-            .smallImage{
-                cursor: pointer;
-                border: 1px solid #fefefe;
-                padding:2px;
-                text-align: center;  
-                border-radius: 15px;
-            }
-            .smallImage:hover{
-                cursor: pointer;
-                z-index: 1;
-                transform: scale(2,2);
-                transition: 0.3s ease;
-            }
-            
-            .imgPreviewModal{
-                z-index: 1;
-                position: fixed;
-                background-color: rgba(0, 0, 0,0.95);
-                display: none;
-                left:0;
-                top:0;
-                height:100%;
-                width:100%;
-                overflow: auto;
-            }
-
-            .mainImageContainerInModal{
-                 max-width: 80%; 
-                 /*margin: auto;*/
-                 margin-top: 80px;
-                 display: inline-block;
-                 position: relative;
-            }
-            .mainImageInModal{
-                display: none;
-                max-width: 100%;    
-            }
-            
-            .smallImageContainerInModal{
-                
-            }
-            .smallImageInModal{
-                padding-top: 5px;
-                opacity: 0.7;
-            }
-            .smallImageInModal:hover{
-                opacity: 1;
-            }
-            .selected{
-                opacity: 1;
-            }
-            
-            .captionText{
-                color: graytext;
-                margin: 20px;
-                margin-top: 30px;
-            }
-            
-            .modalArrows{
-                position: absolute;
-                top: 40%;
-                
-                cursor: pointer;
-                padding: 12px;
-                color: white;
-                font-weight: bold;
-                font-size: 3em;
-                transition: 0.6s ease;
-                /*border-radius: 0 3px 3px 0;*/
-                user-select: none;
-                -webkit-user-select: none;     
-            }
-            .prevArrow{
-                right: 100%;
-                border-radius: 3px 0 0 3px;
-                
-            }
-            .nextArrow{
-                left: 100%;
-                border-radius: 0 3px 3px 0;    
-            }
-            .modalArrows:hover{
-              background-color: rgba(217, 217, 217,0.8);
-            }           
-            
-            .closeButtonModal{
-                color: white;
-                position: absolute;
-                top: 10px;
-                right: 25px;
-                font-size: 50px;
-                font-weight: bold;
-            }
-            .closeButtonModal:hover,
-            .closeButtonModal:focus {
-                color: #999;
-                text-decoration: none;
-                cursor: pointer;
-            }
-                      
-            
-            /*custom vertical form*/
-            form > label{
-                display: initial;      
-            }
-
-            .myVerticalForm{
-                max-width: 40%;
-                margin: auto;
-                margin-bottom: 40px;
-            }
-
-            .myVerticalFormRow{
-                margin-bottom: 15px;
-            }
-
-            .fileInputDiv{
-                position: relative;
-            }
-            .fileInputClose {
-                position: absolute;
-                right: -5px;
-                top: -5px;
-                margin:5px;
-                margin-bottom: 5px;
-                padding-top: 0px;
-                padding-bottom: 0px;
-                padding-left: 10px;
-                padding-right: 10px;
-                border: none;
-                cursor: pointer;
-                transition:  color 0.6s ease-out;
-                color: rgb(166, 166, 166);
-                background-color: transparent;
-                font-size: 24px;   
-            }
-            .fileInputClose:hover{
-                color: rgb(64, 64, 64);
-            }
-
-            /* Custom, iPhone Retina */ 
-            @media only screen and (min-width : 320px) {
-                .myVerticalForm{
-                    max-width: 85%;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                }
-            }
-
-            /* Extra Small Devices, Phones */ 
-            @media only screen and (min-width : 480px) {
-                .myVerticalForm{
-                    max-width: 75%;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                }
-            }
-
-            /* Small Devices, Tablets */
-            @media only screen and (min-width : 768px) {
-                .myVerticalForm{
-                    max-width: 65%;
-                    padding-left: 20px;
-                    padding-right: 20px;
-                }
-            }
-
-            /* Medium Devices, Desktops */
-            @media only screen and (min-width : 992px) {
-                .myVerticalForm{
-                    max-width: 50%;
-                    padding-left: 30px;
-                    padding-right: 30px;
-                }
-
-            }
-
-            /* Large Devices, Wide Screens */
-            @media only screen and (min-width : 1200px) {
-                .myVerticalForm{
-                    max-width: 40%;
-                }
-
-            }
-
-            /* car presentation div*/
-            .car{
-                max-width:85%;
-                margin: auto;
-                margin-bottom: 40px;
-                position: relative;
-                border: 3px solid #46b8da;
-                border-radius: 50px;
-                text-align:left;
-            }
-            /* car header div*/
-            .carHeader{
-                padding: 15px;
-            }
-            /*car logo img*/
-            .carLogos{
-                padding: 5px;
-                border-right: 1px solid gray;
-                border-bottom: 1px solid gray;
-                border-radius: 15px;
-            }
-
-            /* title and brand span elements*/
-            .carHeaderSpan{
-                padding-left: 10px;
-                font-weight: bold;
-                overflow: auto;
-            }
-
-            /*car details and images div*/
-            .carDetailsAndImages{
-                display: none;
-            }
-            .carDetails{
-                overflow: auto;
-                padding: 15px;
-            }
-            .carImages{
-                padding: 15px;
-            }
-
-            /*show hide details button*/
-            .showHideButton{
-                position:absolute;
-                padding-top:5px;
-                padding-bottom:7px;
-                right:2%;
-                top: 15px;
-                border-radius: 20px;
-                overflow: hidden;
-                
-            }
-            .showHideButton > span:first-child {
-                color: #6CF06C;
-            }
-            @media only screen and (max-width: 991px){
-                .showHideButton{
-                    right:50%;                 
-                    top:100%;
-                    transform: translate(50%);
-                }
-            }
-            .showHideArrows{
-                font-weight: bold;
-                display:inline-block; /* this is needed for rotate*/
-            }
-            .upwardArrow{
-                transform: rotate(-90deg);
-            }
-            .downwardArrow{
-                transform: rotate(90deg);
-            }
-    
-            .brand-select{
-                cursor: pointer;
-            }
-/*            .row {
-              display: -webkit-box;
-              display: -webkit-flex;
-              display: -ms-flexbox;
-              display: flex;
-              flex-wrap: wrap;
-            }
-            .row > [class*='col-'] {
-              display: flex;
-              flex-direction: column;
-            }*/
-            
-            label{
-                display:block;
-            }
-            legend{
-                position:relative;
-                margin-top: 20px;
-            }
-            fieldset{
-                margin-bottom: 30px;
-                margin-top: 30px;
-            }
-            
-            .carCloseButton{  
-                position: absolute;
-                right: 0px;
-                top: -10px;
-                background-color: transparent;
-                border-radius: 50px;
-                color: red;
-                font-size: 24px;
-                height: 38px;
-                padding-left: 15px;
-                padding-right: 15px;
-                padding-top: 4px;          
-            }
-            .carCloseButton:hover{
-                box-shadow: inset 0 5px 30px #193047;
-                color: red;
-            }
-            .carCloseButton:active{
-                box-shadow: inset 0 5px 30px #193047;
-                color: initial;
-            }
-            .fileBtn{
-                height: 37px;
-                overflow: auto;
-            }
-            
-            .add_images_Button{
-                background-color: #E8CC38;
-                border-radius: 20px 20px 20px 20px;
-            }
-            .blackGrad {
-                background-color:black;
-                color: greenyellow;
-                border-radius: 7px 7px 7px 7px; 
-            }
-            .blackGrad:hover {
-                color: green;
-            }
-            .blackGrad:focus {
-                color: greenyellow;
-            }
-            .buttonRightSideText{
-                padding-left:5px;
-            }
-            .myPanel{
-                border-top:0px;
-                background-color: powderblue;                
-            }
-            .myPanelHeading{
-                color:#fff;
-                text-align: left;
-                background-color: #5bc0de;
-            }
-            .myPanelBody{
-                
-            }
-            body{
-                background-size: cover;
-                background-image: url("images/photos/1.jpg");
-            }
-            
+   
         </style>
-        
-        
+                
     </head>
     <body>
         
-        
-        <%@ include file="/WEB-INF/html/navBar.html" %>
-        
-        
-        
-        
-        <h1>Hello World!</h1>
-        
-        
-        
-        
-        
-        
-        <!--Using those two as templates in client side.-->
-        <!-- image-adding template below Images Label inside form myCarForm-->
-        <template id="add_image_template" >
-            <div class=" fileInputDiv myVerticalFormRow">
-                <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
-                <button type="button" class="fileInputClose"><span>&times;</span></button>
-            </div>
-        </template>  
 
-        <!-- car-adding template inside form myCarForm-->
-        <template id="add_car_template">
-            
-            <fieldset>
-                <legend>New-Car<button type="button" class="btn carCloseButton"><span class="glyphicon glyphicon-remove-sign"></span></button>
-                    </legend>
-                
-                <label > Choose Brand:
-                    <div class="myVerticalFormRow" style="display:block;width:100%;">
-                        <select class="form-control brand-select" name="brand" required="true">
-                            <option value="" disabled selected >Choose a brand or add one here in the bottom.</option>
-                            <option value="bmw" >bmw</option>
-                            <option value="merc">mersenta</option>
-                            <option value="opel">opel</option>
-                            <option value="AddNewBrand" >Add new Brand</option>
-                        </select>
-                    </div>
-                </label>
-                
-
-                <label>Model: 
-                    <div class="myVerticalFormRow">   
-                        <input class="form-control" type="text" name="model" placeholder="Add car model, year, edition etc."required>
-                    </div>
-                </label>    
-
-                <label>Details(optional): 
-                    <div class="myVerticalFormRow">
-                        <textarea class="form-control" cols="40" rows="8" name="description" placeholder="Add extra details here."></textarea>
-                    </div>
-                </label>
-
-                <label>Images(optional) </label> 
-
-                <div class="myVerticalFormRow fileInputDiv">
-                    <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
-                    <button type="button" class="fileInputClose"><span>&times;</span></button>
-                </div>
-
-                <div class="myVerticalFormRow">
-                    <button class="btn add_images_Button" type="button"><span  style="color: chartreuse;" class="glyphicon glyphicon-plus"></span><span class="buttonRightSideText" style="color: white;">Add images</span></button>
-                </div>
-                
-            </fieldset>
-            
-        </template>
-            
+        <%@ include file="/WEB-INF/jsp/header.jsp" %>
         
-        <form id="myCarForm" class="myVerticalForm " action="" method="POST" enctype="multipart/form-data">
-            <!-- here goes car template above-->
-            <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button>
-            <!--<input class="btn blackGrad" id="submitCars" form="myCarForm" type="submit" value="Submit Cars">-->  
-            <button type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
-        </form>
-            
-            
-        <button id="toogleBrand" style="border:0px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#myBrandForm">+ New Brand</button>
-        <!--<a name="brand"></a>-->
-        <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
-
-            <div class="panel panel-default myPanel">
-                <div class="panel-heading myPanelHeading">Add New Brand</div>
-                    <div class="panel-body myPanelBody" >
-                        <label>Brand Name: 
-                            <div class="myVerticalFormRow">   
-                                <input class="form-control" type="text" name="model" placeholder="Add Brand name." required>
-                            </div>
-                        </label>
-
-                        <label>Brand Logo(optional)</label>
-                        <div class=" fileInputDiv myVerticalFormRow">
-                            <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
-                        </div>         
-
-                        <input style="color: #fff; background-color: #5bc0de;;"class="btn" id="submitBrand" form="myBrandForm" type="submit" value="Submit Brand"> 
-                    </div>
-            </div>
-        </form>
         
+        <h1>All Cars</h1>
 
-        <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em;"><u><b>All Registered Cars</b></u></div>
-        
+        <c:forEach var="car" items="${carList}">
+                    
         <div class="car">
             
             <div class="carHeader">
-                <img class="carLogos" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="35" >         
-                <span class="carHeaderSpan">Brand1asdsadadasdBrand1asdsadadasd</span>
-                <span class="carHeaderSpan">123451234512345123451234512345</span>
+                <img class="carLogos" src="${pageContext.request.contextPath}/ImageFiles?id=${car.brand_fk}" alt="Smiley face" height="45" >         
+                <span class="carHeaderSpan">${car.brandName}</span>
+                <span class="carHeaderSpan">${car.model}</span>
             </div>
             
             <div class="carDetailsAndImages">
                 
                 <div class="carDetails">
-                    <p>No Details Available Yet.</p>
-                    <p>asdsadadsaddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddddasasddddddddddddddddddddddddddd
-                        asddddddddddddddddddddddddddddddddddddddddddddada
-                            -asdadas
-                                -asdada-dsa
-                                -asdadasd
-                    </p>
+                    <c:choose>
+                        <c:when test="${empty car.description}">
+                            <p class="no-details-p">No Details Available Yet.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p>${car.description}</p>
+                        </c:otherwise>
+                    </c:choose>   
                 </div>
                 
+                
                 <div class="carImages">
-                    <span>NO IMAGES AVAILABLE OR div with images:</span>
-                    <div class="smallImageContainer" data-img-sum="9">
-                        <img class="smallImage" src="images/logos/brands/bmw.jpg" data-img-number="1" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/merc.png" data-img-number="2" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/opel.jpg" data-img-number="3" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/audi.png" data-img-number="4" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/img_fjords_wide.jpg" data-img-number="5" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/img_mountains_wide.jpg" data-img-number="6" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/star.png" data-img-number="7" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/star.jpg" data-img-number="8" alt="Smiley face"  width="100">
-                        <img class="smallImage" src="images/logos/brands/volvo.jpg" data-img-number="9" alt="Smiley face"  width="100">
-                    </div>                   
+                    <c:choose>
+                        <c:when test="${car.photoNumber == 0}">
+                        <span class="no-img-span">NO IMAGES AVAILABLE.</span>
+                        </c:when>
+                        <c:otherwise>
+                        <div class="smallImageContainer" data-img-sum="${car.photoNumber}">
+                            <c:forEach var="i" begin="1" end="${car.photoNumber}">
+
+                            <img class="smallImage" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" data-img-number="${i}" alt="Smiley face"  width="100">
+
+                            </c:forEach>
+                        </div>                   
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
                 
             </div>
             
-            <button type="button" class="btn btn-info showHideButton" ><span class="glyphicon glyphicon-eye-open"></span><span class="buttonRightSideText"> Show Details</span></button>
-            <!--<button type="button" class="btn btn-info showHideButton" ><span class="showHideArrows downwardArrow">&Gg; </span><span> Show Details</span></button>-->
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
         </div>
         
 
@@ -581,17 +121,11 @@
             <div class="mainImageContainerInModal">
                 
                 <span class="modalArrows prevArrow">&#10094;</span>
-                
-                <img  class="mainImageInModal" data-img-number="1" src="images/logos/brands/bmw.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="2" src="images/logos/brands/merc.png" alt="Smiley face" > 
-                <img  class="mainImageInModal" data-img-number="3" src="images/logos/brands/opel.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="4" src="images/logos/brands/audi.png" alt="Smiley face" >
-                
-                <img  class="mainImageInModal" data-img-number="5" src="images/logos/brands/img_fjords_wide.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" >
-                <img  class="mainImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" >
+                <div class="mainImageInModalContainer">
+                    <c:forEach var="i" begin="1" end="${car.photoNumber}">
+                        <img  class="mainImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
+                    </c:forEach>
+                </div>
                 
                 <span class="modalArrows nextArrow">&#10095;</span>
                 
@@ -599,22 +133,24 @@
 
             <p class="captionText">SAMPLE</p>
 
-            <div class="smallImageContainerInModal" data-img-sum="9">
-                <img class="smallImageInModal" data-img-number="1" src="images/logos/brands/bmw.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="2" src="images/logos/brands/merc.png" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="3" src="images/logos/brands/opel.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="4" src="images/logos/brands/audi.png" alt="Smiley face" height="100" width="100">
-                
-                <img class="smallImageInModal" data-img-number="5" src="images/logos/brands/img_fjords_wide.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="6" src="images/logos/brands/img_mountains_wide.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="7" src="images/logos/brands/star.png" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="8" src="images/logos/brands/star.jpg" alt="Smiley face" height="100" width="100">
-                <img class="smallImageInModal" data-img-number="9" src="images/logos/brands/volvo.jpg" alt="Smiley face" height="100" width="100">               
+            <div class="smallImageContainerInModal" data-img-sum="${car.photoNumber}">
+                <c:forEach var="i" begin="1" end="${car.photoNumber}">
+                    <img class="smallImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" height="100" width="100">                         
+                </c:forEach>
             </div> 
             
             <div class="closeButtonModal">&times;</div>
 
         </div>
+        
+        
+        </c:forEach>
+        
+        <%@ include file="/WEB-INF/jsp/footer.jsp" %>
             
+        <script>
+            var siteMapElements = document.querySelector(".sitemap").children;
+            siteMapElements[0].firstElementChild.classList.add("current-page-sitemap");
+        </script>
     </body>
 </html>

@@ -27,7 +27,7 @@ function imgContainerCallback(imgContainer,evt){
     var carElement = getAncestorByClassName(imgContainer, "car");
     var imgPreviewModal = carElement.nextElementSibling;
 
-    var initialMainImage = imgPreviewModal.firstElementChild.children[img_number];
+    var initialMainImage = imgPreviewModal.querySelector(".mainImageInModalContainer").children[img_number-1];
     var smallImagesInModal = imgPreviewModal.querySelector(".smallImageContainerInModal").children;
     var captionTextElement = imgPreviewModal.querySelector(".captionText");
     
@@ -43,7 +43,7 @@ function imgContainerCallback(imgContainer,evt){
     imgPreviewModal.querySelector(".smallImageContainerInModal").addEventListener("click", function(event){imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement,event);});
     
     //add event listener for close button
-    imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", function(){alert('test valid function');closeModal(imgPreviewModal);});
+    imgPreviewModal.querySelector(".closeButtonModal").addEventListener("click", function(){closeModal(imgPreviewModal);});
     
     //add event listeners for image navigation by clicking the arrows OR pressing keyboard arrows
     imgPreviewModal.querySelector(".prevArrow").addEventListener("click", prevArrowCallback);
@@ -64,8 +64,8 @@ function imgContainerCallback(imgContainer,evt){
         }
         currentSmallImg.classList.remove("selected");
         newSmallImg.classList.add("selected");
-        imgPreviewModal.firstElementChild.children[currentImgNumber].style.display = "none";
-        imgPreviewModal.firstElementChild.children[newImgNumber].style.display = "inline";
+        imgPreviewModal.querySelector(".mainImageInModalContainer").children[currentImgNumber-1].style.display = "none";
+        imgPreviewModal.querySelector(".mainImageInModalContainer").children[newImgNumber-1].style.display = "inline";
         captionTextElement.innerHTML = newImgNumber+" / "+img_sum;
     }
     function nextArrowCallback(){
@@ -84,27 +84,31 @@ function imgContainerCallback(imgContainer,evt){
         }
         currentSmallImg.classList.remove("selected");
         newSmallImg.classList.add("selected");
-        imgPreviewModal.firstElementChild.children[currentImgNumber].style.display = "none";       
-        imgPreviewModal.firstElementChild.children[newImgNumber].style.display = "inline";      
+        imgPreviewModal.querySelector(".mainImageInModalContainer").children[currentImgNumber-1].style.display = "none";       
+        imgPreviewModal.querySelector(".mainImageInModalContainer").children[newImgNumber-1].style.display = "inline";      
         captionTextElement.innerHTML = newImgNumber+" / "+img_sum;
+        
     }
+    
+    imgPreviewModal.querySelector(".mainImageInModalContainer").addEventListener("click",function(evt){
+        imgPreviewModal.querySelector(".nextArrow").click();
+    });
 }
 
 function imgContainerModalCallback(imgPreviewModal,img_sum,captionTextElement,evt){
-
-    
+ 
     var newImgClicked = evt.target;   
     //check if event target( newImgClicked) is of type img meaning the user has clicked in one of the imgs, otherwise if the use just clicked the container body do nothing
     if(newImgClicked.tagName === "IMG"){
         var prev_img = imgPreviewModal.querySelector(".selected");
         var prev_img_number = prev_img.getAttribute("data-img-number");
-        var prevMainImg = imgPreviewModal.firstElementChild.children[prev_img_number];
+        var prevMainImg = imgPreviewModal.querySelector(".mainImageInModalContainer").children[prev_img_number-1];
 
         prev_img.classList.remove("selected");
         prevMainImg.style.display = "none";
 
         var img_number = newImgClicked.getAttribute("data-img-number");
-        var mainImg = imgPreviewModal.firstElementChild.children[img_number];
+        var mainImg = imgPreviewModal.querySelector(".mainImageInModalContainer").children[img_number-1];
 
         mainImg.style.display = "inline";
         newImgClicked.className += " selected";
@@ -126,7 +130,7 @@ function cleanModalState(imgPreviewModal){
     var lastImgNumber = lastSelectedSmallImg.getAttribute("data-img-number");
     
     lastSelectedSmallImg.classList.remove("selected");
-    imgPreviewModal.firstElementChild.children[lastImgNumber].style.display = "none";
+    imgPreviewModal.querySelector(".mainImageInModalContainer").children[lastImgNumber-1].style.display = "none";
 
     //unbind all event listeners by cloning and replacing the old with the cloned one
     var clonedModal = imgPreviewModal.cloneNode(true);

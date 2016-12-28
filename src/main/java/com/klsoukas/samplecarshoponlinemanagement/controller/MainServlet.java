@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.klsoukas.samplecarshoponlinemanagement.controller;
 
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.BrandDaoImpl;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarBean;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarDao;
+import com.klsoukas.samplecarshoponlinemanagement.model.CarDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Xristos
- */
+
 public class MainServlet extends HttpServlet {
 
     /**
@@ -31,17 +31,28 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        
-        
         System.out.println("1"+request.getServletContext());
         System.out.println("2"+request.getRequestURL());
         System.out.println("3"+request.getRequestURI());
         System.out.println("4"+request.getServletPath());
         System.out.println("5"+request.getPathInfo());
+        System.out.println("6"+request.getContextPath());
+        
+
+        BrandDao brandDao = new BrandDaoImpl();
+        List<BrandBean> brandList = brandDao.findAllBrands();
+        request.setAttribute("brandList", brandList);
         
         
+        CarDao carDao = new CarDaoImpl();
+        List<CarBean> carList = carDao.findAllCars();
+        request.setAttribute("carList",carList);
+        
+        request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
+
 //        response.setHeader("Access-Control-Allow-Origin","http://www.w3schools.com");
-        request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").include(request,response);
+//        request.getRequestDispatcher("WEB-INF/jsp/main.jsp").include(request,response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

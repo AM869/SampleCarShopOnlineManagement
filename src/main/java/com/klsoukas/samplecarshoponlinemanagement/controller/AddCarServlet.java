@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.klsoukas.samplecarshoponlinemanagement.controller;
 
 import com.klsoukas.samplecarshoponlinemanagement.model.BrandBean;
@@ -14,6 +10,8 @@ import com.klsoukas.samplecarshoponlinemanagement.model.CarDaoImpl;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoBean;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDao;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDaoImpl;
+import com.klsoukas.samplecarshoponlinemanagement.model.UserBean;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,11 +28,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
-/**
- *
- * @author Xristos
- */
+
 public class AddCarServlet extends HttpServlet {
     
     /**
@@ -49,14 +45,16 @@ public class AddCarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+        System.out.println("BIKA ADD CARRRRRRRRRRRRR");
         BrandDao brandDao = new BrandDaoImpl();
         List<BrandBean> brandList = brandDao.findAllBrands();
         request.setAttribute("brandList", brandList);
         
         
+        UserBean thisUser = (UserBean)request.getSession().getAttribute("user");
+        
         CarDao carDao = new CarDaoImpl();
-        List<CarBean> carList = carDao.findAllCars();
+        List<CarBean> carList = carDao.findCarsByUser(thisUser);
         request.setAttribute("carList",carList);
         
         request.getRequestDispatcher("WEB-INF/jsp/addCars.jsp").forward(request, response);
@@ -80,9 +78,12 @@ public class AddCarServlet extends HttpServlet {
             newBrand.setName(request.getParameter("name"));
             Part logoPart = request.getPart("file");
             String submittedFileName = logoPart.getSubmittedFileName();
+            
             if(submittedFileName.equals("") || logoPart.getSize()>=65000){
             } else {
-                InputStream logo = logoPart.getInputStream();
+
+                byte[] logo = IOUtils.toByteArray(logoPart.getInputStream());
+                
                 String ext = submittedFileName.substring(submittedFileName.lastIndexOf("."));
                 if(ext.equals(".jpg")||ext.equals(".jpeg")||ext.equals(".png")||ext.equals(".gif")){
                     newBrand.setLogo(logo);
@@ -100,9 +101,12 @@ public class AddCarServlet extends HttpServlet {
                 CarBean c = new CarBean();
                 
                 c.setBrand_fk(Integer.parseInt(request.getParameter("brand"+i)));
+                UserBean thisUser = (UserBean)request.getSession().getAttribute("user");
+                c.setUser_fk(thisUser.getId());
                 c.setModel(request.getParameter("model"+i));
+                
                 if(!request.getParameter("description"+i).isEmpty()){
-                    c.setDescription(request.getParameter("description"));
+                    c.setDescription(request.getParameter("description"+i));
                 }
                 
                 CarDao carDao = new CarDaoImpl();

@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header  class="navbar navbar-inverse">
   <!-- if i have container instead of container-fluid that will center my navbar components-->
   <div class="container-fluid">
@@ -9,7 +10,7 @@
         <span  class="icon-bar "></span>
         <span  class="icon-bar "></span>
       </button>
-      <a class="navbar-brand " href="MainPage">Home</a>
+      <a class="navbar-brand " href="${pageContext.request.contextPath}/Home">Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,12 +25,24 @@
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-
-          <li><a href="#"> <span style="font-size:18px; margin-right:6px;" class="fa fa-info-circle" ></span>About</a></li>
-
-      </ul>
+          
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"> <span style="font-size:18px; margin-right:6px;" class="fa fa-info-circle" ></span>About</a></li>
+        </ul>
+          
+        <ul class="nav navbar-nav navbar-right">
+          <c:if test="${sessionScope.user != null}">
+            <li><a href="${pageContext.request.contextPath}/SignOut" onclick="googleSignOut();">Sign Out</a></li>
+          </c:if>
+        </ul>    
+          
+          
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+
 </header>
-        
+<c:if test="${sessionScope.user == null}">
+    <!-- Google sign in button -->
+    <div class="g-signin2" data-onsuccess="onGoogleSignIn" data-theme="dark" data-width="164" data-height="36" data-longtitle="true">NOOOOOOOOOGLE</div>        
+</c:if>        
+ 

@@ -1,21 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.klsoukas.samplecarshoponlinemanagement.model;
 
 import java.io.InputStream;
 import java.util.List;
 
-/**
- *
- * @author Xristos
- */
+
 public class CarBean {
     //car related fields
     private int id;
     private int brand_fk;
+    private int user_fk;
+
+    public int getUser_fk() {
+        return user_fk;
+    }
+
+    public void setUser_fk(int user_fk) {
+        this.user_fk = user_fk;
+    }
     private String model;
     private String description;
     
@@ -25,7 +27,7 @@ public class CarBean {
     //photo related field
     private List<PhotoBean> photoList;
 
-    //utility methods
+    //utility method
     public int getPhotoNumber(){
         if(photoList !=null){
             return photoList.size();

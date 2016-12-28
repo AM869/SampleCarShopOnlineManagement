@@ -3,15 +3,11 @@ package com.klsoukas.samplecarshoponlinemanagement.model;
 
 import java.io.InputStream;
 
-/**
- *
- * @author Xristos
- */
 public class BrandBean {
     
     private int id;
     private String name;
-    private InputStream logo;
+    private byte[] logo;
     private String fileExtension;
 
     public String getFileExtension() {
@@ -39,11 +35,11 @@ public class BrandBean {
         this.name = name;
     }
 
-    public InputStream getLogo() {
+    public byte[] getLogo() {
         return logo;
     }
 
-    public void setLogo(InputStream logo) {
+    public void setLogo(byte[] logo) {
         this.logo = logo;
     }
 

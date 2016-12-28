@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.klsoukas.samplecarshoponlinemanagement.model;
 
 import java.sql.Connection;
@@ -15,10 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Xristos
- */
+
 public class BrandDaoImpl implements BrandDao{
 
     @Override
@@ -40,7 +33,7 @@ public class BrandDaoImpl implements BrandDao{
                
                 b.setId(res.getInt("id"));
                 b.setName(res.getString("name"));
-                b.setLogo(res.getBinaryStream("logo"));
+                b.setLogo(res.getBytes("logo"));
                 b.setFileExtension(res.getString("fileExtension"));
                 
                 brandList.add(b);
@@ -82,7 +75,7 @@ public class BrandDaoImpl implements BrandDao{
                 b = new BrandBean();
                 b.setId(res.getInt("id"));
                 b.setName(res.getString("name"));
-                b.setLogo(res.getBinaryStream("logo"));
+                b.setLogo(res.getBytes("logo"));
                 b.setFileExtension(res.getString("fileExtension"));
                 
             }
@@ -113,7 +106,7 @@ public class BrandDaoImpl implements BrandDao{
             if(newBrand.getLogo()!=null){
                 pstmt = con.prepareStatement("INSERT INTO brand (name, logo, fileExtension) VALUES (?,?,?)");
                 pstmt.setString(1, newBrand.getName());
-                pstmt.setBinaryStream(2, newBrand.getLogo());
+                pstmt.setBytes(2, newBrand.getLogo());
                 pstmt.setString(3, newBrand.getFileExtension());
             }
             else{

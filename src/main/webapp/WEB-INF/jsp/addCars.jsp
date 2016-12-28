@@ -21,14 +21,8 @@
         <!-- Bootstrap css CDN  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         
-        <!-- Font Awesome CSS -->
+        <!-- Font Awesome css CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        
-        <!-- header css -->
-        <link rel="stylesheet" href="/SampleCarShopOnlineManagement/cssfolder/header.css" >
-        
-        <!-- footer css-->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/footer.css" >
         
         <!-- JQuery CDN  -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
@@ -36,418 +30,26 @@
         <!-- Bootstrap js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
         
-        <!-- Our scripts --> 
-        <script src="<%=request.getContextPath()%>/jsfolder/indexScript.js" defer></script>
-        <script src="<%=request.getContextPath()%>/jsfolder/imagePreview.js" defer></script>
+        <!-- header css -->
+        <link rel="stylesheet" href="/SampleCarShopOnlineManagement/cssfolder/header.css" >
+        
+        <!-- footer css-->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/footer.css" >
+        
+        <!-- add cars css and js --> 
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/addCar.css" >
+        <script src="${pageContext.request.contextPath}/jsfolder/addCar.js" defer></script>
+        
+        <!-- car presentation details css and js -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/carDetails.css" >
+        <script src="${pageContext.request.contextPath}/jsfolder/carDetails.js" defer></script>
+        
+        <!-- image preview modal css and js-->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/cssfolder/imagePreview.css" >
+        <script src="${pageContext.request.contextPath}/jsfolder/imagePreview.js" defer></script>       
 
         <style>
-            .close_button{
-                font-size:2em;
-                background-color: transparent;
-                /*position: relative;*/
-                top: 5px;
-                left: -105px;
-            }
 
-            ::-webkit-input-placeholder {
-               font-style: italic;
-            }
-
-            textarea {
-                border-radius: 10px;
-                border-color: aliceblue;
-                
-            }
-            input {
-                border-radius: 5px;
-                border-color: aliceblue;
-                border: none;
-            }
-            
-            .div-label{
-                position: relative;
-                text-align: right;
-            }
-            .form-label{
-                position: absolute;
-                top: 0.5em;
-                right: 5%;
-            }
-            .row{
-                margin-top: 20px;
-            }
-            @media (min-width:992px) and (max-width:1369px){
-                .smallImage{
-                    padding-left: 17px;
-                    padding-bottom: 17px;
-                    
-                }
-            }
-                       
-            .smallImageContainer{
-                 display: inline-block;
-            }
-            .smallImage{
-                cursor: pointer;
-                border: 1px solid #fefefe;
-                padding:2px;
-                text-align: center;  
-                border-radius: 15px;
-            }
-            .smallImage:hover{
-                cursor: pointer;
-                z-index: 1;
-                transform: scale(2,2);
-                transition: 0.3s ease;
-            }
-            
-            .imgPreviewModal{
-                z-index: 1;
-                position: fixed;
-                background-color: rgba(0, 0, 0,0.95);
-                display: none;
-                left:0;
-                top:0;
-                height:100%;
-                width:100%;
-                overflow: auto;
-            }
-
-            .mainImageContainerInModal{
-                 max-width: 80%; 
-                 /*margin: auto;*/
-                 margin-top: 80px;
-                 display: inline-block;
-                 position: relative;
-            }
-            .mainImageInModal{
-                display: none;
-                max-width: 100%;    
-                min-width:200px;
-            }
-            
-            .smallImageContainerInModal{
-                
-            }
-            .smallImageInModal{
-                padding-top: 5px;
-                opacity: 0.7;
-            }
-            .smallImageInModal:hover{
-                opacity: 1;
-                cursor: pointer;
-            }
-            .selected{
-                opacity: 1;
-            }
-            
-            .captionText{
-                color: graytext;
-                margin: 20px;
-                margin-top: 30px;
-            }
-            
-            .modalArrows{
-                position: absolute;
-                top: 40%;
-                
-                cursor: pointer;
-                padding: 12px;
-                color: white;
-                font-weight: bold;
-                font-size: 3em;
-                transition: 0.6s ease;
-                /*border-radius: 0 3px 3px 0;*/
-                user-select: none;
-                -webkit-user-select: none;     
-            }
-            .prevArrow{
-                right: 100%;
-                border-radius: 3px 0 0 3px;
-                
-            }
-            .nextArrow{
-                left: 100%;
-                border-radius: 0 3px 3px 0;    
-            }
-            .modalArrows:hover{
-              background-color: rgba(217, 217, 217,0.8);
-            }           
-            
-            .closeButtonModal{
-                color: white;
-                position: absolute;
-                top: 10px;
-                right: 25px;
-                font-size: 50px;
-                font-weight: bold;
-            }
-            .closeButtonModal:hover,
-            .closeButtonModal:focus {
-                color: #999;
-                text-decoration: none;
-                cursor: pointer;
-            }
-                      
-            
-            /*custom vertical form*/
-            form > label{
-                display: initial;      
-            }
-
-            .myVerticalForm{
-                max-width: 40%;
-                margin: auto;
-                margin-bottom: 40px;
-            }
-
-            .myVerticalFormRow{
-                margin-bottom: 15px;
-            }
-
-            .fileInputDiv{
-                position: relative;
-            }
-            .fileInputClose {
-                position: absolute;
-                right: -5px;
-                top: -4px;
-                margin:5px;
-                margin-bottom: 5px;
-                padding-top: 0px;
-                padding-bottom: 0px;
-                padding-left: 10px;
-                padding-right: 10px;
-                border: none;
-                cursor: pointer;
-                transition:  color 0.6s ease-out;
-                color: rgb(166, 166, 166);
-                background-color: transparent;
-                font-size: 24px;   
-            }
-            .fileInputClose:hover{
-                color: rgb(64, 64, 64);
-            }
-
-            /* Custom, iPhone Retina */ 
-            @media only screen and (min-width : 320px) {
-                .myVerticalForm{
-                    max-width: 85%;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                }
-            }
-
-            /* Extra Small Devices, Phones */ 
-            @media only screen and (min-width : 480px) {
-                .myVerticalForm{
-                    max-width: 75%;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                }
-            }
-
-            /* Small Devices, Tablets */
-            @media only screen and (min-width : 768px) {
-                .myVerticalForm{
-                    max-width: 65%;
-                    padding-left: 20px;
-                    padding-right: 20px;
-                }
-            }
-
-            /* Medium Devices, Desktops */
-            @media only screen and (min-width : 992px) {
-                .myVerticalForm{
-                    max-width: 50%;
-                    padding-left: 30px;
-                    padding-right: 30px;
-                }
-
-            }
-
-            /* Large Devices, Wide Screens */
-            @media only screen and (min-width : 1200px) {
-                .myVerticalForm{
-                    max-width: 40%;
-                }
-
-            }
-
-            /* car presentation div*/
-            .car{
-                
-                background-color: graytext;
-                max-width:85%;
-                margin: auto;
-                margin-bottom: 40px;
-                position: relative;
-/*                border: 3px solid #46b8da;*/
-                border-radius: 50px;
-                text-align:left;
-            }
-            /* car header div*/
-            .carHeader{
-                padding: 15px;
-                color: white;
-                overflow: auto;
-                cursor: pointer;
-                
-            }
-            /*car logo img*/
-            .carLogos{
-                padding: 5px;
-                border-right: 1px solid gray;
-                border-bottom: 1px solid gray;
-                border-radius: 15px;
-                overflow:auto;
-                max-width: 60px;
-            }
-
-            /* title and brand span elements*/
-            .carHeaderSpan{
-                padding-left: 10px;
-                font-weight: bold;
-                overflow: auto;
-            }
-
-            /*car details and images div*/
-            .carDetailsAndImages{
-                display: none;
-            }
-            .carDetails{
-                overflow: auto;
-                padding: 15px;
-                color: white;
-            }
-            .carImages{
-                padding: 15px;
-                color:white;
-            }
-
-            /*show hide details button*/
-            .showHideButton{
-                position:absolute;
-                padding-top:5px;
-                padding-bottom:7px;
-                right:2%;
-                top: 15px;
-                border-radius: 20px;
-                overflow: hidden;
-                color: #6CF06C;
-                background-color: black;
-                border: 0;
-            }
-            .showHideButton:focus{
-                background-color: black;
-            }
-
-            @media only screen and (max-width: 991px){
-                .showHideButton{
-                    right:50%;                 
-                    top:100%;
-                    transform: translate(50%);
-                }
-            }
-            .showHideArrows{
-                font-weight: bold;
-                display:inline-block; /* this is needed for rotate*/
-            }
-            .upwardArrow{
-                transform: rotate(-90deg);
-            }
-            .downwardArrow{
-                transform: rotate(90deg);
-            }
-    
-            .brand-select{
-                cursor: pointer;
-                overflow-x: auto;
-            }
-            
-            label{
-                display:block;
-            }
-            legend{
-                position:relative;
-                margin-top: 20px;
-                color: #FFD700;
-                
-            }
-            fieldset{
-                color: #FFD700;
-                margin-bottom: 30px;
-                margin-top: 30px;
-            }
-            
-            .carCloseButton{  
-                position: absolute;
-                right: 0px;
-                top: -10px;
-                background-color: transparent;
-                border-radius: 50px;
-                color: red;
-                font-size: 24px;
-                height: 38px;
-                padding-left: 15px;
-                padding-right: 15px;
-                padding-top: 4px;          
-            }
-            .carCloseButton:hover{
-                box-shadow: inset 0 5px 30px #193047;
-                color: red;
-            }
-            .carCloseButton:active{
-                box-shadow: inset 0 5px 30px #193047;
-                color: initial;
-            }
-            .fileBtn{
-                height: 37px;
-                overflow: auto;
-            }
-            
-            .add_images_Button{
-                background-color: black;
-                color: #E8CC38;
-                border-radius: 20px 20px 20px 20px;
-            }
-            .blackGrad {
-                background-color:black;
-                color: greenyellow;
-                border-radius: 7px 7px 7px 7px; 
-            }
-            .blackGrad:hover {
-                color: green;
-            }
-            .blackGrad:focus {
-                color: greenyellow;
-            }
-            .buttonRightSideText{
-                padding-left:5px;
-            }
-            .myPanel{
-                border-top:0px;
-                background-color: transparent;   
-                border: 0px;
-            }
-            .myPanelHeading{
-                color: red;
-                /*text-align: left;*/
-                background-color: transparent;
-            }
-            .myPanelBody{
-                background-color: transparent;
-            }
-            
-            #toogleBrand, #submitBrand{
-                color: greenyellow;
-                background-color: gray;
-            }
-            
-            .form-control{
-                background-color: gainsboro ;
-            }
-            
             html { 
               background: url("images/photos/1.jpg") no-repeat center center fixed; 
               -webkit-background-size: cover;
@@ -455,26 +57,20 @@
               -o-background-size: cover;
               background-size: cover;
             }
+            
             body {
                 text-align: center;
                 background-color: transparent;
                 /*background-color: lightblue;*/
             }
+                
         </style>
 
     </head>
     <body>
         <%@ include file="/WEB-INF/jsp/header.jsp" %>
-        
-        <!-- Google sign in button -->
-        <div class="g-signin2" data-onsuccess="onGoogleSignIn" data-theme="dark">NOOOOOOOOOGLE</div>
-        
-        <!--Google sign out button -->
-        <a href="#" onclick="googleSignOut();">Sign out</a>
-        
-        
-        
-        <h1>add Cars Hello World!</h1>
+
+        <h1>Add New Cars</h1>
         
         <!--Using those two as templates in client side.-->
         <!-- image-adding template below Images Label inside form myCarForm-->
@@ -535,7 +131,7 @@
         </template>
             
         
-        <form id="myCarForm" class="myVerticalForm"  method="POST" enctype="multipart/form-data">
+        <form id="myCarForm" action="addCars" class="myVerticalForm"  method="POST" enctype="multipart/form-data">
             <!-- here goes car template above-->
             <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button> 
             <button name="submit" value="submitCars" type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
@@ -564,11 +160,7 @@
             </div>
         </form>
         
-
-        <div style="margin-top: 50px; margin-bottom: 15px; font-size: 1.5em; color:#A9A9A9;"><b>All Registered Cars</b></div>
-        
-        
-        
+        <h1>My Cars</h1>
         
         <div class="car">
             
@@ -591,7 +183,7 @@
                 </div>
                 
                 <div class="carImages">
-                    <span>NO IMAGES AVAILABLE OR div with images:</span>
+                    <span>NO IMAGES AVAILABLE </span>
                     <div class="smallImageContainer" data-img-sum="9">
                         <img class="smallImage" src="images/logos/brands/bmw.jpg" data-img-number="1" alt="Smiley face"  width="100">
                         <img class="smallImage" src="images/logos/brands/merc.png" data-img-number="2" alt="Smiley face"  width="100">
@@ -652,8 +244,7 @@
 
         </div>
 
-        
-        
+    
         
         <c:forEach var="car" items="${carList}">
         
@@ -671,7 +262,7 @@
                 <div class="carDetails">
                     <c:choose>
                         <c:when test="${empty car.description}">
-                            <p>No Details Available Yet.</p>
+                            <p class="no-details-p">No Details Available Yet.</p>
                         </c:when>
                         <c:otherwise>
                             <p>${car.description}</p>
@@ -683,7 +274,7 @@
                 <div class="carImages">
                     <c:choose>
                         <c:when test="${car.photoNumber == 0}">
-                        <span>NO IMAGES AVAILABLE OR div with images:</span>
+                        <span class="no-img-span">NO IMAGES AVAILABLE.</span>
                         </c:when>
                         <c:otherwise>
                         <div class="smallImageContainer" data-img-sum="${car.photoNumber}">
@@ -710,6 +301,7 @@
             <div class="mainImageContainerInModal">
                 
                 <span class="modalArrows prevArrow">&#10094;</span>
+                
                 <c:forEach var="i" begin="1" end="${car.photoNumber}">
                 <img  class="mainImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
                 </c:forEach>
@@ -737,7 +329,10 @@
 
         <%@ include file="/WEB-INF/jsp/footer.jsp" %>
 
-
+        <script>
+            var siteMapElements = document.querySelector(".sitemap").children;
+            siteMapElements[1].firstElementChild.classList.add("current-page-sitemap");
+        </script>
     </body>
     
 
