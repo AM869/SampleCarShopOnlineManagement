@@ -50,8 +50,7 @@ public class MainServlet extends HttpServlet {
         
         request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 
-//        response.setHeader("Access-Control-Allow-Origin","http://www.w3schools.com");
-//        request.getRequestDispatcher("WEB-INF/jsp/main.jsp").include(request,response);
+
         
     }
 

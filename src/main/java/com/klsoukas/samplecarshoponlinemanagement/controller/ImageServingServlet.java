@@ -44,11 +44,7 @@ public class ImageServingServlet extends HttpServlet {
                
             }
             else{
-//                File f = new File("/webapp_files"+request.getContextPath()+"/logos/default_logo/no image.png");
-//              
-//                response.setContentType(getServletContext().getMimeType(f.toString()));
-//                response.setContentLength((int)f.length());
-//                Files.copy(f.toPath(), response.getOutputStream());
+
 
              request.getRequestDispatcher("images/logos/default_logo/no image.png").forward(request,response);
             }
@@ -59,7 +55,7 @@ public class ImageServingServlet extends HttpServlet {
             File file = new File(filename);
             response.setHeader("Content-Type", getServletContext().getMimeType(filename));
             response.setHeader("Content-Length", String.valueOf(file.length()));
-//            response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
+
             Files.copy(file.toPath(), response.getOutputStream());
         }
     }

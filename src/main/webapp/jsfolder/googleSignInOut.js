@@ -4,7 +4,7 @@ function loadAndInitAuth2(){
     if(typeof gapi.auth2 === 'undefined' || gapi.auth2 === null){
         gapi.load('auth2', function() {
             gapi.auth2.init({
-              client_id: '289108522458-ccr2le3rbcmthadua80hk9epkrsakal1.apps.googleusercontent.com',
+              client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
               scope: 'profile'
             });
         });
