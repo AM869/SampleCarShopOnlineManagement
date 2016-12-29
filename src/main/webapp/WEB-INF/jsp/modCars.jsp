@@ -22,7 +22,7 @@
     <body>
         
         
-        <%@ include file="/WEB-INF/html/navBar.html" %>
+        <%@ include file="/WEB-INF/jspf/footer.jspf" %>
         
         
         <h1>Hello World!</h1>

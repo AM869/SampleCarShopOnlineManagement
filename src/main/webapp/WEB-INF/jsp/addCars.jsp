@@ -9,9 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!-- google log in meta and scripts -->
-        <meta name="google-signin-scope" content="profile">
-        <meta name="google-signin-client_id" content="289108522458-ccr2le3rbcmthadua80hk9epkrsakal1.apps.googleusercontent.com">
+        <!-- google log in scripts -->
         <script src="${pageContext.request.contextPath}/jsfolder/googleSignInOut.js" ></script>
         <script src="https://apis.google.com/js/platform.js?onload=loadAndInitAuth2" async defer></script>
         

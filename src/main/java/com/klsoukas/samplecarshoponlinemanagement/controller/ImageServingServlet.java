@@ -50,8 +50,7 @@ public class ImageServingServlet extends HttpServlet {
                 response.setContentLength((int)f.length());
                 Files.copy(f.toPath(), response.getOutputStream());
             }
-            
-            
+     
         }
         else{
             String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
