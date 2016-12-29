@@ -44,11 +44,13 @@ public class ImageServingServlet extends HttpServlet {
                
             }
             else{
-                File f = new File("/webapp_files"+request.getContextPath()+"/logos/default_logo/no image.png");
-              
-                response.setContentType(getServletContext().getMimeType(f.toString()));
-                response.setContentLength((int)f.length());
-                Files.copy(f.toPath(), response.getOutputStream());
+//                File f = new File("/webapp_files"+request.getContextPath()+"/logos/default_logo/no image.png");
+//              
+//                response.setContentType(getServletContext().getMimeType(f.toString()));
+//                response.setContentLength((int)f.length());
+//                Files.copy(f.toPath(), response.getOutputStream());
+
+             request.getRequestDispatcher("images/logos/default_logo/no image.png").forward(request,response);
             }
      
         }
