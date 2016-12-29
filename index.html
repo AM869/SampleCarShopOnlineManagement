@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <title>Sample Car Shop - Online Management</title>
+        
+        <!-- Bootstrap css CDN  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <!-- Font Awesome css CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- JQuery CDN  -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
+        
+        <!-- Bootstrap js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+        
+        <!-- header css -->
+        <link rel="stylesheet" href="cssfolder/header.css" >
+        
+        <!-- footer css-->
+        <link rel="stylesheet" href="cssfolder/footer.css" >
+        
+        <!-- add cars css and js --> 
+        <link rel="stylesheet" href="cssfolder/addCar.css" >
+        <script src="jsfolder/addCar.js" defer></script>
+        
+        <!-- car presentation details css and js -->
+        <link rel="stylesheet" href="cssfolder/carDetails.css" >
+        <script src="jsfolder/carDetails.js" defer></script>
+        
+        <!-- image preview modal css and js-->
+        <link rel="stylesheet" href="cssfolder/imagePreview.css" >
+        <script src="jsfolder/imagePreview.js" defer></script>       
+
+        <style>
+
+            html { 
+              background: url("images/photos/2.jpg") no-repeat center center fixed; 
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
+            }
+            
+            body {
+                text-align: center;
+                background-color: transparent;
+                /*background-color: lightblue;*/
+            }
+                
+        </style>
+
+    </head>
+    <body>
+        
+        <header  class="navbar navbar-inverse">
+          <!-- if i have container instead of container-fluid that will center my navbar components-->
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div   class="navbar-header">
+              <button  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span  class="icon-bar "></span>
+                <span  class="icon-bar "></span>
+                <span  class="icon-bar "></span>
+              </button>
+              <a class="navbar-brand " href="index.html">Home</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul  class="nav navbar-nav">
+                <li class="dropdown">
+                  <a  href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Cars <span class="caret"></span></a>
+                  <ul  class="dropdown-menu graytextBC">
+                    <li ><a  href="#">Add Cars</a></li>
+                    <li ><a href="#">Modify-Delete Cars</a></li>           
+                  </ul>
+                </li>
+              </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"> <span style="font-size:18px; margin-right:6px;" class="fa fa-info-circle" ></span>About</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">         
+                    <li><a href="#">Sign Out</a></li>
+                </ul>    
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+
+        </header>
+
+        <h1>Add New Cars</h1>
+        
+        <!--Using those two as templates in client side.-->
+        <!-- image-adding template below Images Label inside form myCarForm-->
+        <template id="add_image_template" >
+            <div class=" fileInputDiv myVerticalFormRow">
+                <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
+                <button type="button" class="fileInputClose"><span>&times;</span></button>
+            </div>
+        </template>  
+
+        <!-- car-adding template inside form myCarForm-->
+        <template id="add_car_template">
+            
+            <fieldset>
+                <legend>New-Car<button type="button" class="btn carCloseButton"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                    </legend>
+                
+                <label> Choose Brand:
+                    <div class="myVerticalFormRow" >
+                        <select class="form-control brand-select" name="brand" required="true">
+                            <option value="" disabled selected >Choose a brand or add one here in the bottom.</option>
+                            
+                            
+                            <option value="" >Brand1</option>
+                            <option value="" >Brand2</option>
+                            <option value="" >Brand3</option>
+                            <option value="" >Brand4</option>
+                            <option value="" >Brand5</option>
+                            
+                            <option value="AddNewBrand" >Add new Brand</option>
+                        </select>
+                    </div>
+                </label>
+                
+
+                <label>Model: 
+                    <div class="myVerticalFormRow">   
+                        <input class="form-control model" type="text" name="model" placeholder="Add car model, year, edition etc."required>
+                    </div>
+                </label>    
+
+                <label>Details(optional): 
+                    <div class="myVerticalFormRow">
+                        <textarea class="form-control" cols="40" rows="8" name="description" placeholder="Add extra details here."></textarea>
+                    </div>
+                </label>
+
+                <label>Images(optional) </label> 
+
+                <div class="myVerticalFormRow fileInputDiv">
+                    <label class="fileBtn btn btn-default form-control"><input type="file" name="file" multiple></label>
+                    <button type="button" class="fileInputClose"><span>&times;</span></button>
+                </div>
+
+                <div class="myVerticalFormRow">
+                    <button class="btn add_images_Button" type="button"><span  style="color: chartreuse;" class="glyphicon glyphicon-plus"></span><span class="buttonRightSideText" style="color: white;">Add images</span></button>
+                </div>
+                
+            </fieldset>
+            
+        </template>
+            
+        
+        <form id="myCarForm" action="" class="myVerticalForm"  method="POST" enctype="multipart/form-data">
+            <!-- here goes car template above-->
+            <button class="btn blackGrad" id="add_car_Button" type="button"><span class="glyphicon glyphicon-plus-sign"></span><span class="buttonRightSideText">Add New Car</span></button> 
+            <button name="submit" value="submitCars" type="submit" id="submitCars" class="btn blackGrad"><span class="glyphicon glyphicon-ok-sign"></span><span class="buttonRightSideText"> Submit Cars</span> </button>
+        </form>
+            
+            
+        <button id="toogleBrand" style="border:0px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#myBrandForm">+ New Brand</button>
+        
+        <form style="" id="myBrandForm" class="myVerticalForm collapse" action="" method="POST" enctype="multipart/form-data">
+
+            <div class="panel panel-default myPanel">
+                    <div class="panel-body myPanelBody" >
+                        <label style="background-color: #d3d3d3; color: #333333;">Brand Name: 
+                            <div class="myVerticalFormRow">   
+                                <input class="form-control" type="text" name="name" placeholder="Add Brand name." required>
+                            </div>
+                        </label>
+
+                        <label style="margin-bottom: 0;background-color: #d3d3d3; color: #333333;">Brand Logo(optional)</label>
+                        <div class=" fileInputDiv myVerticalFormRow">
+                            <label class="fileBtn btn btn-default form-control"><input type="file" name="file"></label>
+                        </div>         
+                        
+                        <button name="submit" value="submitBrand" class="btn" id="submitBrand" type="submit" ><span class="glyphicon glyphicon-ok"></span> Submit New Brand </button>
+                    </div>
+            </div>
+        </form>
+        
+        <h1>My Cars</h1>
+        
+        
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="images/logos/logo1.png" alt="Smiley face" height="35" >         
+                <span class="carHeaderSpan">Brand5</span>
+                <span class="carHeaderSpan"> Model 09' v18 turbine for SALE or RENT</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <p> red fast car 
+                        1000000000km, good condition, price negotiable.
+                    Contact me at 99999999999666666699999 or mail me at qqqqqqqqq@qqqqqqqqqqq.qq
+                    </p>
+                    
+                </div>
+                
+                <div class="carImages">
+                    
+                    <div class="smallImageContainer" data-img-sum="4">
+                        <img class="smallImage" src="images/photos/1466820.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/1583750.jpg" data-img-number="2" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/auto-1327801_1920.jpg" data-img-number="3" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/vintage-car-1479157.jpg" data-img-number="4" alt="Smiley face"  width="100">
+
+                    </div>                   
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                <div class="mainImageInModalContainer">
+                    <img  class="mainImageInModal" data-img-number="1" src="images/photos/1466820.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="2" src="images/photos/1583750.jpg" alt="Smiley face" > 
+                    <img  class="mainImageInModal" data-img-number="3" src="images/photos/auto-1327801_1920.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="4" src="images/photos/vintage-car-1479157.jpg" alt="Smiley face" >
+                </div>
+
+                
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="4">
+                <img class="smallImageInModal" data-img-number="1" src="images/photos/1466820.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="2" src="images/photos/1583750.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="3" src="images/photos/auto-1327801_1920.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="4" src="images/photos/vintage-car-1479157.jpg" alt="Smiley face" height="100" width="100">
+                       
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+        
+        
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="images/logos/logo2.png" alt="Smiley face" height="35" >         
+                <span class="carHeaderSpan">Brand4</span>
+                <span class="carHeaderSpan"> Model 09' v22 turbine CHEAP contanct ASAP</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <p> red fast car 
+                        1000000000km, good condition, price negotiable.
+                    Contact me at 99999999999666666699999 or mail me at qqqqqqqqq@qqqqqqqqqqq.qq
+                    </p>
+                    
+                </div>
+                
+                <div class="carImages">
+                    
+                    <div class="smallImageContainer" data-img-sum="4">
+                        <img class="smallImage" src="images/photos/-1412863.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/1864043.jpg" data-img-number="2" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/auto-983487.jpg" data-img-number="3" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/sports-car-1349150.jpg" data-img-number="4" alt="Smiley face"  width="100">
+
+                    </div>                   
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                <div class="mainImageInModalContainer">
+                    <img  class="mainImageInModal" data-img-number="1" src="images/photos/-1412863.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="2" src="images/photos/1864043.jpg" alt="Smiley face" > 
+                    <img  class="mainImageInModal" data-img-number="3" src="images/photos/auto-983487.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="4" src="images/photos/sports-car-1349150.jpg" alt="Smiley face" >
+                </div>
+           
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="4">
+                <img class="smallImageInModal" data-img-number="1" src="images/photos/-1412863.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="2" src="images/photos/1864043.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="3" src="images/photos/auto-983487.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="4" src="images/photos/sports-car-1349150.jpg" alt="Smiley face" height="100" width="100">
+                       
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+
+        
+        
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="images/logos/logo3.jpg" alt="Smiley face" height="35" >         
+                <span class="carHeaderSpan">Brand2logo</span>
+                <span class="carHeaderSpan"> Model 25 off road fast car 5000cc RENT or sale</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <p>1000000000km, good condition, price negotiable.
+                    Contact me at 99999999999666666699999 or mail me at qqqqqqqqq@qqqqqqqqqqq.qq
+                    </p>
+                    
+                </div>
+                
+                <div class="carImages">
+                    
+                    <div class="smallImageContainer" data-img-sum="3">
+                        <img class="smallImage" src="images/photos/1737917.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/841465_1920.jpg" data-img-number="2" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/os7c4iw2rdc-andrew-pons.jpg" data-img-number="3" alt="Smiley face"  width="100">
+
+                    </div>                   
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                <div class="mainImageInModalContainer">
+                    <img  class="mainImageInModal" data-img-number="1" src="images/photos/1737917.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="2" src="images/photos/841465_1920.jpg" alt="Smiley face" > 
+                    <img  class="mainImageInModal" data-img-number="3" src="images/photos/os7c4iw2rdc-andrew-pons.jpg" alt="Smiley face" >
+                </div>
+                
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="3">
+                <img class="smallImageInModal" data-img-number="1" src="images/photos/1737917.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="2" src="images/photos/841465_1920.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="3" src="images/photos/os7c4iw2rdc-andrew-pons.jpg" alt="Smiley face" height="100" width="100">
+              
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+        
+        
+        
+        
+        
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="images/logos/logo44.jpg" alt="Smiley face" height="35" >         
+                <span class="carHeaderSpan">Brand3</span>
+                <span class="carHeaderSpan"> Model 08 3000cc family car RENT only</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <p>Cheap 10/hour 
+                        1000000000km, good condition, price negotiable.
+                    Contact me at 99999999999666666699999 or mail me at qqqqqqqqq@qqqqqqqqqqq.qq
+                    </p>
+                    
+                </div>
+                
+                <div class="carImages">
+                    
+                    <div class="smallImageContainer" data-img-sum="2">
+                        <img class="smallImage" src="images/photos/1422958.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/1422955.jpg" data-img-number="2" alt="Smiley face"  width="100">
+
+                    </div>                   
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                
+                <img  class="mainImageInModal" data-img-number="1" src="images/photos/1422958.jpg" alt="Smiley face" >
+                <img  class="mainImageInModal" data-img-number="2" src="images/photos/1422955.jpg" alt="Smiley face" > 
+                
+                
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="2">
+                <div class="mainImageInModalContainer">
+                    <img class="smallImageInModal" data-img-number="1" src="images/photos/1422958.jpg" alt="Smiley face" height="100" width="100">
+                    <img class="smallImageInModal" data-img-number="2" src="images/photos/1422955.jpg" alt="Smiley face" height="100" width="100">
+                </div>
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+        
+        
+        
+        
+        
+        
+        <div class="car">
+            
+            <div class="carHeader">
+                <img class="carLogos" src="images/logos/logot.jpg" alt="Smiley face" height="35" >         
+                <span class="carHeaderSpan">Brand1</span>
+                <span class="carHeaderSpan"> Model RED DEVIL 123451918 beast of the mountain</span>
+            </div>
+            
+            <div class="carDetailsAndImages">
+                
+                <div class="carDetails">
+                    <p>Only determined 
+                    ones contact me at 666666666999999966666 or mail me at zzzzzz@zzzzz.zz
+                    </p>
+                    
+                </div>
+                
+                <div class="carImages">
+                    
+                    <div class="smallImageContainer" data-img-sum="4">
+                        <img class="smallImage" src="images/photos/1x-qqpootyu-scott-umstattd.jpg" data-img-number="1" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/car-1245706.jpg" data-img-number="2" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/car-1715515.jpg" data-img-number="3" alt="Smiley face"  width="100">
+                        <img class="smallImage" src="images/photos/classic-car-1674125.jpg" data-img-number="4" alt="Smiley face"  width="100">
+
+                    </div>                   
+                </div>
+                
+            </div>
+            
+            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
+            
+        </div>
+        
+
+        <div class="imgPreviewModal" >
+                
+            <div class="mainImageContainerInModal">
+                
+                <span class="modalArrows prevArrow">&#10094;</span>
+                <div class="mainImageInModalContainer">
+                    <img  class="mainImageInModal" data-img-number="1" src="images/photos/1x-qqpootyu-scott-umstattd.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="2" src="images/photos/car-1245706.jpg" alt="Smiley face" > 
+                    <img  class="mainImageInModal" data-img-number="3" src="images/photos/car-1715515.jpg" alt="Smiley face" >
+                    <img  class="mainImageInModal" data-img-number="4" src="images/photos/classic-car-1674125.jpg" alt="Smiley face" >
+                </div>
+                <span class="modalArrows nextArrow">&#10095;</span>
+                
+            </div>
+
+            <p class="captionText">SAMPLE</p>
+
+            <div class="smallImageContainerInModal" data-img-sum="4">
+                <img class="smallImageInModal" data-img-number="1" src="images/photos/1x-qqpootyu-scott-umstattd.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="2" src="images/photos/car-1245706.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="3" src="images/photos/car-1715515.jpg" alt="Smiley face" height="100" width="100">
+                <img class="smallImageInModal" data-img-number="4" src="images/photos/classic-car-1674125.jpg" alt="Smiley face" height="100" width="100">            
+            </div> 
+            
+            <div class="closeButtonModal">&times;</div>
+
+        </div>
+        
+
+
+        <footer class="myFooter container-fluid">
+            <div class="row">
+
+                <div class="col-md-6 col-lg-3 footer-group">
+                    <h3 class="footer-headline"><div>Site</div></h3>
+                    <div class="smallUnderlineDiv"></div>
+                    <div class="underlineDiv"></div>
+                    <ul style="list-style-type:none" class="list-group sitemap">
+                        <a class="site-anchor-text" href="#"><li class="page-sitemap">Home</li></a>
+                        <a class="site-anchor-text" href="#"><li class="page-sitemap current-page-sitemap">Add Cars</li></a>
+                        <a class="site-anchor-text" href="#"><li class="page-sitemap">Modify Cars</li></a>
+                    </ul>
+
+                </div>
+
+                <div class="col-md-6 col-lg-3 footer-group">
+                    <h3 class="footer-headline"><div>Contact Us</div></h3>
+                    <div class="smallUnderlineDiv"></div>
+                    <div class="underlineDiv"></div>
+                    <ul style="list-style-type:none;"  class="list-group">
+                        <li><span class="fa fa-envelope contact-mini-icons"></span><span class="contact-mini-text">email: zzz@zzz.zzz</span></li>
+                        <li><span class="fa fa-phone-square contact-mini-icons"></span><span class="contact-mini-text">phone: +30 999999999</span></li>
+                        <li><span class="fa fa-mobile contact-mini-icons"></span><span class="contact-mini-text">mobile: +30 111111111</span></li>
+                        <li><span class="fa fa-home contact-mini-icons"></span><span class="contact-mini-text">address: aaa-bbb-ccc 9999 ddd eee fff</span></li>
+                        <li><a class="location" href="https://www.google.com/maps/place/6798,+%CE%9D%CE%AE%CF%83%CE%BF%CF%82+%CF%84%CF%89%CE%BD+%CE%A7%CF%81%CE%B9%CF%83%CF%84%CE%BF%CF%85%CE%B3%CE%AD%CE%BD%CE%BD%CF%89%CE%BD/@-10.2201802,104.4194188,7.25z/data=!4m5!3m4!1s0x2ef59a27e3c0a7cf:0x15e7d6090475ea16!8m2!3d-10.4445977!4d105.7049561" target="_blank"><span class="fa fa-map-marker contact-mini-icons"></span><span class="contact-mini-text">Location</span></a></li>
+                    </ul>               
+                </div>
+
+
+                <div class="col-md-6 col-lg-3 footer-group">
+                    <h3 class="footer-headline"><div>Follow Us</div></h3>
+                    <div class="smallUnderlineDiv"></div>
+                    <div class="underlineDiv"></div>
+                    <a title="follow us on twitter" class="fa fa-twitter social-media-icons"></a>
+                    <a title="follow us on facebook"class="fa fa-facebook social-media-icons"></a>
+                    <a title="follow us on google+" class="fa fa-google-plus social-media-icons"></a>
+
+                </div>
+
+                <div class="col-md-6 col-lg-3 footer-group">
+                    <h3 class="footer-headline"><div>Leave us your thoughts</div></h3>
+                    <div class="smallUnderlineDiv"></div>
+                    <div class="underlineDiv"></div>
+                    <form action="">
+
+                        <input class="form-control msgText" type="text" name="firstName" placeholder="First Name" required>
+                        <input class="form-control msgText" type="text" name="lastName" placeholder="Last Name" required>
+
+                        <textarea class="form-control msgTextarea" name="message" rows="4" cols="10" placeholder="Your Message" required></textarea>
+                        <input class="msgBtn" type="submit" name="submitMessage" value="Send">
+
+                    </form>
+                </div>
+
+            </div>
+        </footer>
+           
+
+    </body>
+    
+
+</html>
