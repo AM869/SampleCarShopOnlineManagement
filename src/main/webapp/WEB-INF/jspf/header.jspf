@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <header  class="navbar navbar-inverse">
   <!-- if i have container instead of container-fluid that will center my navbar components-->
   <div class="container-fluid">

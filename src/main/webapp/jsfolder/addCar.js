@@ -16,8 +16,7 @@ function addCar (evt){
         car_counter++;
         
         submitCars.disabled = false;
-        
-        alert("1 bika");
+
         var carNode = add_car_doc_fragment.cloneNode(true);
         var newImageButton = carNode.querySelector(".add_images_Button");
         var fileInputClose = carNode.querySelector(".fileInputClose");
@@ -35,7 +34,6 @@ function addCar (evt){
         var image_counter=1;
 
         function addImage(){
-            alert("2 add image");
             image_counter++;
             var newFileInputDiv = add_img_doc_fragment.cloneNode(true);
             newFileInputDiv.firstElementChild.lastElementChild.addEventListener("click", removeImage);
@@ -50,11 +48,10 @@ function addCar (evt){
                 newImageButton.style.cursor = "not-allowed";
 //                newImageButton.style.color = "gray";
             }
-            alert("2 add image VGES");
         }
 
         function removeImage(event){
-            alert("3 remove image");
+
             var x_button = event.target;
             if(x_button.tagName === "SPAN"){
                 x_button = x_button.parentElement;
@@ -67,14 +64,11 @@ function addCar (evt){
 //                newImageButton.style.color = "black";
             }
             image_counter--;
-            alert("3 remove image vges");
         }
 
         function removeCar(){
-            alert("4 remove car");
             var carFieldSet = carCloseButton.parentElement.parentElement;
             carFieldSet.parentElement.removeChild(carFieldSet);
-            alert("4 remove car vges");
             if(car_counter === 3 ){
                 addCarButton.disabled = false;
             }
@@ -100,7 +94,6 @@ function addCar (evt){
         carCloseButton.addEventListener("click", removeCar);
         brandSelect.addEventListener("change", jumpToBrand);
         addCarButton.parentElement.insertBefore(carNode, addCarButton);
-        alert("1 vges teliws");
         
     }
 }
@@ -110,8 +103,6 @@ var carForm = document.getElementById("myCarForm");
 carForm.addEventListener("submit", onSubmitCallback);
 //submitCars.addEventListener("click", onSubmitCallback);
 function onSubmitCallback(evt){
-    alert("xaxxaxaxa");
-    alert(evt);
     if(submitCars.previousElementSibling.previousElementSibling === null){
         evt.preventDefault();
         alert("Nothing to submit!");

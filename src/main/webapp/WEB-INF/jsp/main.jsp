@@ -62,91 +62,14 @@
     <body>
         
 
-        <%@ include file="/WEB-INF/jsp/header.jsp" %>
+        <%@ include file="/WEB-INF/jspf/header.jspf" %>
         
         
         <h1>All Cars</h1>
 
-        <c:forEach var="car" items="${carList}">
-                    
-        <div class="car">
-            
-            <div class="carHeader">
-                <img class="carLogos" src="${pageContext.request.contextPath}/ImageFiles?id=${car.brand_fk}" alt="Smiley face" height="45" >         
-                <span class="carHeaderSpan">${car.brandName}</span>
-                <span class="carHeaderSpan">${car.model}</span>
-            </div>
-            
-            <div class="carDetailsAndImages">
-                
-                <div class="carDetails">
-                    <c:choose>
-                        <c:when test="${empty car.description}">
-                            <p class="no-details-p">No Details Available Yet.</p>
-                        </c:when>
-                        <c:otherwise>
-                            <p>${car.description}</p>
-                        </c:otherwise>
-                    </c:choose>   
-                </div>
-                
-                
-                <div class="carImages">
-                    <c:choose>
-                        <c:when test="${car.photoNumber == 0}">
-                        <span class="no-img-span">NO IMAGES AVAILABLE.</span>
-                        </c:when>
-                        <c:otherwise>
-                        <div class="smallImageContainer" data-img-sum="${car.photoNumber}">
-                            <c:forEach var="i" begin="1" end="${car.photoNumber}">
-
-                            <img class="smallImage" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" data-img-number="${i}" alt="Smiley face"  width="100">
-
-                            </c:forEach>
-                        </div>                   
-                        </c:otherwise>
-                    </c:choose>
-
-                </div>
-                
-            </div>
-            
-            <button type="button" class="btn btn-info showHideButton" ><span style="margin-top:5px;" class="glyphicon glyphicon-eye-open"></span></button>
-            
-        </div>
+        <%@ include file="/WEB-INF/jspf/cars.jspf" %>
         
-
-        <div class="imgPreviewModal" >
-                
-            <div class="mainImageContainerInModal">
-                
-                <span class="modalArrows prevArrow">&#10094;</span>
-                <div class="mainImageInModalContainer">
-                    <c:forEach var="i" begin="1" end="${car.photoNumber}">
-                        <img  class="mainImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
-                    </c:forEach>
-                </div>
-                
-                <span class="modalArrows nextArrow">&#10095;</span>
-                
-            </div>
-
-            <p class="captionText">SAMPLE</p>
-
-            <div class="smallImageContainerInModal" data-img-sum="${car.photoNumber}">
-                <c:forEach var="i" begin="1" end="${car.photoNumber}">
-                    <img class="smallImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" height="100" width="100">                         
-                </c:forEach>
-            </div> 
-            
-            <div class="closeButtonModal">&times;</div>
-
-        </div>
-        
-        
-        </c:forEach>
-        
-        <%@ include file="/WEB-INF/jsp/footer.jsp" %>
+        <%@ include file="/WEB-INF/jspf/footer.jspf" %>
             
         <script>
             var siteMapElements = document.querySelector(".sitemap").children;
