@@ -31,14 +31,6 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        System.out.println("1"+request.getServletContext());
-        System.out.println("2"+request.getRequestURL());
-        System.out.println("3"+request.getRequestURI());
-        System.out.println("4"+request.getServletPath());
-        System.out.println("5"+request.getPathInfo());
-        System.out.println("6"+request.getContextPath());
-        
-
         BrandDao brandDao = new BrandDaoImpl();
         List<BrandBean> brandList = brandDao.findAllBrands();
         request.setAttribute("brandList", brandList);

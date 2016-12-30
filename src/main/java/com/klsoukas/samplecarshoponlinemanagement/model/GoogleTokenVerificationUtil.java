@@ -53,9 +53,8 @@ public class GoogleTokenVerificationUtil {
             if (idToken != null) {
                 Payload payload = idToken.getPayload();
                 
-                // Print user identifier
+
                 String googleId = payload.getSubject();
-                System.out.println("User ID: " + googleId);
                 UserDao userDao = new UserDaoImpl();
                 UserBean user = userDao.findUserByGoogleId(googleId);
                 if (user == null){
