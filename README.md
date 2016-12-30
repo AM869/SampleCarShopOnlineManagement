@@ -54,7 +54,7 @@ Sample Web App for Online Management of Car Shop.
         
 <p>Note 1: You need to create your own keystore/key to be able to serve secure data via https, for more info on how to do that for tomcat 8 check <a href="https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html">https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html</a>.</p>
         
-   <p>Note 2:  If tomcat is going to be used as a standalone server in production environment, the port numbers should be changed for convenience, from 8080 to 80 and from 8443 to 443. </p>
+   <p>Note 2: If tomcat is going to be used as a standalone server in production environment, the port numbers should be changed for convenience, from 8080 to 80 and from 8443 to 443. </p>
         
 
 <h4>3. File system location setup for user uploaded images</h4>
