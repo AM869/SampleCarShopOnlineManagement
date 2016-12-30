@@ -24,8 +24,7 @@ public class SignOutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.getSession().invalidate();
-        
-        System.out.println("XAAAAAAAAAAAAAAAAa");
+
         request.getRequestDispatcher("Home").forward(request,response);
     }
 

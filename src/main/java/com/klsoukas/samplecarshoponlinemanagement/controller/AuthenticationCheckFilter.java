@@ -113,10 +113,6 @@ public class AuthenticationCheckFilter implements Filter {
             
             HttpSession session = req.getSession();
             
-            //****** phase 1: before the request is sent to the actual servlet/jsp/resource
-            System.out.println("REQUEST IS: "+req);
-            System.out.println("RESPONSE IS: "+resp);
-            //******
             
             if (session.getAttribute("user") == null) {
                 
@@ -129,11 +125,6 @@ public class AuthenticationCheckFilter implements Filter {
                 chain.doFilter(request, response); // Logged in, just continue chain.
             }
             
-            //****** phase 2:  after the request is sent to the actual servlet/jsp/resource so now this is the response?? 
-            //****** if you don't want to do anything with the response, don't do anything
-            System.out.println("REQUEST IS: "+req);
-            System.out.println("RESPONSE IS: "+resp);
-            //******
             
             /*our code ends here*/
             
