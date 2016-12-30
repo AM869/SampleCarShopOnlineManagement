@@ -12,7 +12,7 @@ Sample Web App for Online Management of Car Shop.
 <h3>Setup instructions</h3>
 <h4>1. Database schema, and setup instructions</h4>
   1. The following is the database schema as it is shown in phpmyadmin's designer view.
-  
+  ![db-schema-phpmyadmin](https://cloud.githubusercontent.com/assets/9164293/21564200/82b45dda-ce93-11e6-879f-dd1293467158.png)
   
   2. Create a new empty database, import mycardb_structure_only from "database files" folder, to create the database schema in your empty db (Which means, this will create the empty tables with their constraints in your new empty database). Now you are ready to populate those tables, by running the application and simulating users adding their stuff, or directly in your db managing environment (prefer the first option cause in the second you will have to deal with many foreign key checks unless you study the schema very well).
   
