@@ -57,6 +57,10 @@
         <url-pattern>/ModCars</url-pattern>
         <url-pattern>/MODCARS</url-pattern>
     </servlet-mapping>
+    <context-param>
+        <param-name>uploads_location</param-name>
+        <param-value>/webapp_files/SampleCarShopOnlineManagement/car_photos</param-value>
+    </context-param>
     <servlet-mapping>
         <servlet-name>ImageServingServlet</servlet-name>
         <url-pattern>/ImageFiles/*</url-pattern>

@@ -45,7 +45,7 @@ public class AddCarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        System.out.println("BIKA ADD CARRRRRRRRRRRRR");
+ 
         BrandDao brandDao = new BrandDaoImpl();
         List<BrandBean> brandList = brandDao.findAllBrands();
         request.setAttribute("brandList", brandList);
@@ -135,22 +135,24 @@ public class AddCarServlet extends HttpServlet {
                             if(currentPart.getName().equals("file"+i)){
                                 InputStream fileStream = currentPart.getInputStream();
 
-                                File uploads_location = new File("/webapp_files"+request.getContextPath()+"/car_photos");
+                                File uploads_location = new File(getServletContext().getInitParameter("uploads_location"));
                                 if(!uploads_location.exists()){
                                     uploads_location.mkdirs();
                                 }
 
-                                File car_specific_location = new File(uploads_location, "/"+car_id);
+                                
+                                String car_specific_subfolder =  "/car_id_"+car_id;
+                                File car_specific_location = new File(uploads_location, car_specific_subfolder);
                                 car_specific_location.mkdir();
 
-                                File photo = File.createTempFile("car_id_"+car_id+"_photo",uploadedFileExtension,car_specific_location);
+                                File photo = File.createTempFile("_photo_",uploadedFileExtension,car_specific_location);
 
                                 Files.copy(fileStream, photo.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
                                 PhotoBean p = new PhotoBean();
                                 p.setCar_fk(car_id);
-                                p.setLocation(photo.toString());
-                                //or i could only store photo.getName();
+                                p.setLocation(car_specific_subfolder+"/"+photo.getName());
+                                
                                 photoList.add(p);
                             }
                         }                        

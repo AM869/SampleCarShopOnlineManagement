@@ -11,9 +11,6 @@ import java.util.logging.Logger;
 
 
 
-
-
-
 /* temp skeleton db calls
 
         try {
@@ -33,9 +30,6 @@ import java.util.logging.Logger;
         }
 
 */
-
-
-
 
 
 

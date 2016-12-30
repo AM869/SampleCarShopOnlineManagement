@@ -31,6 +31,8 @@ public class ImageServingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //small images/ logos are getting requested without any additional path after servlet path , but only from the query string by way of setting a query parameter
+        //getpathinfo is null here no extra path after servlet just a query string
         if(request.getPathInfo()==null){
             BrandDao brandDao = new BrandDaoImpl();
             BrandBean b = brandDao.findBrandById(Integer.parseInt(request.getParameter("id")));
@@ -55,8 +57,10 @@ public class ImageServingServlet extends HttpServlet {
      
         }
         else{
+            //big images get requested as whole file names without query string body meaning without any parameters, just their path after this servlet... getPathInfo() == location stored in db
             String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
-            File file = new File(filename);
+            File file = new File(getServletContext().getInitParameter("uploads_location")+filename);
+
             response.setHeader("Content-Type", getServletContext().getMimeType(filename));
             response.setHeader("Content-Length", String.valueOf(file.length()));
 //            response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");

@@ -161,12 +161,6 @@ public class CarDaoImpl implements CarDao{
             con = DriverManager.getConnection(DbUtil.CONNECTION_URL,DbUtil.USERNAME,DbUtil.PASSWORD);
             con.setAutoCommit(false);
             
-            
-            System.out.println("------"+"ID:"+newCar.getId());
-            System.out.println("------"+"Brand fk:"+newCar.getBrand_fk());
-            System.out.println("------"+"User fk:"+newCar.getUser_fk());
-            System.out.println("------"+"Model:"+newCar.getModel());
-            System.out.println("------"+"Description:"+newCar.getDescription());
             if(newCar.getDescription() == null){
                 pstmt = con.prepareStatement("INSERT INTO car (brand_fk,user_fk,model) VALUES (?,?,?)");
                 pstmt.setInt(1,newCar.getBrand_fk());
