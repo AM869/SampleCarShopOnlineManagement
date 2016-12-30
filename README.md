@@ -4,7 +4,7 @@ Sample Web App for Online Management of Car Shop.
 <h3>About this project</h3>
   <p> This is a sample web app for online car sale or rent management where the user, after he logs using google log in, can upload photos of   his car/s for sale/rent, along with his car details e.g. brand model, and provide further detailed description in "details" section       about car condition, mileage, price, personal contact info etc.</p>
   
-  <p>Static instance of "AddCars" page, is showcased <a href="https://am869.github.io/SampleCarShopOnlineManagement/">Here</a> .</p>
+  <p><b>Static instance of "AddCars" page of this project, is showcased <a href="https://am869.github.io/SampleCarShopOnlineManagement/">Here</a> .</b></p>
 
 <h3>Development and deployment</h3>
 <p> Developed using netbeans IDE as a Maven Web Application project. Deployed during development for testing, in netbeans managed instance of apache tomcat 8 as stand alone server.  This application uses MySql database server for its data/model layer,  as well as local file system folder for storing user files.</p>
