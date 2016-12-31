@@ -39,9 +39,7 @@ function onGoogleSignIn(googleUser) {
         else{
             window.location = xhr.responseText+"/"+afterLogin;
         }
-        
-        
-        
+  
     };
     xhr.send('idtoken='+ id_token);
 }
