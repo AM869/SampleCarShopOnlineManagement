@@ -11,6 +11,16 @@ function loadAndInitAuth2(){
     }
 }
 
+window.addEventListener("load",function(){
+    var googleLogInButton = document.querySelector("div.abcRioButton");
+    if(typeof googleLogInButton !== 'undefined' && googleLogInButton !== null){
+        var afterLogin = window.location.search.split("=")[1];
+        if (typeof afterLogin !== 'undefined' & afterLogin !== null) {
+            googleLogInButton.click();
+        }
+    }
+});
+
 function onGoogleSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
       
@@ -22,7 +32,15 @@ function onGoogleSignIn(googleUser) {
     xhr.onload = function(){
         console.log('Signed in as:' + xhr.responseText);
         
-        window.location = xhr.responseText;
+        var afterLogin = window.location.search.split("=")[1];
+        if (typeof afterLogin === 'undefined' || afterLogin === null) {
+            window.location = xhr.responseText;
+        }
+        else{
+            window.location = xhr.responseText+"/"+afterLogin;
+        }
+        
+        
         
     };
     xhr.send('idtoken='+ id_token);
