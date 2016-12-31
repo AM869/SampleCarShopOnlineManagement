@@ -116,10 +116,10 @@ public class AuthenticationCheckFilter implements Filter {
             
             if (session.getAttribute("user") == null) {
                 
-                //set this attribute in this temp session so that servlet that receives token after successful google log in to know where user wanted to go before being redirected to log in!!!
-
-
-                resp.sendRedirect(req.getContextPath() + "/Home"); // Not logged in, redirect to home page and trigger click to google log in.
+               
+                String servletPath = req.getServletPath().substring(1);
+                
+                resp.sendRedirect(req.getContextPath() + "/Home"+"?nextRedirect="+servletPath); // Not logged in, redirect to home page and trigger click to google log in.
             } else {
                 
                 chain.doFilter(request, response); // Logged in, just continue chain.
