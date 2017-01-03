@@ -36,10 +36,12 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("brandList", brandList);
         
         
-        CarDao carDao = new CarDaoImpl();
-        List<CarBean> carList = carDao.findAllCars();
-        request.setAttribute("carList",carList);
-        
+//        CarDao carDao = new CarDaoImpl();
+//        List<CarBean> carList = carDao.findAllCars();
+//        request.setAttribute("carList",carList);
+  
+        //replaced with servletContext attribute carList;
+
         request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 
 

@@ -47,7 +47,12 @@ public class TokenSignIn extends HttpServlet {
             }
             else{
 
+                try{
                 session.invalidate();
+                }
+                catch(Exception e){
+                    System.out.println("SESSION ALREADY INVALIDATED: "+e);
+                }
                 session = request.getSession();
                 session.setAttribute("user", user);
 

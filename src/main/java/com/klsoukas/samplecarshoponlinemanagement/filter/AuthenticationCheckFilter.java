@@ -1,10 +1,14 @@
 
-package com.klsoukas.samplecarshoponlinemanagement.controller;
+package com.klsoukas.samplecarshoponlinemanagement.filter;
 
+import com.klsoukas.samplecarshoponlinemanagement.controller.AddCarServlet;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -58,6 +62,29 @@ public class AuthenticationCheckFilter implements Filter {
 	    log(buf.toString());
 	}
          */
+        
+                    //**********
+            System.out.println("-START IN DO before processing FILTER");
+            System.out.println((String)request.getAttribute("newCarsAdded"));
+            if(request.getAttribute("newCarsAdded")==null){
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+            else{
+                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+                
+                                            try {
+                TimeUnit.SECONDS.sleep(20);
+                System.out.println("--sleeped 20s--");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AddCarServlet.class.getName()).log(Level.SEVERE, "WHATSSSSSSSS MY IP HUH ???????????????????????????????????????????????", ex);
+            }
+
+        
+            }
+            System.out.println("--1.END IN DO  before processing FILTER");
+            //*********
+        
+
     }    
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -83,6 +110,26 @@ public class AuthenticationCheckFilter implements Filter {
 	PrintWriter respOut = new PrintWriter(response.getWriter());
 	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
          */
+
+        
+                    //**********
+            System.out.println("-START IN DO after processing FILTER");
+            System.out.println((String)request.getAttribute("newCarsAdded"));
+            if(request.getAttribute("newCarsAdded")==null){
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+            else{
+                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+                                            try {
+                TimeUnit.SECONDS.sleep(20);
+                System.out.println("--sleeped 20s--");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AddCarServlet.class.getName()).log(Level.SEVERE, "WHATSSSSSSSS MY IP HUH ???????????????????????????????????????????????", ex);
+            }
+            }
+            System.out.println("--3.END IN DO after processing FILTER");
+            //*********
+
     }
 
     /**
@@ -112,6 +159,24 @@ public class AuthenticationCheckFilter implements Filter {
             HttpServletResponse resp = (HttpServletResponse)response;
             
             HttpSession session = req.getSession();
+            
+            //**********
+            System.out.println("-START IN DO FILTER");
+            System.out.println((String)request.getAttribute("newCarsAdded"));
+            if(request.getAttribute("newCarsAdded")==null){
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+            else{
+                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+                                            try {
+                TimeUnit.SECONDS.sleep(20);
+                System.out.println("--sleeped 20s--");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AddCarServlet.class.getName()).log(Level.SEVERE, "WHATSSSSSSSS MY IP HUH ???????????????????????????????????????????????", ex);
+            }
+            }
+            System.out.println("--2.END IN DO FILTER");
+            //*********
             
             
             if (session.getAttribute("user") == null) {

@@ -11,6 +11,7 @@ import com.klsoukas.samplecarshoponlinemanagement.model.PhotoBean;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDao;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDaoImpl;
 import com.klsoukas.samplecarshoponlinemanagement.model.UserBean;
+import com.klsoukas.samplecarshoponlinemanagement.util.BackgroundContextAttributeUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,10 +21,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 
@@ -89,6 +95,8 @@ public class AddCarServlet extends HttpServlet {
             }
             BrandDao brandDao = new BrandDaoImpl();
             brandDao.createBrand(newBrand);
+            
+
         }
         else if(submittedForm.equals("submitCars")){
             
@@ -159,11 +167,24 @@ public class AddCarServlet extends HttpServlet {
             /*adding photolist here in db for all images send*/
             PhotoDao photoDao = new PhotoDaoImpl();
             photoDao.addPhotos(photoList);
+            
+            
+            
+
         }
         
+ 
+        ExecutorService backgroundCtxAttrUpdateFromDb  = (ExecutorService)getServletContext().getAttribute("executor");
+        backgroundCtxAttrUpdateFromDb.submit(new BackgroundContextAttributeUpdate(getServletContext()));
         
+
         response.sendRedirect(request.getContextPath()+"/addcars");
+
+//        request.setAttribute("newCarsAdded","yep added new cars");
         
+//        getServletContext().setAttribute("newCarsAdded",new Object());
+        
+
     }
 
     /**
