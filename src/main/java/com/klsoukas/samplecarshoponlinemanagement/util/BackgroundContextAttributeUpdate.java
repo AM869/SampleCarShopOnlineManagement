@@ -21,12 +21,12 @@ public class BackgroundContextAttributeUpdate implements Runnable{
     
     @Override
     public void run() {
-                    try {
-                TimeUnit.MINUTES.sleep(1);
-                System.out.println("--RUNNABLE SLEPT 1 MIN-- --asddsa-- --asddsa-- --asddsa--");
-            } catch (InterruptedException ex) {
-                Logger.getLogger(AddCarServlet.class.getName()).log(Level.SEVERE, "WHATSSSSSSSS MY IP HUH ???????????????????????????????????????????????", ex);
-            }
+//                    try {
+//                TimeUnit.MINUTES.sleep(1);
+//                System.out.println("--SCHEDULED RUNNABLE SLEPT 1 MIN-- --asddsa-- --asddsa-- --asddsa--");
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(AddCarServlet.class.getName()).log(Level.SEVERE, "WHATSSSSSSSS MY IP HUH ???????????????????????????????????????????????", ex);
+//            }
                     
                     
         CarDao carDao = new CarDaoImpl();

@@ -4,10 +4,6 @@
         <description>ServletContextListener</description>
         <listener-class>com.klsoukas.samplecarshoponlinemanagement.listener.ContextInitializerListener</listener-class>
     </listener>
-    <listener>
-        <description>ServletContextAttributeListener</description>
-        <listener-class>com.klsoukas.samplecarshoponlinemanagement.listener.NewServletListener</listener-class>
-    </listener>
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>com.klsoukas.samplecarshoponlinemanagement.controller.MainServlet</servlet-class>
