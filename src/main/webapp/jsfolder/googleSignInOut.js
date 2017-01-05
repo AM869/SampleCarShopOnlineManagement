@@ -14,8 +14,8 @@ function loadAndInitAuth2(){
 window.addEventListener("load",function(){
     var googleLogInButton = document.querySelector("div.abcRioButton");
     if(typeof googleLogInButton !== 'undefined' && googleLogInButton !== null){
-        var afterLogin = window.location.search.split("=")[1];
-        if (typeof afterLogin !== 'undefined' & afterLogin !== null) {
+        if(window.location.search.split("=")[0] === "?nextRedirect"){
+
             googleLogInButton.click();
         }
     }
