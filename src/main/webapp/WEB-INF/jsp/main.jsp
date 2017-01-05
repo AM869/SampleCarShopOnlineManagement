@@ -68,6 +68,13 @@
         <h1>All Cars</h1>
 
         <%@ include file="/WEB-INF/jspf/cars.jspf" %>
+        <div style="width:40%;margin:auto;">
+        <ul  class="pagination">
+            <c:forEach var="page"  begin="1" end="${maxPageNumber}" step="1">
+                <li><a href="${pageContext.request.contextPath}/Home?page=${page}">${page}</a></li>
+            </c:forEach>
+        </ul>
+        </div>
         
         <%@ include file="/WEB-INF/jspf/footer.jspf" %>
             

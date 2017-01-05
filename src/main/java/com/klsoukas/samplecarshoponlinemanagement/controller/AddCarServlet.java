@@ -11,6 +11,8 @@ import com.klsoukas.samplecarshoponlinemanagement.model.PhotoBean;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDao;
 import com.klsoukas.samplecarshoponlinemanagement.model.PhotoDaoImpl;
 import com.klsoukas.samplecarshoponlinemanagement.model.UserBean;
+import com.klsoukas.samplecarshoponlinemanagement.util.BackgroundContextAttributeUpdate;
+import com.klsoukas.samplecarshoponlinemanagement.util.UserUploadedImages;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,10 +22,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 
@@ -89,6 +96,8 @@ public class AddCarServlet extends HttpServlet {
             }
             BrandDao brandDao = new BrandDaoImpl();
             brandDao.createBrand(newBrand);
+            
+
         }
         else if(submittedForm.equals("submitCars")){
             
@@ -131,26 +140,33 @@ public class AddCarServlet extends HttpServlet {
                         else{
                             if(currentPart.getName().equals("file"+i)){
                                 InputStream fileStream = currentPart.getInputStream();
+                                
 
                                 File uploads_location = new File(getServletContext().getInitParameter("uploads_location"));
                                 if(!uploads_location.exists()){
                                     uploads_location.mkdirs();
                                 }
 
-                                
                                 String car_specific_subfolder =  "/car_id_"+car_id;
                                 File car_specific_location = new File(uploads_location, car_specific_subfolder);
                                 car_specific_location.mkdir();
 
+                                //create empty file handle(with random name to be unique) to write later the inputStream as an image
                                 File photo = File.createTempFile("_photo_",uploadedFileExtension,car_specific_location);
+                       
+//                                Files.copy(fileStream, photo.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
-                                Files.copy(fileStream, photo.toPath(),StandardCopyOption.REPLACE_EXISTING);
-
-                                PhotoBean p = new PhotoBean();
-                                p.setCar_fk(car_id);
-                                p.setLocation(car_specific_subfolder+"/"+photo.getName());
+                                //write fileStream from uploaded file Part to local file system after resizing them properly
+                                //and if those operations were successful, store the relative file path to the corresponding car-photo database entry
+                                if(UserUploadedImages.saveInFileSystem(fileStream, photo)){
                                 
-                                photoList.add(p);
+                                    System.out.println("ADDCARSERVLET SAVEFILEINFILESYSTEM IS TRUE!!!");
+                                    PhotoBean p = new PhotoBean();
+                                    p.setCar_fk(car_id);
+                                    p.setLocation(car_specific_subfolder+"/"+photo.getName());
+
+                                    photoList.add(p);
+                                } 
                             }
                         }                        
                     }
@@ -159,11 +175,11 @@ public class AddCarServlet extends HttpServlet {
             /*adding photolist here in db for all images send*/
             PhotoDao photoDao = new PhotoDaoImpl();
             photoDao.addPhotos(photoList);
+
         }
-        
-        
+
         response.sendRedirect(request.getContextPath()+"/addcars");
-        
+
     }
 
     /**

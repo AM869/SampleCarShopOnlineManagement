@@ -16,7 +16,7 @@
                             <p class="no-details-p">No Details Available Yet.</p>
                         </c:when>
                         <c:otherwise>
-                            <p>${car.description}</p>
+                            <p class="details-p">${car.description}</p>
                         </c:otherwise>
                     </c:choose>   
                 </div>
