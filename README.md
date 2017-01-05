@@ -83,8 +83,7 @@ Then add your client id to the following project files:</p>
 
 <h3>Whats is going to be added next</h3>
 <p>- database schema probably will be changing a lot, new tables/fields(database columns) could be added</p>
-<p>- reduce size/resolution of user uploaded photos if they are larger than certain mbs</p>
-<p>- many more car or user specific entries could be added in AddCars FORM when user is adding cars!, car modification functionality in separate page and user info page, as well as loading of cars in groups of 8-10, maybe add facebook log in and custom log in functionality, RSS feed etc.</p>
+<p>- many more car or user specific entries could be added in AddCars FORM when user is adding cars!, car modification functionality in separate page and user info page, maybe add facebook log in and custom log in functionality, RSS feed etc.</p>
 <p>- add better initialization of some application level resources</p>
 <p>- exception handling and showing database constraints as warnings at user level (like errors and duplicate entries etc.)</p>
 <p>- improve project structure - programm flow, based on some well known framework like spring mvc or even migrate project to spring mvc</p>
@@ -92,3 +91,7 @@ Then add your client id to the following project files:</p>
 <p>- search for better caching solution (try same project with hibernate?)</p>
 <p>- add search functionality, and maybe some parametrized query search (hibernate?)
 </p>
+<h3>Whats is added</h3>
+<p>-added server-side image-resize, retaining original aspect ration, for user uploaded images in case they are over some large limit in pixels(>1200px width or height), this also greatly reduces photo size making it easier for server to serve images a lot faster </p>
+<p>-added some temp pagination: cars presented in groups of five</p>
+<p>-added some temp server-side cache in the form of context attribute arraylist. A Context initialized (ScheduledExecutorService) thread queries database every 15 seconds for new entries and updates our context attribute arraylist that is holding info for all our cars. This arraylist will be used to serve user requests for the main site content.</p>
