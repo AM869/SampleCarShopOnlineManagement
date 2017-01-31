@@ -44,7 +44,7 @@
         <style>
             
             html { 
-              background: url("images/photos/3.jpg") no-repeat center center fixed; 
+              background: #000 url("images/photos/3.jpg") no-repeat center center fixed; 
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
