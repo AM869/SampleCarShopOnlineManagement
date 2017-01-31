@@ -2,7 +2,8 @@
 Sample Web App for Online Management of Car Shop.
 
 <h3>About this project</h3>
-  <p> This is a sample web app for online car sale or rent management where the user, after he logs using google log in, can upload photos of   his car/s for sale/rent, along with his car details e.g. brand model, and provide further detailed description in "details" section       about car condition, mileage, price, personal contact info etc.</p>
+<p>This project is mainly for fun and personal training purposes.</p>
+  <p> This is a sample web app for online car sale or rent management where the user, after he logs using google log in, can upload photos of   his car/s for sale/rent, along with his car details e.g. brand model, and provide further detailed description in "details" section about car condition, mileage, price, personal contact info etc.</p>
   
   <p><b>Static instance of "AddCars" page of this project, is showcased <a href="https://am869.github.io/SampleCarShopOnlineManagement/">Here</a> .</b></p>
 
@@ -95,3 +96,4 @@ Then add your client id to the following project files:</p>
 <p>-added server-side image-resize, retaining original aspect ration, for user uploaded images in case they are over some large limit in pixels(>1200px width or height), this also greatly reduces photo size making it easier for server to serve images a lot faster </p>
 <p>-added some temp pagination: cars presented in groups of five</p>
 <p>-added some temp server-side cache in the form of context attribute arraylist. A Context initialized (ScheduledExecutorService) thread queries database every 15 seconds for new entries and updates our context attribute arraylist that is holding info for all our cars. This arraylist will be used to serve user requests for the main site content.</p>
+<p>-added image loading on demand( the images will load only when user "opens" the corresponding car details div"), black color background while background img still loading</p>
