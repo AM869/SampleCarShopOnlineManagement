@@ -15,6 +15,13 @@ function showHideButtonClickCallback(buttonClicked){
         arrowElement.style.color = "#ED3437";
 //        smallTextElement.innerHTML = "Hide Details";
         buttonClicked.previousElementSibling.style.display = "initial";
+
+        var smallImages = buttonClicked.previousElementSibling.getElementsByClassName("smallImage");
+        if(!smallImages[0].hasAttribute("src")){
+            for(var i=0; i<smallImages.length; i++){
+                smallImages[i].src = smallImages[i].dataset.imgSrc;
+            }
+        }
     }
     //just pressed HIDE details
     else if (arrowElement.classList.contains("glyphicon-eye-close")){

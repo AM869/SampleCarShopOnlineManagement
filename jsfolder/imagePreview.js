@@ -27,7 +27,8 @@ function imgContainerCallback(imgContainer,evt){
     var carElement = getAncestorByClassName(imgContainer, "car");
     var imgPreviewModal = carElement.nextElementSibling;
 
-    var initialMainImage = imgPreviewModal.querySelector(".mainImageInModalContainer").children[img_number-1];
+    var mainImagesInModal = imgPreviewModal.querySelector(".mainImageInModalContainer").children;
+    var initialMainImage = mainImagesInModal[img_number-1];
     var smallImagesInModal = imgPreviewModal.querySelector(".smallImageContainerInModal").children;
     var captionTextElement = imgPreviewModal.querySelector(".captionText");
     
@@ -35,6 +36,17 @@ function imgContainerCallback(imgContainer,evt){
     initialMainImage.style.display = "inline";
     smallImagesInModal[img_number - 1].className += " selected"; 
     captionTextElement.innerHTML = img_number+" / "+img_sum;
+
+
+    var smallImages = imgPreviewModal.getElementsByClassName("smallImageInModal");
+    if(!smallImagesInModal[0].hasAttribute("src")){
+        for(var i=0; i<smallImagesInModal.length; i++){
+            smallImagesInModal[i].src = smallImagesInModal[i].dataset.imgSrc;
+            mainImagesInModal[i].src = mainImagesInModal[i].dataset.imgSrc;
+        }
+//        var mainImage = imgPreviewModal.getElementsByClassName("mainImageInModal")[0];
+//        mainImage.src = mainImage.dataset.imgSrc;
+    }
        
     //add event listeners for the small images in Modal view OR Add One Event Listener to the whole smallImageContainerInModal, with this small images will delegate event handling to the container
 //    for (i=0; i < smallImagesInModal.length; i++){
