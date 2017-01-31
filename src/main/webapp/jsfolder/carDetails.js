@@ -21,7 +21,6 @@ function showHideButtonClickCallback(buttonClicked){
         var smallImages = buttonClicked.previousElementSibling.getElementsByClassName("smallImage");
 
         if(typeof smallImages[0] !== "undefined" && !smallImages[0].hasAttribute("src")){
-            alert('xaxaaaaaaaaa');
             for(var i=0; i<smallImages.length; i++){
                 smallImages[i].src = smallImages[i].dataset.imgSrc;
             }
