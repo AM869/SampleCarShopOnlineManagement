@@ -31,7 +31,7 @@
                         <div class="smallImageContainer" data-img-sum="${car.photoNumber}">
                             <c:forEach var="i" begin="1" end="${car.photoNumber}">
 
-                            <img class="smallImage" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" data-img-number="${i}" alt="Smiley face"  width="100">
+                            <img class="smallImage"  data-img-src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" data-img-number="${i}" alt="Smiley face"  width="100">
 
                             </c:forEach>
                         </div>                   
@@ -54,7 +54,7 @@
                 <span class="modalArrows prevArrow">&#10094;</span>
                 <div class="mainImageInModalContainer">
                     <c:forEach var="i" begin="1" end="${car.photoNumber}">
-                        <img  class="mainImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
+                        <img  class="mainImageInModal" data-img-number="${i}" data-img-src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" >
                     </c:forEach>
                 </div>
                 
@@ -66,7 +66,7 @@
 
             <div class="smallImageContainerInModal" data-img-sum="${car.photoNumber}">
                 <c:forEach var="i" begin="1" end="${car.photoNumber}">
-                    <img class="smallImageInModal" data-img-number="${i}" src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" height="100" width="100">                         
+                    <img class="smallImageInModal" data-img-number="${i}" data-img-src="${pageContext.request.contextPath}/ImageFiles${car.photoList[i-1].location}" alt="Smiley face" height="100" width="100">                         
                 </c:forEach>
             </div> 
             
